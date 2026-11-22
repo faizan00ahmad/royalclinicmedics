@@ -272,6 +272,18 @@ body.noscroll{overflow:hidden}
 .navbadge{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 6px;margin-left:6px;border-radius:10px;background:var(--red);color:#fff;font-size:.72rem;font-weight:700}
 .loginwrap{max-width:440px;margin:30px auto}.loginwrap .card{padding:28px}.loginwrap h1{font-family:var(--serif);font-size:2rem;margin:0 0 6px}
 .err{color:#9b1c2b;font-weight:600;font-size:.9rem;margin:6px 0 0;min-height:1.2em}
+.menubtn{display:none;width:48px;height:48px;border-radius:50%;background:#fff;border:0;place-items:center;color:var(--ink);box-shadow:var(--sh);cursor:pointer}
+@media(max-width:799px){
+ .menubtn{display:grid}
+ .pillnav{display:none;flex-direction:column;border-radius:24px;padding:8px;overflow:visible;gap:0}
+ .pillnav.open{display:flex}
+ .pillnav a{min-height:52px;padding:0 16px;font-size:1.05rem;border-radius:16px}
+}
+.tpl{border-top:1px solid var(--line,#e3e6ec);padding:14px 0}.tpl:first-child{border-top:0}
+.tpl textarea{min-height:110px}.pvw{background:var(--page);border-radius:14px;padding:14px;margin-top:10px;white-space:pre-wrap;font-size:.92rem}
+.row2{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.row2 .field{flex:1;min-width:150px;margin:0}
+select.sel2{min-height:44px;border-radius:12px;border:1px solid #cfd4de;padding:0 10px;background:#fff;font:inherit}
+.tag{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--brand-l);color:var(--brand);font-size:.78rem;font-weight:700}
 </style>
 </head>
 <body>
@@ -291,6 +303,7 @@ body.noscroll{overflow:hidden}
       <div class="lockup" onclick="go('home')" role="img" aria-label="Royal Medics"><svg viewBox="0 0 100 120" aria-hidden="true"><defs><clipPath id="cp"><path d="M50 9 L85 17 V60 C85 83 68 98 50 108 C32 98 15 83 15 60 V17 Z"/></clipPath></defs><path d="M50 3 L91 13 V61 C91 87 71 105 50 116 C29 105 9 87 9 61 V13 Z" fill="#a9abb0"/><g clip-path="url(#cp)"><rect width="100" height="120" fill="#17335b"/><path d="M0 66 Q50 58 100 66 V120 H0Z" fill="#9b1c2b"/></g><path d="M21 46 H35 L39 38 L44 56 L49 31 L53 46 H61" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M63 20 C63 32 69 32 69 40 M73 20 C73 32 69 32 69 40 M69 40 V54 C69 66 49 64 49 74" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="63" cy="18" r="2.4" fill="#fff"/><circle cx="73" cy="18" r="2.4" fill="#fff"/><circle cx="49" cy="79" r="6" fill="none" stroke="#fff" stroke-width="2.5"/><circle cx="49" cy="79" r="2" fill="#fff"/></svg><span class="lt"><span class="r1">ROYAL</span><span class="r2">MEDICS</span></span></div>
       <nav class="pillnav" id="nav" aria-label="Main"></nav>
       <div class="tools">
+        <button class="menubtn" aria-label="Open menu" aria-expanded="false" aria-controls="nav" onclick="toggleMenu('nav',this)"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
         <button class="circ" aria-label="Call the clinic" onclick="toast('On the live site this dials the clinic')"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></button>
         <a class="btn ghost signin" onclick="go('login')"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg><span>Admin sign in</span></a>
         <a class="btn" onclick="go('book')">Book now</a>
@@ -311,6 +324,7 @@ body.noscroll{overflow:hidden}
       <div class="tools">
         <div class="who"><b>Dr Khalid Siddig</b><span>Administrator</span></div>
         <div class="avatar" aria-hidden="true">KS</div>
+        <button class="menubtn" aria-label="Open menu" aria-expanded="false" aria-controls="anav" onclick="toggleMenu('anav',this)"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
         <a class="btn ghost" onclick="signOut()">Sign out</a>
         <button class="circ" aria-label="Enquiries" onclick="adm('enq')"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 1 1 12 0c0 6 2 7 2 7H4s2-1 2-7zM10 20a2 2 0 0 0 4 0"/></svg><i></i></button>
       </div>
@@ -463,7 +477,76 @@ function doLogin(){const e=$('#lgE').value.trim(),p=$('#lgP').value,c=$('#lgC').
  if(!p){m.textContent='Enter your password.';return}
  if(!/^\d{6}$/.test(c)){m.textContent='Enter the 6 digit code from your authenticator app.';return}
  signedIn=true;setView('admin');toast('Signed in.')}
-function signOut(){signedIn=false;setView('patient');go('home');toast('Signed out.')}
+function signOut(){audit('Signed out');signedIn=false;setView('patient');go('home');toast('Signed out.')}
+
+/* ===== admin: audit log, staff, emails, export, privacy ===== */
+const AUDIT=[
+ {t:'Fri 20 Nov, 17:55',who:'Maeve Collins',what:'Checked in RMC-1001'},
+ {t:'Fri 20 Nov, 17:02',who:'Dr Khalid Siddig',what:'Changed price: GP Consultation to €60'},
+ {t:'Fri 20 Nov, 09:14',who:'Maeve Collins',what:'Signed in'}];
+function audit(what){const d=new Date();AUDIT.unshift({t:d.toLocaleDateString('en-IE',{weekday:'short',day:'numeric',month:'short'})+', '+d.toLocaleTimeString('en-IE',{hour:'2-digit',minute:'2-digit'}),who:'Dr Khalid Siddig',what:String(what).replace(/\.$/,'')})}
+function aAudit(){const q=(window._aq||'').toLowerCase();const rows=AUDIT.filter(a=>!q||(a.what+a.who).toLowerCase().includes(q));
+ return `<div class="hello"><h1>Audit log</h1><p>Who did what, and when. Health answers are never written here.</p></div><div class="card" style="margin-top:14px"><label class="field">Search<input value="${esc(window._aq||'')}" oninput="window._aq=this.value;adm('audit',true);const i=document.querySelector('#apage input');i.focus();i.setSelectionRange(i.value.length,i.value.length)"></label>${rows.map(a=>`<div class="li" style="cursor:default"><span class="ico">${esc(a.who.split(' ').map(w=>w[0]).slice(0,2).join(''))}</span><span><b>${esc(a.what)}</b><small>${esc(a.who)} · ${esc(a.t)}</small></span></div>`).join('')||'<p class="mut">No matching entries.</p>'}</div>`}
+
+const STAFF=[
+ {id:1,name:'Dr Khalid Siddig',email:'dr@clinic.ie',role:'Admin',active:true,tfa:true},
+ {id:2,name:'Maeve Collins',email:'reception@clinic.ie',role:'Receptionist',active:true,tfa:true}];
+const PERM={Admin:'Everything, including staff, prices and exports.',Doctor:'Appointments, patients and their own hours.',Receptionist:'Appointments, walk-ins and enquiries. No prices, staff or exports.'};
+const adminCount=()=>STAFF.filter(x=>x.active&&x.role==='Admin').length;
+function aStaff(){return `<div class="hello"><h1>Staff</h1><p>Everyone who can sign in. Each person uses a password and an authenticator app.</p></div>
+<div class="card" style="margin-top:14px">${STAFF.map(x=>`<div class="li" style="cursor:default;flex-wrap:wrap"><span class="ico">${esc(x.name.split(' ').map(w=>w[0]).slice(0,2).join(''))}</span><span style="flex:1;min-width:180px"><b>${esc(x.name)} ${x.active?'':'<span class="st x">Inactive</span>'}</b><small>${esc(x.email)} · ${x.tfa?'2-step on':'2-step reset: must set up again'}</small></span>
+<select class="sel2" aria-label="Role for ${esc(x.name)}" onchange="stRole(${x.id},this.value)">${Object.keys(PERM).map(r=>`<option ${r===x.role?'selected':''}>${r}</option>`).join('')}</select>
+<a class="btn ghost sm" onclick="stTfa(${x.id})">Reset 2-step</a><a class="btn ghost sm" onclick="stActive(${x.id})">${x.active?'Deactivate':'Reactivate'}</a></div>`).join('')}</div>
+<div class="card"><h3 style="margin-bottom:8px">Add a staff member</h3><div class="row2"><label class="field">Name<input id="snN"></label><label class="field">Email<input id="snE" type="email"></label><label class="field">Role<select id="snR" class="sel2" style="width:100%">${Object.keys(PERM).map(r=>`<option>${r}</option>`).join('')}</select></label></div><button class="btn" style="margin-top:12px" onclick="stAdd()">Add and send invite</button></div>
+<div class="card"><h3 style="margin-bottom:8px">What each role can do</h3>${Object.entries(PERM).map(([r,d])=>`<p style="margin:6px 0"><span class="tag">${r}</span> ${d}</p>`).join('')}</div>`}
+function stRole(id,r){const x=STAFF.find(a=>a.id===id);if(x.role==='Admin'&&r!=='Admin'&&adminCount()<2){toast('There must be at least one active Admin.');adm('staff',true);return}x.role=r;toast('Role changed: '+x.name+' is now '+r+'.');adm('staff',true)}
+function stActive(id){const x=STAFF.find(a=>a.id===id);if(x.active&&x.role==='Admin'&&adminCount()<2){toast('You cannot deactivate the last Admin.');return}x.active=!x.active;toast((x.active?'Reactivated ':'Deactivated ')+x.name+'.');adm('staff',true)}
+function stTfa(id){const x=STAFF.find(a=>a.id===id);x.tfa=false;toast('2-step reset for '+x.name+'. They set it up again at next sign in.');adm('staff',true)}
+function stAdd(){const n=$('#snN').value.trim(),e=$('#snE').value.trim(),r=$('#snR').value;
+ if(!n||!/^\S+@\S+\.\S+$/.test(e)){toast('Enter a name and a valid email.');return}
+ if(STAFF.some(x=>x.email.toLowerCase()===e.toLowerCase())){toast('That email already has an account.');return}
+ STAFF.push({id:Date.now(),name:n,email:e,role:r,active:true,tfa:false});toast('Invite sent to '+e+'.');adm('staff',true)}
+
+const TEMPL=[
+ {k:'confirm',name:'Booking confirmation',subject:'Your appointment is confirmed: {when}',body:'Hello {name},\n\nYour {service} is confirmed for {when} at Royal Medics, 29 Barronstrand St, Waterford.\n\nReference: {ref}\nChange or cancel: {link}\n\nPlease bring photo ID.'},
+ {k:'rem24',name:'Reminder, 24 hours before',subject:'Reminder: appointment tomorrow, {when}',body:'Hello {name},\n\nA reminder of your {service} tomorrow at {when}.\n\nChange or cancel (free until 24 hours before): {link}'},
+ {k:'rem2',name:'Reminder, 2 hours before',subject:'Your appointment is today at {when}',body:'Hello {name},\n\nSee you today at {when} for your {service}.'},
+ {k:'moved',name:'Appointment moved',subject:'Your appointment has moved to {when}',body:'Hello {name},\n\nYour {service} is now on {when}. Reference {ref}.\n\nManage: {link}'},
+ {k:'cancel',name:'Appointment cancelled',subject:'Your appointment was cancelled',body:'Hello {name},\n\nYour {service} ({ref}) has been cancelled. Online payments are refunded to the same card.\n\nBook again: {link}'}];
+const SAMPLE={name:'Aoife',service:'GP Consultation',when:'Mon 23 Nov, 10:30',ref:'RMC-1042',link:'royalmedics.ie/booking/RMC-1042'};
+const fillT=t=>t.replace(/\{(\w+)\}/g,(m,k)=>SAMPLE[k]||m);
+function aEmails(){return `<div class="hello"><h1>Emails</h1><p>The automatic emails patients receive. Health answers are never included.</p></div><div class="card" style="margin-top:14px">${TEMPL.map((t,i)=>`<div class="tpl"><h3 style="margin-bottom:8px">${t.name}</h3>
+<label class="field">Subject<input id="tS${i}" value="${esc(t.subject)}"></label><label class="field">Message<textarea id="tB${i}">${esc(t.body)}</textarea></label>
+<p class="small mut" style="margin:0 0 8px">You can use {name} {service} {when} {ref} {link}</p>
+<div class="row2"><a class="btn" onclick="tplSave(${i})">Save</a><a class="btn ghost" onclick="tplPrev(${i})">Preview</a><a class="btn ghost" onclick="toast('Test email sent to dr@clinic.ie')">Send test</a></div><div id="tP${i}"></div></div>`).join('')}</div>`}
+function tplSave(i){const s=$('#tS'+i).value.trim(),b=$('#tB'+i).value.trim();if(!s||!b){toast('Subject and message cannot be empty.');return}TEMPL[i].subject=s;TEMPL[i].body=b;toast('Saved: '+TEMPL[i].name+'.')}
+function tplPrev(i){$('#tP'+i).innerHTML=`<div class="pvw"><b>${esc(fillT($('#tS'+i).value))}</b>\n\n${esc(fillT($('#tB'+i).value))}</div>`}
+
+const csvCell=v=>{let t=String(v==null?'':v);if(/^[=+\-@\t\r]/.test(t))t="'"+t;return '"'+t.replace(/"/g,'""')+'"'};
+function download(name,text,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}
+function expAppts(){const rows=[['Reference','Date','Time','Patient','Service','Payment','Status']].concat(appts.slice().sort(cmp).map(a=>[a.ref,a.date,a.time,a.name,(svc(a.s)||{}).name,a.paid,a.status]));
+ download('appointments.csv',rows.map(r=>r.map(csvCell).join(',')).join('\r\n'),'text/csv');toast('Exported '+(rows.length-1)+' appointments.')}
+function expEnq(){const rows=[['Name','Email','Received','Status','Message']].concat(ENQ.map(e=>[e.name,e.email,e.when,e.status,e.msg]));
+ download('enquiries.csv',rows.map(r=>r.map(csvCell).join(',')).join('\r\n'),'text/csv');toast('Exported '+ENQ.length+' enquiries.')}
+function aExport(){return `<div class="hello"><h1>Export</h1><p>Download your data as spreadsheets. Each export is recorded in the audit log.</p></div>
+<div class="card" style="margin-top:14px"><div class="li" style="cursor:default"><span class="ico">${ic('cal',18)}</span><span style="flex:1"><b>Appointments</b><small>${appts.length} rows: reference, date, patient, service, payment, status</small></span><a class="btn" onclick="expAppts()">Download CSV</a></div>
+<div class="li" style="cursor:default;margin-bottom:0"><span class="ico">${ic('mail',18)}</span><span style="flex:1"><b>Enquiries</b><small>${ENQ.length} messages from the contact form</small></span><a class="btn" onclick="expEnq()">Download CSV</a></div></div>
+<p class="note">Exports contain personal data. Keep them secure and delete them when you no longer need them.</p>`}
+
+function privFind(q){q=q.trim().toLowerCase();if(q.length<2)return {a:[],e:[]};return {a:appts.filter(x=>(x.name+' '+x.ref).toLowerCase().includes(q)),e:ENQ.filter(x=>(x.name+' '+x.email).toLowerCase().includes(q))}}
+function aPrivacy(){const q=window._pq||'',r=privFind(q);
+ return `<div class="hello"><h1>Privacy requests</h1><p>Find a person, give them a copy of their data, or anonymise it when they ask.</p></div>
+<div class="card" style="margin-top:14px"><div class="row2"><label class="field">Name, email or reference<input id="pq" value="${esc(q)}"></label><a class="btn" onclick="window._pq=$('#pq').value;window._pc=null;adm('privacy',true)">Find</a></div>
+${q&&q.trim().length<2?'<p class="mut small">Type at least 2 characters.</p>':''}
+${(r.a.length||r.e.length)?`<h3 style="margin:16px 0 8px">${r.a.length} appointment(s), ${r.e.length} enquiry(ies)</h3>
+${r.a.map(x=>`<div class="li" style="cursor:default"><span class="ico">${esc(x.name.slice(0,2).toUpperCase())}</span><span><b>${esc(x.name)}</b><small>${esc(x.ref)} · ${esc(x.date)} ${esc(x.time)} · ${esc((svc(x.s)||{}).name)}</small></span></div>`).join('')}
+${r.e.map(x=>`<div class="li" style="cursor:default"><span class="ico">${esc(x.name.slice(0,2).toUpperCase())}</span><span><b>${esc(x.name)}</b><small>${esc(x.email)} · enquiry</small></span></div>`).join('')}
+<div class="row2" style="margin-top:12px"><a class="btn ghost" onclick="privExport()">Download their data (JSON)</a><a class="btn" style="background:var(--red)" onclick="privAnon()">${window._pc?'Click again to confirm: this cannot be undone':'Anonymise their data'}</a></div>`:(q.trim().length>=2?'<p class="mut" style="margin-top:14px">No matching records.</p>':'')}</div>
+<p class="note">Anonymising replaces names and emails with a placeholder and keeps the appointment itself, so the clinic's accounts stay correct.</p>`}
+function privExport(){const r=privFind(window._pq||'');download('patient-data.json',JSON.stringify({exportedAt:new Date().toISOString(),appointments:r.a,enquiries:r.e},null,2),'application/json');toast('Data export downloaded for "'+(window._pq||'').trim()+'".')}
+function privAnon(){if(!window._pc){window._pc=true;adm('privacy',true);return}
+ const r=privFind(window._pq||'');r.a.forEach(x=>{x.name='Anonymised'});r.e.forEach(x=>{x.name='Anonymised';x.email='removed@example.invalid';x.msg='[removed]'});
+ window._pc=null;toast('Anonymised '+(r.a.length+r.e.length)+' record(s) for "'+(window._pq||'').trim()+'".');window._pq='';adm('privacy',true)}
 const newEnq=()=>ENQ.filter(x=>x.status==='New').length;
 function aEnq(){return `<div class="hello"><h1>Enquiries</h1><p>Messages from the website contact form.</p></div><div class="card" style="margin-top:14px">${ENQ.length?ENQ.map(x=>`<div class="li" style="cursor:default;align-items:flex-start"><span class="ico">${esc(x.name.slice(0,2).toUpperCase())}</span><span style="flex:1"><b>${esc(x.name)} <span class="st ${x.status==='New'?'new':x.status==='Replied'?'conf':'done'}">${x.status}</span></b><small>${esc(x.email)} · ${x.when}</small><span style="display:block;margin-top:6px">${esc(x.msg)}</span><span style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><a class="btn ghost sm" href="mailto:${esc(x.email)}" onclick="enqSet(${x.id},'Replied')">Reply by email</a><a class="btn ghost sm" onclick="enqSet(${x.id},'Closed')">Close</a></span></span></div>`).join(''):'<p class="mut">No messages yet.</p>'}</div>`}
 function enqSet(id,st){const x=ENQ.find(e=>e.id===id);if(x){x.status=st;adm('enq',true)}}
@@ -477,8 +560,11 @@ function setView(v){if(v==='admin'&&!signedIn){view='patient';$('#patient').styl
   $('#vP').classList.toggle('on',v==='patient');$('#vA').classList.toggle('on',v==='admin');
   document.body.style.paddingBottom=v==='patient'&&innerWidth<800?'76px':'0';window.scrollTo(0,0);
   if(v==='admin')adm(window._a||'dash');else go(page)}
-function go(p){page=p;if(p==='book'&&!booking)booking={step:1};render();window.scrollTo(0,0)}
-function toast(t){const e=$('#toast');e.textContent=t;e.style.display='block';clearTimeout(e._t);e._t=setTimeout(()=>e.style.display='none',3200)}
+function closeMenus(){document.querySelectorAll('.pillnav.open').forEach(n=>n.classList.remove('open'));document.querySelectorAll('.menubtn').forEach(b=>{b.setAttribute('aria-expanded','false');b.setAttribute('aria-label','Open menu')})}
+function toggleMenu(id,btn){const n=document.getElementById(id),o=!n.classList.contains('open');closeMenus();if(o){n.classList.add('open');btn.setAttribute('aria-expanded','true');btn.setAttribute('aria-label','Close menu')}}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenus()});
+function go(p){closeMenus();page=p;if(p==='book'&&!booking)booking={step:1};render();window.scrollTo(0,0)}
+function toast(t){if(typeof signedIn!=='undefined'&&signedIn&&view==='admin'&&!/^(Please|Enter|Sorry|There must|You cannot|That |Subject|Type |Alerts)/.test(t))audit(t);const e=$('#toast');e.textContent=t;e.style.display='block';clearTimeout(e._t);e._t=setTimeout(()=>e.style.display='none',3200)}
 
 function render(){
   {const bn=$('#banner');bn.innerHTML=CONTENT.banner.on?CONTENT.banner.text:'';$('#foot').innerHTML=footInner()}
@@ -674,9 +760,9 @@ function manage(){const b=booking;if(!b||!b.ref)return `<section class="sec"><di
 function cancelAppt(ref){const a=appts.find(x=>x.ref===ref);a.status='cancelled';const s=svc(a.s);for(let x=0;x<s.mins;x+=15){const m=parseInt(a.time)*60+parseInt(a.time.split(':')[1])+x;delete taken[a.date+'|'+String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0')]}toast('Cancelled. The time is free again and the patient gets an email'+(a.paid==='paid'?' with a refund notice.':'.'));render()}
 
 /* ---------- admin ---------- */
-const ANAV=[['dash','Dashboard','grid'],['appts','Appointments','cal'],['walk','Walk-in','plus'],['services','Services','tag'],['doctors','Doctors','user'],['web','Website','help'],['clinic','Clinic','home'],['hours','Hours','clock'],['enq','Enquiries','mail'],['closed','Closed days','off']];
-function adm(k,keep){window._a=k;$('#anav').innerHTML=ANAV.map(([a,l,i])=>`<a class="${a===k?'on':''}" onclick="adm('${a}')">${ic(i)} ${l}${a==='enq'&&newEnq()?`<span class="navbadge">${newEnq()}</span>`:''}</a>`).join('');
-  $('#apage').innerHTML=({dash:aDash,appts:aAppts,walk:aWalk,services:aServices,doctors:aDoctors,web:aWeb,clinic:aClinic,hours:aHours,enq:aEnq,closed:aClosed}[k])();if(!keep)window.scrollTo(0,0)}
+const ANAV=[['dash','Dashboard','grid'],['appts','Appointments','cal'],['walk','Walk-in','plus'],['enq','Enquiries','mail'],['services','Services','tag'],['doctors','Doctors','user'],['hours','Hours','clock'],['closed','Closed days','off'],['web','Content','help'],['clinic','Settings','home'],['emails','Emails','mail'],['staff','Staff','user'],['export','Export','tag'],['privacy','Privacy','help'],['audit','Audit log','clock']];
+function adm(k,keep){closeMenus();window._a=k;$('#anav').innerHTML=ANAV.map(([a,l,i])=>`<a class="${a===k?'on':''}" onclick="adm('${a}')">${ic(i)} ${l}${a==='enq'&&newEnq()?`<span class="navbadge">${newEnq()}</span>`:''}</a>`).join('');
+  $('#apage').innerHTML=({dash:aDash,appts:aAppts,walk:aWalk,services:aServices,doctors:aDoctors,web:aWeb,clinic:aClinic,hours:aHours,enq:aEnq,closed:aClosed,emails:aEmails,staff:aStaff,export:aExport,privacy:aPrivacy,audit:aAudit}[k])();if(!keep)window.scrollTo(0,0)}
 const saved=()=>toast('Saved. The website now shows this.');
 const gv=id=>document.getElementById(id).value.trim();
 const keepAdm=()=>{const y=window.scrollY;adm(window._a,true);window.scrollTo(0,y)};
