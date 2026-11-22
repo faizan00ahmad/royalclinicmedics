@@ -81,7 +81,11 @@ export function __resetRateLimits(): void {
 }
 
 export function rateLimit(req: Request, bucket: string, limit: number, windowMs = 60_000): void {
-  const key = `${bucket}:${clientIp(req)}`;
+  rateLimitKey(`${bucket}:${clientIp(req)}`, limit, windowMs);
+}
+
+/** For server actions, which have no Request object. */
+export function rateLimitKey(key: string, limit: number, windowMs = 60_000): void {
   const now = Date.now();
   const recent = (hits.get(key) ?? []).filter((t) => now - t < windowMs);
   if (recent.length >= limit) {

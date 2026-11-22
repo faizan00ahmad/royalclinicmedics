@@ -25,3 +25,13 @@ export function gateway(): PaymentGateway {
   stripeGateway ??= createStripeGatewayFromEnv();
   return stripeGateway;
 }
+
+/** Resolves Stripe only when a call actually needs it, so cancelling a pay-at-clinic booking works without Stripe keys. */
+export function lazyGateway(): PaymentGateway {
+  return {
+    createPaymentIntent: (p) => gateway().createPaymentIntent(p),
+    cancelPaymentIntent: (id) => gateway().cancelPaymentIntent(id),
+    refund: (p) => gateway().refund(p),
+    constructEvent: (raw, sig) => gateway().constructEvent(raw, sig),
+  };
+}

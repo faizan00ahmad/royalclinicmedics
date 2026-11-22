@@ -24,6 +24,7 @@
 - [ ] (remaining) Stripe + webhook [PAY-01..09]; emails + reminders [N-01..N-11]; manage links [BK-30..33]; outbox [EXT-03]
 
 ## M4 Admin
+- [x] Admin: auth, 2FA, roles, dashboard, appointments, walk-ins, services, doctors, hours, closed days, content, settings, staff, export, audit (calendar drag and drop, patient list, rich text still to do)
 - [ ] Auth + TOTP [SEC-02]; can() [EXT-05]; AD-01..AD-14
 
 ## M5 Testing and launch

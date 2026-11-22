@@ -21,7 +21,7 @@ export type Action =
   | "audit:read";
 
 const RECEPTIONIST: Action[] = [
-  "dashboard:read", "appointments:read", "appointments:write", "walkin:create", "payments:markPaid", "patients:read",
+  "dashboard:read", "appointments:read", "appointments:write", "appointments:questionnaire", "walkin:create", "payments:markPaid", "patients:read",
   "schedules:write", "content:write", "enquiries:read", "enquiries:write",
 ];
 
