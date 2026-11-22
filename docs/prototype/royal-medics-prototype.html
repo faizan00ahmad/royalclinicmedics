@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en-IE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Royal Medics Clinic: Phase 1 design prototype</title>
+<style>
+:root{--brand:#0F766E;--brand-d:#115E59;--brand-l:#CCFBF1;--accent:#F59E0B;--ink:#0f172a;--mut:#475569;--line:#e2e8f0;--bg:#f8fafc;--ok:#15803d;--bad:#b91c1c}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--bg);padding-bottom:76px}
+a{color:var(--brand-d)}
+button,input,select,textarea{font:inherit}
+h1{font-size:1.9rem;line-height:1.2;margin:0 0 .5rem}h2{font-size:1.4rem;margin:0 0 .75rem}h3{margin:0 0 .25rem;font-size:1.1rem}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 18px;border-radius:10px;border:2px solid transparent;font-weight:700;cursor:pointer;text-decoration:none;background:var(--brand);color:#fff}
+.btn.accent{background:var(--accent);color:#0f172a}.btn.ghost{background:#fff;color:var(--brand-d);border-color:var(--brand)}.btn.sm{min-height:36px;padding:0 12px;font-size:.9rem}.btn:disabled{opacity:.45;cursor:not-allowed}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 1px 2px #0001}
+.grid{display:grid;gap:14px}.g2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.mut{color:var(--mut)}.small{font-size:.875rem}.pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.78rem;font-weight:700;background:var(--brand-l);color:var(--brand-d)}
+.pill.warn{background:#fef3c7;color:#92400e}.pill.ok{background:#dcfce7;color:#166534}.pill.bad{background:#fee2e2;color:#991b1b}.pill.grey{background:#e2e8f0;color:#334155}
+
+/* prototype bar */
+#proto{position:sticky;top:0;z-index:60;background:#0f172a;color:#fff;font-size:.85rem}
+#proto .wrap{display:flex;gap:10px;align-items:center;justify-content:space-between;padding-top:8px;padding-bottom:8px;flex-wrap:wrap}
+#proto b{color:var(--accent)}
+.seg{display:flex;background:#1e293b;border-radius:10px;padding:3px}
+.seg button{background:none;border:0;color:#cbd5e1;padding:8px 14px;border-radius:8px;font-weight:700;cursor:pointer;min-height:36px}
+.seg button.on{background:#fff;color:#0f172a}
+
+/* patient site */
+header.site{position:sticky;top:44px;z-index:50;background:#ffffffee;backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+header.site .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:60px}
+.logo{font-weight:800;color:var(--brand-d);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;gap:8px;min-height:44px}
+.logo i{width:30px;height:30px;border-radius:8px;background:var(--brand);color:#fff;display:grid;place-items:center;font-style:normal}
+nav.main{display:flex;gap:4px;overflow-x:auto}
+nav.main a{white-space:nowrap;padding:0 10px;min-height:44px;display:inline-flex;align-items:center;text-decoration:none;color:var(--mut);font-weight:600;border-radius:8px;cursor:pointer}
+nav.main a.on{color:var(--brand-d);background:var(--brand-l)}
+.hero{background:linear-gradient(135deg,#0F766E,#115E59);color:#fff;padding:44px 0}
+.hero p{max-width:560px;opacity:.95}.hero .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.hero .btn.ghost{background:transparent;color:#fff;border-color:#fff}
+.sec{padding:34px 0}
+.alert{background:#fffbeb;border:1px solid #fde68a;color:#78350f;padding:10px 14px;border-radius:10px;font-size:.9rem}
+.price{font-weight:800;color:var(--brand-d)}
+footer.site{background:#0f172a;color:#cbd5e1;margin-top:30px;padding:28px 0;font-size:.9rem}
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:55;display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#fff;border-top:1px solid var(--line);padding:8px}
+@media(min-width:800px){.mbar{display:none}body{padding-bottom:0}}
+details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:0 16px;margin-bottom:10px}
+summary{cursor:pointer;min-height:48px;display:flex;align-items:center;font-weight:700}
+details p{margin:0 0 14px;color:var(--mut)}
+
+/* booking */
+.steps{display:flex;gap:6px;margin:0 0 16px;padding:0;list-style:none}
+.steps li{flex:1;text-align:center;font-size:.78rem;padding:8px 2px;border-bottom:4px solid var(--line);color:var(--mut);font-weight:600}
+.steps li.on{border-color:var(--brand);color:var(--brand-d)}.steps li.done{border-color:var(--ok);color:var(--ok)}
+.opt{display:flex;justify-content:space-between;gap:10px;align-items:center;width:100%;text-align:left;background:#fff;border:2px solid var(--line);border-radius:12px;padding:14px;margin-bottom:10px;cursor:pointer;min-height:56px}
+.opt:hover,.opt.sel{border-color:var(--brand);background:#f0fdfa}
+.days{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:12px}
+.day{flex:0 0 auto;min-width:76px;min-height:56px;border:2px solid var(--line);background:#fff;border-radius:12px;font-weight:700;cursor:pointer;padding:6px}
+.day.sel{border-color:var(--brand);background:var(--brand);color:#fff}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px}
+.slot{min-height:46px;border:2px solid var(--line);background:#fff;border-radius:10px;font-weight:700;cursor:pointer}
+.slot.sel{background:var(--brand);color:#fff;border-color:var(--brand)}
+.field{display:block;margin-bottom:12px;font-weight:600;font-size:.92rem}
+.field input,.field select,.field textarea{display:block;width:100%;margin-top:4px;min-height:46px;padding:8px 12px;border:1px solid #94a3b8;border-radius:10px;background:#fff}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:10px 0;font-size:.92rem}.chk input{width:22px;height:22px;margin-top:2px;flex:0 0 22px}
+.hold{background:#ecfeff;border:1px solid #a5f3fc;padding:8px 12px;border-radius:10px;font-size:.9rem;margin-bottom:12px}
+.ok-box{text-align:center;padding:26px}.tick{width:64px;height:64px;border-radius:50%;background:#dcfce7;color:var(--ok);display:grid;place-items:center;font-size:2rem;margin:0 auto 10px}
+dl.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:0;text-align:left}dl.kv dt{color:var(--mut)}dl.kv dd{margin:0;font-weight:600}
+.email{border:1px dashed #94a3b8;border-radius:12px;background:#fff;padding:14px;font-size:.88rem;text-align:left;margin-top:14px}
+
+/* admin */
+#admin{display:none}
+.adm{display:grid;grid-template-columns:210px 1fr;min-height:calc(100vh - 44px)}
+.side{background:#0f172a;color:#cbd5e1;padding:14px}
+.side b{color:#fff;display:block;margin:4px 8px 14px}
+.side a{display:flex;align-items:center;min-height:44px;padding:0 10px;border-radius:8px;cursor:pointer;color:#cbd5e1;text-decoration:none;font-weight:600}
+.side a.on{background:#1e293b;color:#fff}
+.main-a{padding:20px;min-width:0}
+@media(max-width:760px){.adm{grid-template-columns:1fr}.side{display:flex;overflow-x:auto;gap:4px;padding:8px}.side b{display:none}.side a{white-space:nowrap}}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}.stat b{font-size:1.7rem;display:block}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:.92rem}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}th{background:#f1f5f9;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--mut)}
+.tw{overflow-x:auto}
+.hrs{display:grid;grid-template-columns:78px minmax(0,1fr) minmax(0,1fr) 50px;gap:6px;align-items:center;margin-bottom:8px}
+.hrs input[type=time]{width:100%;min-width:0;min-height:40px;border:1px solid #94a3b8;border-radius:8px;padding:0 4px}
+.hrs label{display:flex;gap:4px;align-items:center}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#0f172a;color:#fff;padding:12px 18px;border-radius:12px;z-index:90;display:none;max-width:92vw;font-size:.92rem}
+.note{font-size:.82rem;background:#eff6ff;border:1px solid #bfdbfe;color:#1e3a8a;border-radius:10px;padding:8px 12px;margin:0 0 14px}
+
+/* ================= LIQUID GLASS LAYER (Apple-style) ================= */
+:root{
+  --glass:rgba(255,255,255,.52);--glass-strong:rgba(255,255,255,.72);--glass-edge:rgba(255,255,255,.75);
+  --shadow:0 10px 34px rgba(30,64,90,.13),0 2px 6px rgba(30,64,90,.06);
+  --shine:inset 0 1.5px 0 rgba(255,255,255,.9),inset 0 -1px 0 rgba(255,255,255,.25),inset 0 0 0 1px rgba(255,255,255,.35);
+  --blur:blur(26px) saturate(185%);
+  --brand:#0a8f84;--brand-d:#0b6e66;
+}
+html{background:#e8f1f5}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Segoe UI Variable","Segoe UI",system-ui,sans-serif;
+  letter-spacing:-.011em;color:#0b1b2b;
+  background:
+    radial-gradient(60vmax 45vmax at 8% -5%,rgba(45,212,191,.55),transparent 60%),
+    radial-gradient(55vmax 45vmax at 105% 8%,rgba(96,165,250,.50),transparent 60%),
+    radial-gradient(50vmax 40vmax at 55% 105%,rgba(251,191,36,.38),transparent 60%),
+    radial-gradient(40vmax 35vmax at -5% 85%,rgba(167,139,250,.30),transparent 60%),
+    #eaf3f6;
+  background-attachment:fixed;
+}
+h1,h2,h3{letter-spacing:-.025em}
+h1{font-weight:800}
+.mut{color:#4b6074}
+
+/* glass surfaces */
+.card,details,table,.hold,.email,.alert,.note,.opt,.day,.slot,.field input,.field select,.field textarea{
+  -webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur)}
+.card,details,.email{background:var(--glass);border:1px solid var(--glass-edge);border-radius:26px;box-shadow:var(--shadow),var(--shine)}
+.card{padding:22px}
+.hold{background:rgba(207,250,254,.55);border:1px solid rgba(255,255,255,.8);border-radius:18px;box-shadow:var(--shine)}
+.alert{background:rgba(254,243,199,.6);border:1px solid rgba(255,255,255,.8);border-radius:18px;box-shadow:var(--shine)}
+.note{background:rgba(219,234,254,.55);border:1px solid rgba(255,255,255,.8);border-radius:18px;box-shadow:var(--shine)}
+details{padding:0 20px}
+table{background:var(--glass);border:1px solid var(--glass-edge);border-radius:22px;box-shadow:var(--shadow),var(--shine);border-collapse:separate;border-spacing:0}
+th{background:rgba(255,255,255,.35)}
+th,td{border-bottom:1px solid rgba(15,23,42,.06)}
+tr:last-child td{border-bottom:0}
+
+/* top prototype bar and segmented control */
+#proto{background:rgba(15,23,42,.62);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border-bottom:1px solid rgba(255,255,255,.12)}
+.seg{background:rgba(255,255,255,.14);border-radius:999px;padding:3px;box-shadow:inset 0 1px 2px rgba(0,0,0,.25)}
+.seg button{border-radius:999px;color:#e2e8f0}
+.seg button.on{background:rgba(255,255,255,.92);color:#0b1b2b;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+
+/* floating glass header */
+header.site{background:transparent;border:0;top:52px;padding:0 12px}
+header.site .wrap{background:var(--glass-strong);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border:1px solid var(--glass-edge);border-radius:999px;box-shadow:var(--shadow),var(--shine);padding:0 10px 0 16px;min-height:58px}
+.logo i{background:linear-gradient(145deg,#2dd4bf,#0a8f84);box-shadow:inset 0 1px 1px rgba(255,255,255,.7),0 4px 10px rgba(10,143,132,.35);border-radius:11px}
+nav.main a{border-radius:999px;color:#35506a}
+nav.main a.on{background:rgba(255,255,255,.85);color:var(--brand-d);box-shadow:0 1px 6px rgba(30,64,90,.15),var(--shine)}
+
+/* buttons: glossy pills */
+.btn{border-radius:999px;border:1px solid rgba(255,255,255,.35);background:linear-gradient(180deg,#19b3a6,#0a8f84);color:#fff;box-shadow:0 6px 16px rgba(10,143,132,.35),inset 0 1.5px 0 rgba(255,255,255,.55);text-shadow:0 1px 1px rgba(0,0,0,.15);transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(10,143,132,.4),inset 0 1.5px 0 rgba(255,255,255,.6)}
+.btn:active{transform:scale(.97)}
+.btn.accent{background:linear-gradient(180deg,#fbbf24,#f59e0b);color:#3b2400;text-shadow:0 1px 0 rgba(255,255,255,.4);box-shadow:0 6px 16px rgba(245,158,11,.38),inset 0 1.5px 0 rgba(255,255,255,.7)}
+.btn.ghost{background:var(--glass);color:var(--brand-d);border:1px solid var(--glass-edge);text-shadow:none;box-shadow:var(--shadow),var(--shine);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur)}
+.pill{background:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.8);box-shadow:var(--shine);color:var(--brand-d)}
+.pill.warn{background:rgba(254,243,199,.75);color:#92400e}.pill.ok{background:rgba(187,247,208,.75);color:#166534}.pill.bad{background:rgba(254,202,202,.75);color:#991b1b}.pill.grey{background:rgba(226,232,240,.7);color:#334155}
+
+/* hero becomes a big glass-over-colour panel */
+.hero{background:transparent;color:#fff;padding:26px 0 8px}
+.hero .wrap{position:relative;overflow:hidden;border-radius:36px;padding:46px 28px;border:1px solid rgba(255,255,255,.5);
+  background:linear-gradient(135deg,rgba(13,148,136,.88),rgba(14,116,144,.82) 55%,rgba(79,70,229,.7));
+  box-shadow:0 24px 60px rgba(14,116,144,.35),inset 0 2px 0 rgba(255,255,255,.45),inset 0 -2px 0 rgba(255,255,255,.1)}
+.hero .wrap::before{content:"";position:absolute;width:420px;height:420px;right:-120px;top:-160px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.55),transparent 65%);pointer-events:none}
+.hero .wrap::after{content:"";position:absolute;width:300px;height:300px;left:-90px;bottom:-150px;border-radius:50%;background:radial-gradient(circle,rgba(251,191,36,.5),transparent 65%);pointer-events:none}
+.hero h1,.hero p,.hero .row{position:relative;z-index:1}
+.hero .btn.ghost{background:rgba(255,255,255,.2);color:#fff;border-color:rgba(255,255,255,.55);text-shadow:none}
+
+/* booking controls */
+.opt,.day,.slot{background:var(--glass);border:1px solid var(--glass-edge);border-radius:20px;box-shadow:var(--shadow),var(--shine);transition:transform .15s}
+.opt:hover,.slot:hover,.day:hover{transform:translateY(-1px);background:var(--glass-strong);border-color:var(--glass-edge)}
+.opt.sel,.slot.sel,.day.sel{background:linear-gradient(180deg,#19b3a6,#0a8f84);color:#fff;border-color:rgba(255,255,255,.5);box-shadow:0 8px 20px rgba(10,143,132,.4),inset 0 1.5px 0 rgba(255,255,255,.55)}
+.opt.sel .mut,.opt.sel .price{color:#e6fffb}
+.slot{border-radius:16px}
+.steps li{border-bottom:0;background:rgba(255,255,255,.4);border-radius:999px;margin:0 2px;padding:9px 2px;box-shadow:var(--shine)}
+.steps li.on{background:rgba(255,255,255,.9);color:var(--brand-d);box-shadow:var(--shadow),var(--shine)}
+.steps li.done{background:rgba(187,247,208,.7);color:#166534}
+.field input,.field select,.field textarea{background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.85);border-radius:16px;box-shadow:inset 0 2px 5px rgba(30,64,90,.08),var(--shine);outline:none}
+.field input:focus,.field select:focus,.field textarea:focus{box-shadow:0 0 0 4px rgba(10,143,132,.25),inset 0 2px 5px rgba(30,64,90,.06);border-color:#2dd4bf}
+.tick{background:linear-gradient(180deg,#bbf7d0,#4ade80);color:#fff;box-shadow:0 10px 24px rgba(34,197,94,.4),inset 0 2px 0 rgba(255,255,255,.7)}
+
+/* footer + phone bar */
+footer.site{background:rgba(15,23,42,.72);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border-radius:36px 36px 0 0;margin-top:40px}
+.mbar{left:12px;right:12px;bottom:12px;background:var(--glass-strong);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border:1px solid var(--glass-edge);border-radius:999px;box-shadow:var(--shadow),var(--shine);padding:7px}
+
+/* admin */
+.side{background:rgba(15,23,42,.6);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);margin:12px;border-radius:28px;border:1px solid rgba(255,255,255,.18);box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.25)}
+.side a{border-radius:999px}
+.side a.on{background:rgba(255,255,255,.2);box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
+.stat{text-align:left}.stat b{font-size:2rem;letter-spacing:-.03em;color:var(--brand-d)}
+@media(max-width:760px){.side{margin:8px;border-radius:999px;padding:6px}}
+.toast{background:rgba(15,23,42,.78);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border:1px solid rgba(255,255,255,.2);border-radius:999px;box-shadow:0 12px 34px rgba(0,0,0,.3);padding:13px 22px}
+.logo{white-space:nowrap}
+@media(max-width:799px){
+  #proto{position:static}
+  header.site{top:8px;padding:0 8px}
+  header.site .wrap{flex-wrap:wrap;border-radius:28px;padding:6px 10px;row-gap:0}
+  .logo{order:1;font-size:1rem}
+  header.site .btn{order:2;margin-left:auto}
+  nav.main{order:3;flex:0 0 100%;margin:0 -4px;padding-bottom:4px;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent)}
+  nav.main::-webkit-scrollbar{display:none}nav.main{scrollbar-width:none}
+  .hero .wrap{padding:34px 20px;border-radius:30px}
+  h1{font-size:1.65rem}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media(prefers-reduced-transparency:reduce){.card,details,table,.opt,.day,.slot{-webkit-backdrop-filter:none;backdrop-filter:none;background:#fff}}
+</style>
+</head>
+<body>
+
+<div id="proto">
+  <div class="wrap">
+    <span><b>Design prototype.</b> Sample data only. Prices, names and hours are placeholders.</span>
+    <div class="seg" role="tablist" aria-label="Switch view">
+      <button id="vP" class="on" onclick="setView('patient')">Patient website</button>
+      <button id="vA" onclick="setView('admin')">Clinic admin</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PATIENT SIDE ============ -->
+<div id="patient">
+  <header class="site"><div class="wrap">
+    <div class="logo" onclick="go('home')"><i>+</i> Royal Medics Clinic</div>
+    <nav class="main" id="nav"></nav>
+    <a class="btn accent sm" onclick="go('book')" style="cursor:pointer">Book now</a>
+  </div></header>
+  <main id="page"></main>
+  <footer class="site"><div class="wrap">
+    <p><b style="color:#fff">Royal Medics Clinic</b>, Dublin. Address, phone and opening hours to be confirmed.</p>
+    <p><a href="#" style="color:#cbd5e1" onclick="go('privacy');return false">Privacy policy</a> · <a href="#" style="color:#cbd5e1" onclick="go('privacy');return false">Terms</a> · <a href="#" style="color:#cbd5e1" onclick="go('privacy');return false">Cookies</a> · <a href="#" style="color:#cbd5e1" onclick="go('privacy');return false">Cancellation policy</a></p>
+    <p><b style="color:#fff">This service is not for emergencies.</b> In an emergency call 112 or 999.</p>
+  </div></footer>
+  <div class="mbar"><a class="btn ghost" onclick="toast('On the live site this dials the clinic')">Call</a><a class="btn accent" onclick="go('book')">Book now</a></div>
+</div>
+
+<!-- ============ ADMIN SIDE ============ -->
+<div id="admin">
+  <div class="adm">
+    <aside class="side">
+      <b>Royal Medics admin</b>
+      <a data-a="dash" class="on" onclick="adm('dash')">Dashboard</a>
+      <a data-a="appts" onclick="adm('appts')">Appointments</a>
+      <a data-a="walk" onclick="adm('walk')">Walk-in booking</a>
+      <a data-a="services" onclick="adm('services')">Services and prices</a>
+      <a data-a="hours" onclick="adm('hours')">Doctor hours</a>
+      <a data-a="closed" onclick="adm('closed')">Closed days</a>
+    </aside>
+    <section class="main-a" id="apage"></section>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- sample data (placeholders) ---------- */
+const S = [
+  {id:'gp',   name:'GP consultation',        mins:15, price:65, pay:true,  desc:'General medical consultation for new or ongoing concerns.'},
+  {id:'same', name:'Same-day appointment',   mins:15, price:70, pay:false, desc:'Urgent, non-emergency problems that cannot wait.'},
+  {id:'kid',  name:'Children\'s consultation',mins:15, price:60, pay:true,  desc:'Care for babies, children and teenagers.'},
+  {id:'chk',  name:'Health screening',       mins:30, price:120,pay:false, desc:'A longer check-up with the main routine tests.'},
+  {id:'vax',  name:'Vaccinations',           mins:15, price:55, pay:true,  desc:'Travel and routine vaccines (vaccine cost may be extra).'},
+  {id:'form', name:'Medical forms',          mins:15, price:50, pay:true,  desc:'Forms and certificates completed by the doctor.'}
+];
+const FAQ = [
+  ['Do I need to pay to book?','You can pay online by card, Apple Pay or Google Pay, or choose to pay at the clinic where the service allows it.'],
+  ['Can I change or cancel my appointment?','Yes, free of charge up to 24 hours before, using the link in your confirmation email. Inside 24 hours please phone the clinic.'],
+  ['I have a medical card. Can I book online?','Please phone the clinic so we can confirm the correct fee and arrangements.'],
+  ['Is my health information private?','Yes. Your answers are visible only to the clinic team and are never sent by email.']
+];
+const D = {name:'Dr Khalid Siddig'};
+let closed = {};               // yyyy-mm-dd -> reason
+let hours = {1:['09:30','13:00'],2:['09:30','13:00'],3:['09:30','13:00'],4:['09:30','13:00'],5:['09:30','13:00'],6:null,0:null}; // 0=Sun
+const taken = {};              // 'date|HH:MM' -> true
+let appts = [];                // admin list
+let booking = null, view='patient', page='home';
+
+const today = new Date(); today.setHours(0,0,0,0);
+const iso = d => d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const fmtDay = d => d.toLocaleDateString('en-IE',{weekday:'short',day:'numeric',month:'short'});
+const fmtLong = d => d.toLocaleDateString('en-IE',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+const euro = n => '€'+Number(n).toFixed(2).replace(/\.00$/,'');
+const $ = s => document.querySelector(s);
+const svc = id => S.find(x=>x.id===id);
+
+/* a few appointments already in the diary */
+(function seedDiary(){
+  const d = new Date(today); d.setDate(d.getDate()+ (d.getDay()===0?1:0)); // today or Monday
+  const k = iso(d);
+  [['09:30','Aoife Byrne','gp','paid','confirmed'],['09:45','Liam Murphy','gp','unpaid','confirmed'],['10:15','Sinead Kelly','vax','paid','confirmed'],['11:00','Conor Walsh','chk','unpaid','confirmed']]
+   .forEach(([t,n,s,p,st],i)=>{appts.push({ref:'RMC-'+(1000+i),date:k,time:t,name:n,s,paid:p,status:st});taken[k+'|'+t]=true});
+})();
+
+/* ---------- navigation ---------- */
+const NAVI=[['home','Home'],['about','About the doctor'],['services','Services'],['prices','Prices'],['faqs','FAQs'],['contact','Contact']];
+function setView(v){view=v;$('#patient').style.display=v==='patient'?'block':'none';$('#admin').style.display=v==='admin'?'block':'none';
+  $('#vP').classList.toggle('on',v==='patient');$('#vA').classList.toggle('on',v==='admin');
+  document.body.style.paddingBottom=v==='patient'&&innerWidth<800?'76px':'0';window.scrollTo(0,0);
+  if(v==='admin')adm(window._a||'dash');else go(page)}
+function go(p){page=p;if(p==='book'&&!booking)booking={step:1};render();window.scrollTo(0,0)}
+function toast(t){const e=$('#toast');e.textContent=t;e.style.display='block';clearTimeout(e._t);e._t=setTimeout(()=>e.style.display='none',3200)}
+
+function render(){
+  $('#nav').innerHTML=NAVI.map(([k,l])=>`<a class="${page===k?'on':''}" onclick="go('${k}')">${l}</a>`).join('');
+  const f={home,about,services,prices,faqs,contact,book,privacy,manage}[page]||home;
+  $('#page').innerHTML=f();
+  if(page==='book')bindBook();
+}
+
+/* ---------- patient pages ---------- */
+const card=s=>`<div class="card"><h3>${s.name}</h3><p class="mut small" style="margin:0 0 8px">${s.desc}</p><p class="small"><span class="price">${euro(s.price)}</span> · ${s.mins} min</p><button class="btn accent sm" onclick="booking={step:2,sid:'${s.id}'};go('book')">Book</button></div>`;
+function home(){return `
+<section class="hero"><div class="wrap"><h1>Your GP in Dublin.<br>Book online in minutes.</h1>
+<p>See only the times that are really free, pay online or at the clinic, and get your confirmation by email straight away.</p>
+<div class="row"><a class="btn accent" onclick="go('book')">Book an appointment</a><a class="btn ghost" onclick="go('services')">Our services</a></div></div></section>
+<section class="sec"><div class="wrap"><div class="grid g3">
+<div class="card"><h3>Real-time booking</h3><p class="mut small">Only free times are shown, so there are no clashes.</p></div>
+<div class="card"><h3>Pay your way</h3><p class="mut small">Card, Apple Pay, Google Pay, or at the clinic.</p></div>
+<div class="card"><h3>Easy changes</h3><p class="mut small">Change or cancel from the link in your email.</p></div></div></div></section>
+<section class="sec" style="padding-top:0"><div class="wrap"><h2>Popular services</h2><div class="grid g3">${S.slice(0,3).map(card).join('')}</div></div></section>`}
+function about(){return `<section class="sec"><div class="wrap"><h1>About the doctor</h1><div class="grid g2"><div class="card" style="min-height:200px;display:grid;place-items:center;color:var(--mut)">Photo placeholder</div><div class="card"><h3>${D.name}</h3><p class="mut">Biography, qualifications and registration number go here once supplied by the clinic.</p></div></div></div></section>`}
+function services(){return `<section class="sec"><div class="wrap"><h1>Our services</h1><div class="grid g3">${S.map(card).join('')}</div></div></section>`}
+function prices(){return `<section class="sec"><div class="wrap"><h1>Prices</h1><p class="note">Try it: change a price in <b>Clinic admin → Services and prices</b> and come back. This page updates straight away.</p><div class="tw"><table><tr><th>Service</th><th>Length</th><th>Price</th></tr>${S.map(s=>`<tr><td>${s.name}</td><td>${s.mins} min</td><td class="price">${euro(s.price)}</td></tr>`).join('')}</table></div></div></section>`}
+function faqs(){return `<section class="sec"><div class="wrap"><h1>Frequently asked questions</h1>${FAQ.map(q=>`<details><summary>${q[0]}</summary><p>${q[1]}</p></details>`).join('')}</div></section>`}
+function contact(){return `<section class="sec"><div class="wrap"><h1>Contact us</h1><div class="grid g2"><div class="card"><h3>Send a message</h3><label class="field">Name<input></label><label class="field">Email<input type="email"></label><label class="field">Message<textarea rows="4"></textarea></label><label class="chk"><input type="checkbox"> I agree to the privacy policy</label><button class="btn" onclick="toast('Message sent. The clinic gets an email and you get an automatic reply.')">Send</button></div><div class="card" style="min-height:220px;display:grid;place-items:center;color:var(--mut)">Google Map placeholder<br>Address, Eircode, phone to be confirmed</div></div></div></section>`}
+function privacy(){return `<section class="sec"><div class="wrap"><h1>Legal pages</h1><p class="mut">Privacy policy, terms, cookie policy and cancellation policy are included. The final wording will be reviewed by the clinic's solicitor before launch.</p></div></section>`}
+
+/* ---------- booking wizard ---------- */
+function slotsFor(sid,dateStr){
+  const d=new Date(dateStr+'T00:00:00'),h=hours[d.getDay()];
+  if(!h||closed[dateStr])return [];
+  const s=svc(sid),out=[];
+  const [sh,sm]=h[0].split(':').map(Number),[eh,em]=h[1].split(':').map(Number);
+  for(let m=sh*60+sm;m+s.mins<=eh*60+em;m+=15){
+    const t=String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');
+    let free=true;for(let x=0;x<s.mins;x+=15){const mm=m+x;if(taken[dateStr+'|'+String(Math.floor(mm/60)).padStart(2,'0')+':'+String(mm%60).padStart(2,'0')])free=false}
+    if(free&&!(dateStr===iso(today)&&m<=new Date().getHours()*60+new Date().getMinutes()+60))out.push(t)}
+  return out}
+function nextDays(){const a=[];for(let i=0;i<10;i++){const d=new Date(today);d.setDate(d.getDate()+i);a.push(d)}return a}
+function stepsBar(n){return `<ol class="steps">${['Service','Time','Details','Confirm'].map((l,i)=>`<li class="${i+1<n?'done':i+1===n?'on':''}">${i+1}. ${l}</li>`).join('')}</ol>`}
+function book(){
+  const b=booking;
+  if(b.step===1)return `<section class="sec"><div class="wrap" style="max-width:640px"><h1>Book an appointment</h1><p class="alert">This service is not for emergencies. In an emergency call 112 or 999.</p><br>${stepsBar(1)}<h2>Choose a service</h2>${S.map(s=>`<button class="opt" onclick="booking={step:2,sid:'${s.id}'};go('book')"><span><b>${s.name}</b><br><span class="mut small">${s.mins} min</span></span><span class="price">${euro(s.price)}</span></button>`).join('')}</div></section>`;
+  if(b.step===2){const days=nextDays();b.date=b.date||days.find(d=>slotsFor(b.sid,iso(d)).length)&&iso(days.find(d=>slotsFor(b.sid,iso(d)).length));
+    const sl=b.date?slotsFor(b.sid,b.date):[];
+    return `<section class="sec"><div class="wrap" style="max-width:640px"><h1>Book an appointment</h1>${stepsBar(2)}<p class="small"><a href="#" onclick="booking={step:1};go('book');return false">← Change service</a> · <b>${svc(b.sid).name}</b></p>
+    <h2>Pick a time</h2><div class="days">${days.map(d=>{const k=iso(d),n=slotsFor(b.sid,k).length;return `<button class="day ${b.date===k?'sel':''}" ${n?'':'disabled style="opacity:.45"'} onclick="booking.date='${k}';booking.time=null;go('book')">${fmtDay(d)}<br><span class="small">${n?n+' free':'closed'}</span></button>`}).join('')}</div>
+    <div class="slots">${sl.map(t=>`<button class="slot ${b.time===t?'sel':''}" onclick="booking.time='${t}';go('book')">${t}</button>`).join('')||'<p class="mut">No free times.</p>'}</div>
+    <p style="margin-top:18px"><button class="btn" ${b.time?'':'disabled'} onclick="booking.step=3;booking.holdEnd=Date.now()+600000;go('book')">Continue</button></p></div></section>`}
+  if(b.step===3){const s=svc(b.sid);return `<section class="sec"><div class="wrap" style="max-width:640px"><h1>Book an appointment</h1>${stepsBar(3)}
+    <div class="hold">We are holding <b>${fmtDay(new Date(b.date+'T00:00:00'))} at ${b.time}</b> for you for <b id="cd">10:00</b>.</div>
+    <h2>Your details</h2><label class="field">First name<input id="fn" value="Test"></label><label class="field">Last name<input id="ln" value="Patient"></label>
+    <label class="field">Email<input id="em" type="email" value="patient@example.com"></label><label class="field">Mobile<input id="ph" value="+353 86 123 4567"></label>
+    <h2 style="margin-top:18px">Health questions</h2><p class="mut small">Kept private. Never sent by email.</p>
+    <label class="field">Current symptoms or concerns<textarea rows="3"></textarea></label>
+    <label class="chk"><input type="checkbox"> I have known allergies</label>
+    <h2 style="margin-top:18px">Payment</h2>
+    <button class="opt sel" id="payO" onclick="booking.pay='online';bindBook()"><span><b>Pay online now</b><br><span class="mut small">Card · Apple Pay · Google Pay (secured by Stripe)</span></span><span class="price">${euro(s.price)}</span></button>
+    ${s.pay?`<button class="opt" id="payC" onclick="booking.pay='clinic';bindBook()"><span><b>Pay at the clinic</b><br><span class="mut small">Pay at reception when you arrive</span></span></button>`:''}
+    <label class="chk"><input id="c1" type="checkbox"> I accept the terms</label>
+    <label class="chk"><input id="c2" type="checkbox"> I agree the clinic may use my health information for this appointment</label>
+    <label class="chk"><input id="c3" type="checkbox"> I accept the cancellation policy (free changes up to 24 hours before)</label>
+    <p><button class="btn accent" onclick="confirmBooking()">Confirm booking</button></p></div></section>`}
+  if(b.step===4){const s=svc(b.sid),d=new Date(b.date+'T00:00:00');return `<section class="sec"><div class="wrap" style="max-width:640px"><div class="card ok-box"><div class="tick">✓</div><h1>Your appointment is booked</h1>
+    <dl class="kv" style="max-width:360px;margin:12px auto"><dt>Reference</dt><dd>${b.ref}</dd><dt>Service</dt><dd>${s.name}</dd><dt>When</dt><dd>${fmtLong(d)}, ${b.time}</dd><dt>Doctor</dt><dd>${D.name}</dd><dt>Payment</dt><dd>${b.pay==='online'?euro(s.price)+' paid online':euro(s.price)+' to pay at the clinic'}</dd></dl>
+    <p><button class="btn" onclick="go('manage')">Manage or cancel</button> <button class="btn ghost" onclick="toast('Downloads a calendar file (.ics) on the live site')">Add to calendar</button></p></div>
+    <div class="email"><b>Email the patient receives instantly</b><br><span class="mut">Subject: Your appointment on ${fmtDay(d)} at ${b.time} is confirmed</span><p>Hello ${b.name}, your ${s.name} with ${D.name} is confirmed. Reference ${b.ref}. You can change or cancel free of charge up to 24 hours before using the link in this email. <u>Manage my appointment</u> · <u>Add to calendar</u></p><p class="mut small" style="margin:0">Health answers are never included in emails. Reminders are sent 24 hours and 2 hours before.</p></div>
+    <p class="note" style="margin-top:14px">Now switch to <b>Clinic admin → Appointments</b>: this booking is already there, and the time has gone from the public page.</p></div></section>`}
+}
+function bindBook(){
+  if(booking.step!==3)return;
+  booking.pay=booking.pay||'online';
+  const o=$('#payO'),c=$('#payC');o&&o.classList.toggle('sel',booking.pay==='online');c&&c.classList.toggle('sel',booking.pay==='clinic');
+  clearInterval(window._cd);window._cd=setInterval(()=>{const e=$('#cd');if(!e)return clearInterval(window._cd);const left=Math.max(0,Math.floor((booking.holdEnd-Date.now())/1000));e.textContent=Math.floor(left/60)+':'+String(left%60).padStart(2,'0')},500)}
+function confirmBooking(){
+  if(!($('#c1').checked&&$('#c2').checked&&$('#c3').checked))return toast('Please tick the three required boxes to continue.');
+  const b=booking,s=svc(b.sid);b.name=$('#fn').value+' '+$('#ln').value;b.ref='RMC-'+Math.random().toString(36).slice(2,8).toUpperCase();
+  for(let x=0;x<s.mins;x+=15){const m=parseInt(b.time)*60+parseInt(b.time.split(':')[1])+x;taken[b.date+'|'+String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0')]=true}
+  appts.push({ref:b.ref,date:b.date,time:b.time,name:b.name,s:b.sid,paid:b.pay==='online'?'paid':'unpaid',status:'confirmed',online:true});
+  b.step=4;go('book')}
+function manage(){const b=booking;if(!b||!b.ref)return `<section class="sec"><div class="wrap"><h1>Your appointment</h1><p class="mut">Make a booking first, then open it from the confirmation.</p></div></section>`;
+  const a=appts.find(x=>x.ref===b.ref),s=svc(b.sid);return `<section class="sec"><div class="wrap" style="max-width:560px"><h1>Your appointment</h1><div class="card"><dl class="kv"><dt>Status</dt><dd>${a.status==='cancelled'?'<span class="pill bad">Cancelled</span>':'<span class="pill ok">Confirmed</span>'}</dd><dt>Reference</dt><dd>${b.ref}</dd><dt>Service</dt><dd>${s.name}</dd><dt>When</dt><dd>${fmtLong(new Date(b.date+'T00:00:00'))}, ${b.time}</dd></dl>
+  ${a.status==='cancelled'?'':`<p style="margin-top:16px"><button class="btn ghost" onclick="toast('Opens the same time picker; the old time is freed automatically')">Change time</button> <button class="btn ghost" style="color:var(--bad);border-color:var(--bad)" onclick="cancelAppt('${b.ref}')">Cancel appointment</button></p><p class="mut small">Free changes end 24 hours before your appointment. After that please phone the clinic. Online payments are refunded automatically when cancelled in time.</p>`}</div></div></section>`}
+function cancelAppt(ref){const a=appts.find(x=>x.ref===ref);a.status='cancelled';const s=svc(a.s);for(let x=0;x<s.mins;x+=15){const m=parseInt(a.time)*60+parseInt(a.time.split(':')[1])+x;delete taken[a.date+'|'+String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0')]}toast('Cancelled. The time is free again and the patient gets an email'+(a.paid==='paid'?' with a refund notice.':'.'));render()}
+
+/* ---------- admin ---------- */
+function adm(k){window._a=k;document.querySelectorAll('.side a').forEach(a=>a.classList.toggle('on',a.dataset.a===k));
+  $('#apage').innerHTML=({dash:aDash,appts:aAppts,walk:aWalk,services:aServices,hours:aHours,closed:aClosed}[k])();window.scrollTo(0,0)}
+const sn=a=>svc(a.s).name;
+function pill(a){return a.status==='cancelled'?'<span class="pill bad">cancelled</span>':a.status==='checked in'?'<span class="pill ok">checked in</span>':a.status==='completed'?'<span class="pill grey">completed</span>':'<span class="pill">confirmed</span>'}
+function payPill(a){return a.paid==='paid'?'<span class="pill ok">paid</span>':'<span class="pill warn">unpaid</span>'}
+function aDash(){const t=appts.filter(a=>a.date===iso(today)||a===null),up=appts.filter(a=>a.status==='confirmed'),rev=appts.filter(a=>a.paid==='paid').reduce((n,a)=>n+svc(a.s).price,0);
+  return `<h1>Dashboard</h1><p class="note">Sample clinic day. Everything on this side is what reception and the doctor see.</p><div class="stats"><div class="card stat"><b>${up.length}</b>upcoming</div><div class="card stat"><b>${appts.filter(a=>a.paid==='unpaid'&&a.status!=='cancelled').length}</b>to collect</div><div class="card stat"><b>${euro(rev)}</b>paid so far</div><div class="card stat"><b>${appts.filter(a=>a.online).length}</b>booked online</div></div><h2>Next appointments</h2>${tbl(appts.filter(a=>a.status!=='cancelled').sort(cmp).slice(0,6))}`}
+const cmp=(a,b)=>(a.date+a.time).localeCompare(b.date+b.time);
+function tbl(list){return `<div class="tw"><table><tr><th>When</th><th>Patient</th><th>Service</th><th>Status</th><th>Payment</th><th></th></tr>${list.map(a=>`<tr><td>${fmtDay(new Date(a.date+'T00:00:00'))}<br><b>${a.time}</b></td><td>${a.name}${a.online?' <span class="pill grey">online</span>':''}<br><span class="mut small">${a.ref}</span></td><td>${sn(a)}</td><td>${pill(a)}</td><td>${payPill(a)}</td><td style="white-space:nowrap">${a.status==='confirmed'?`<button class="btn ghost sm" onclick="act('${a.ref}','in')">Check in</button>`:''}${a.status==='checked in'?`<button class="btn sm" onclick="act('${a.ref}','done')">Complete</button>`:''}${a.paid==='unpaid'&&a.status!=='cancelled'?` <button class="btn ghost sm" onclick="act('${a.ref}','pay')">Mark paid</button>`:''}</td></tr>`).join('')||'<tr><td colspan="6" class="mut">Nothing here.</td></tr>'}</table></div>`}
+function act(ref,w){const a=appts.find(x=>x.ref===ref);if(w==='in')a.status='checked in';if(w==='done')a.status='completed';if(w==='pay'){a.paid='paid';toast('Marked paid. A receipt number is issued.')}adm(window._a)}
+function aAppts(){return `<h1>Appointments</h1><p class="note">Every online booking appears here the moment it is made. Staff can check in, complete, take payment and cancel.</p>${tbl(appts.slice().sort(cmp))}`}
+function aWalk(){const days=nextDays();return `<h1>Walk-in and phone booking</h1><p class="note">Uses the same rules as online booking, so a time can never be booked twice.</p><div class="card" style="max-width:520px"><label class="field">Service<select id="ws">${S.map(s=>`<option value="${s.id}">${s.name}</option>`).join('')}</select></label><label class="field">Day<select id="wd">${days.map(d=>`<option value="${iso(d)}">${fmtDay(d)}</option>`).join('')}</select></label><label class="field">Time (HH:MM)<input id="wt" value="09:30"></label><label class="field">Patient name<input id="wn" value="Walk-in patient"></label><button class="btn" onclick="walkIn()">Book</button></div>`}
+function walkIn(){const sid=$('#ws').value,d=$('#wd').value,t=$('#wt').value.trim();if(!slotsFor(sid,d).includes(t))return toast('Sorry, that time is taken or outside opening hours.');
+  const s=svc(sid);for(let x=0;x<s.mins;x+=15){const m=parseInt(t)*60+parseInt(t.split(':')[1])+x;taken[d+'|'+String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0')]=true}
+  appts.push({ref:'RMC-W'+Math.floor(Math.random()*900+100),date:d,time:t,name:$('#wn').value,s:sid,paid:'unpaid',status:'confirmed'});toast('Booked. That time is now blocked on the public site.');adm('appts')}
+function aServices(){return `<h1>Services and prices</h1><p class="note">Change a price, then switch to <b>Patient website → Prices</b>. It updates immediately. No developer needed.</p><div class="tw"><table><tr><th>Service</th><th>Minutes</th><th>Price (€)</th><th>Pay at clinic allowed</th></tr>${S.map((s,i)=>`<tr><td>${s.name}</td><td>${s.mins}</td><td><input type="number" min="0" step="0.5" value="${s.price}" style="width:90px;min-height:40px;border:1px solid #94a3b8;border-radius:8px;padding:0 8px" onchange="S[${i}].price=+this.value;toast('Saved. The public site now shows '+euro(this.value))"></td><td><input type="checkbox" ${s.pay?'checked':''} style="width:22px;height:22px" onchange="S[${i}].pay=this.checked;toast('Saved')"></td></tr>`).join('')}</table></div>`}
+function aHours(){const N=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];return `<h1>Doctor hours</h1><p class="note">Set ${D.name}'s weekly hours. Patients only ever see free times inside these hours.</p><div class="card" style="max-width:560px">${[1,2,3,4,5,6,0].map(i=>`<div class="hrs"><b>${N[i]}</b><input type="time" value="${hours[i]?hours[i][0]:''}" onchange="setH(${i},0,this.value)"><input type="time" value="${hours[i]?hours[i][1]:''}" onchange="setH(${i},1,this.value)"><label class="small"><input type="checkbox" ${hours[i]?'':'checked'} onchange="offDay(${i},this.checked)"> off</label></div>`).join('')}</div>`}
+function setH(i,j,v){hours[i]=hours[i]||['09:30','13:00'];hours[i][j]=v;toast('Saved')}
+function offDay(i,off){hours[i]=off?null:['09:30','13:00'];adm('hours')}
+function aClosed(){const days=nextDays();return `<h1>Closed days</h1><p class="note">Irish public holidays are added automatically. Add your own (training day, holiday), and those days disappear from the booking page.</p><div class="card" style="max-width:520px"><label class="field">Date<select id="cd1">${days.map(d=>`<option value="${iso(d)}">${fmtDay(d)}</option>`).join('')}</select></label><label class="field">Reason<input id="cr" value="Staff training day"></label><button class="btn" onclick="closeDay()">Add closed day</button></div><br><div class="tw"><table><tr><th>Date</th><th>Reason</th><th></th></tr>${Object.entries(closed).map(([k,v])=>`<tr><td>${fmtDay(new Date(k+'T00:00:00'))}</td><td>${v}</td><td><button class="btn ghost sm" onclick="delete closed['${k}'];adm('closed')">Remove</button></td></tr>`).join('')||'<tr><td colspan="3" class="mut">No closed days added.</td></tr>'}</table></div>`}
+function closeDay(){closed[$('#cd1').value]=$('#cr').value;toast('Added. That day is now unavailable for booking.');adm('closed')}
+
+setView('patient');
+</script>
+</body>
+</html>
