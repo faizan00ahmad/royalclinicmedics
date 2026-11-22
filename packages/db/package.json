@@ -9,11 +9,9 @@
     "lint": "tsc --noEmit",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "generate": "drizzle-kit generate",
-    "seed": "tsx src/seed-cli.ts"
+    "generate": "drizzle-kit generate"
   },
   "dependencies": {
-    "@rmc/core": "workspace:*",
     "drizzle-orm": "^0.38.0",
     "pg": "^8.13.0"
   },
@@ -21,7 +19,6 @@
     "@electric-sql/pglite": "^0.2.15",
     "@types/pg": "^8.11.0",
     "drizzle-kit": "^0.30.0",
-    "tsx": "^4.19.0",
     "typescript": "^5.6.0",
     "vitest": "^2.1.0"
   }

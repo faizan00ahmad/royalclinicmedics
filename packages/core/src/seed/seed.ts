@@ -1,34 +1,10 @@
-import { irishPublicHolidays } from "@rmc/core";
+import { schema } from "@rmc/db";
 import { sql } from "drizzle-orm";
-import type { PgDatabase, PgQueryResultHKT } from "drizzle-orm/pg-core";
-import * as schema from "./schema";
+import type { Database } from "../db-types";
+import { irishPublicHolidays } from "../holidays";
+import { DEFAULT_SETTINGS } from "../settings";
 
-type SeedDb = PgDatabase<PgQueryResultHKT, typeof schema>;
-
-const TBD = "[TBD]";
-
-/** Every value marked [TBD] is listed in docs/TBD.md and edited in admin. Nothing here is hard-coded in components. */
-export const SETTINGS: Record<string, unknown> = {
-  "clinic.name": "Royal Medics Clinic",
-  "clinic.phone": TBD,
-  "clinic.email": TBD,
-  "clinic.whatsapp": "",
-  "clinic.address": TBD,
-  "clinic.eircode": TBD,
-  "clinic.mapQuery": TBD,
-  "clinic.googleReviewUrl": "",
-  "clinic.openingHoursText": "Mon to Fri 09:00 to 17:30 [TBD]",
-  "booking.slotIntervalMinutes": 15,
-  "booking.minNoticeMinutes": 60,
-  "booking.bookingWindowDays": 30,
-  "booking.cancellationWindowHours": 24,
-  "booking.maxReschedules": 2,
-  "booking.holdMinutes": 10,
-  "booking.gmsPolicy": "ASK_TO_CALL", // CHARGE_NORMALLY | FREE_FOR_ELIGIBLE | ASK_TO_CALL
-  "features.onlineConsultations": false, // EXT-01
-  "features.googleReviews": false, // off until Medical Council advertising guidance is checked
-  "notifications.reminderHours": [24, 2],
-};
+type SeedDb = Database;
 
 // Names, prices and durations are placeholders. Prices are integer cents.
 const SERVICES = [
@@ -70,7 +46,7 @@ const LEGAL_PAGES = [
 export async function seed(db: SeedDb): Promise<void> {
   await db.transaction(async (tx) => {
     // Settings
-    for (const [key, value] of Object.entries(SETTINGS)) {
+    for (const [key, value] of Object.entries(DEFAULT_SETTINGS)) {
       await tx.insert(schema.settings).values({ key, value }).onConflictDoNothing();
     }
 

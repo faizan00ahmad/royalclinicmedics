@@ -20,3 +20,11 @@
 - **Decision:** `computeSlots` in `packages/core/src/slots.ts` is a pure function (no DB, no clock). A clinic holiday removes regular hours; a closed override removes everything for that doctor and date; a non-closed override ADDS an extra range and still opens on a holiday. Appointment must end within the working range, but its buffer may run past it. The slot plus its buffer must not overlap busy time or blocked time.
 - **Reason:** SRS BK-10..BK-15 left override and holiday precedence open. Admin can still open a holiday by adding extra hours.
 - **DST:** ranges are converted from Dublin wall clock to UTC, then stepped in real elapsed minutes. Tests cover 29 Mar and 25 Oct 2026.
+
+## 2026-11-22 – Booking module and package layout
+- **Decision:** `@rmc/core` depends on `@rmc/db` (not the reverse). Seed moved to `packages/core/src/seed` so it can use core holidays and default settings. Avoids a circular dependency that Turborepo rejects.
+- **Decision:** Hold stays a HOLD lock while the patient pays. The appointment row is created on confirmation (Stripe webhook or pay-at-clinic), converting the lock in place, so the slot is never unprotected. If the hold expired meanwhile, the slot is re-locked if free, else `SlotTakenError` and the caller refunds (BK-23).
+- **Decision:** Manage links use a random 32-byte token; only its SHA-256 hash is stored (SEC-04). Booking ref is `RMC-` plus 6 characters without 0/O/1/I.
+- **Decision:** Patients are matched on name + date of birth + email, so family members sharing an email stay separate. Patients cannot cancel or reschedule inside the cancellation window; the clinic can.
+- **Limits:** repeating time blocks (`recurrence_rule`) are not expanded yet. Availability rules ignore their `modes` column in Phase 1 (only IN_CLINIC is bookable).
+- **Test caveat:** PGlite runs one connection, so the "two simultaneous requests" test proves correct outcomes but not true parallel contention. The exclusion-constraint path is exercised by the "hold expired and slot taken" test. A real two-connection test on Neon is still to do.

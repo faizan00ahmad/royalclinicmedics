@@ -1,23 +1,12 @@
-import { readFileSync, readdirSync } from "node:fs";
-import { join } from "node:path";
-import { PGlite } from "@electric-sql/pglite";
-import { btree_gist } from "@electric-sql/pglite/contrib/btree_gist";
-import { drizzle } from "drizzle-orm/pglite";
 import { beforeAll, describe, expect, it } from "vitest";
-import * as schema from "./schema";
+import { createTestDb } from "../test-utils/pglite";
 import { seed } from "./seed";
 
-const dir = join(__dirname, "..", "migrations");
-let client: PGlite;
-let db: ReturnType<typeof drizzle<typeof schema>>;
+let client: Awaited<ReturnType<typeof createTestDb>>["client"];
+let db: Awaited<ReturnType<typeof createTestDb>>["db"];
 
 beforeAll(async () => {
-  client = new PGlite({ extensions: { btree_gist } });
-  for (const f of readdirSync(dir).filter((x) => x.endsWith(".sql")).sort()) {
-    const sql = readFileSync(join(dir, f), "utf8");
-    for (const stmt of sql.split("--> statement-breakpoint")) if (stmt.trim()) await client.exec(stmt);
-  }
-  db = drizzle(client, { schema });
+  ({ client, db } = await createTestDb());
 });
 
 const count = async (table: string) =>

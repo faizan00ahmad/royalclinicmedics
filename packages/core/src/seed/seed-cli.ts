@@ -1,4 +1,4 @@
-import { getDb } from "./index";
+import { getDb } from "@rmc/db";
 import { seed } from "./seed";
 
 seed(getDb())

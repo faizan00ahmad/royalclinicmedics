@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ["@rmc/core"],
+  transpilePackages: ["@rmc/core", "@rmc/db"], serverExternalPackages: ["pg"],
   poweredByHeader: false,
 };
 

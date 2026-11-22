@@ -76,7 +76,7 @@ const MIN = 60_000;
 
 const hhmm = (t: string) => t.slice(0, 5);
 
-function addDays(date: string, days: number): string {
+export function addDays(date: string, days: number): string {
   const [y, m, d] = date.split("-").map(Number) as [number, number, number];
   return new Date(Date.UTC(y, m - 1, d + days)).toISOString().slice(0, 10);
 }
