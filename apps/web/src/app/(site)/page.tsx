@@ -1,7 +1,8 @@
 import { isTbd, listReviews, listServices } from "@rmc/core";
 import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
-import { Rail, ServiceCard } from "@/components/ServiceCard";
+import { AutoRail } from "@/components/AutoRail";
+import { ServiceCard } from "@/components/ServiceCard";
 import { db } from "@/lib/server";
 import { clean, hasPhone, loadChrome, telHref } from "@/lib/site";
 
@@ -47,7 +48,7 @@ export default async function Home() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 pb-4 pt-4">
-        <Rail title="Popular services" hint="Swipe to see more">{featured.map((s) => <ServiceCard key={s.id} s={s} rail />)}</Rail>
+        <AutoRail title="Popular services" hint="Slides on its own. Swipe or tap Pause to take control.">{featured.map((s) => <ServiceCard key={s.id} s={s} rail />)}</AutoRail>
         <p className="mt-2"><Link href="/services" className="font-semibold text-brand-700 underline">See all services and prices</Link></p>
       </section>
 
