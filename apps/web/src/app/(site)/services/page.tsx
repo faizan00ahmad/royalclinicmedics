@@ -1,6 +1,7 @@
 import { groupBy, listServices } from "@rmc/core";
 import type { Metadata } from "next";
-import { Rail, ServiceCard } from "@/components/ServiceCard";
+import { Rail } from "@/components/Rail";
+import { ServiceCard } from "@/components/ServiceCard";
 import { db } from "@/lib/server";
 
 export const metadata: Metadata = { title: "Services", description: "GP services, tests, certificates and more. Book online." };

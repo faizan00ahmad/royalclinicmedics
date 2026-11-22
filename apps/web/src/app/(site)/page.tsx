@@ -1,7 +1,8 @@
 import { isTbd, listReviews, listServices } from "@rmc/core";
 import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
-import { Rail, ServiceCard } from "@/components/ServiceCard";
+import { Rail } from "@/components/Rail";
+import { ServiceCard } from "@/components/ServiceCard";
 import { db } from "@/lib/server";
 import { clean, hasPhone, loadChrome, telHref } from "@/lib/site";
 
