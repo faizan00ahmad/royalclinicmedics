@@ -12,6 +12,7 @@
 - [ ] T09 docs/M1-REPORT.md
 
 ## M2 Website
+- [x] Public pages: layout, Home, About, Services, Service details, Prices, FAQs, Contact, legal pages, sitemap, robots, cookie banner, booking wizard, manage page (WEB-00..WEB-14 mostly; GA4 events, Turnstile, email still to do)
 - [ ] Layout, sticky header/mobile bar [WEB-00]; Home, About, Services, Service details, Prices, FAQs, Contact, legal [WEB-01..09]
 - [ ] Cookie consent + GA4 consent mode [WEB-13, WEB-16]; SEO [WEB-14]; reviews [WEB-17]
 

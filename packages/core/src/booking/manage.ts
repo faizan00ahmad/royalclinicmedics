@@ -19,6 +19,8 @@ export async function resolveAppointmentByToken(db: Database, ref: string, token
 
 export interface BookingSummary {
   bookingRef: string;
+  serviceId: string;
+  doctorId: string;
   status: AppointmentRow["status"];
   paymentStatus: AppointmentRow["paymentStatus"];
   paymentChoice: AppointmentRow["paymentChoice"];
@@ -50,6 +52,8 @@ export async function getBookingSummary(db: Database, appt: AppointmentRow, now:
   const left = Math.max(0, settings.maxReschedules - appt.rescheduleCount);
   return {
     bookingRef: appt.bookingRef,
+    serviceId: appt.serviceId,
+    doctorId: appt.doctorId,
     status: appt.status,
     paymentStatus: appt.paymentStatus,
     paymentChoice: appt.paymentChoice,

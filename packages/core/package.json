@@ -9,7 +9,8 @@
     "lint": "tsc --noEmit",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "seed": "tsx src/seed/seed-cli.ts"
+    "seed": "tsx src/seed/seed-cli.ts",
+    "dev:db": "tsx src/dev/dev-db.ts"
   },
   "dependencies": {
     "@rmc/db": "workspace:*",
