@@ -88,114 +88,123 @@ th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vert
 .toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#0f172a;color:#fff;padding:12px 18px;border-radius:12px;z-index:90;display:none;max-width:92vw;font-size:.92rem}
 .note{font-size:.82rem;background:#eff6ff;border:1px solid #bfdbfe;color:#1e3a8a;border-radius:10px;padding:8px 12px;margin:0 0 14px}
 
-/* ================= LIQUID GLASS LAYER (Apple-style) ================= */
+/* ================= REFINED CLINIC STYLE ================= */
 :root{
-  --glass:rgba(255,255,255,.52);--glass-strong:rgba(255,255,255,.72);--glass-edge:rgba(255,255,255,.75);
-  --shadow:0 10px 34px rgba(30,64,90,.13),0 2px 6px rgba(30,64,90,.06);
-  --shine:inset 0 1.5px 0 rgba(255,255,255,.9),inset 0 -1px 0 rgba(255,255,255,.25),inset 0 0 0 1px rgba(255,255,255,.35);
-  --blur:blur(26px) saturate(185%);
-  --brand:#0a8f84;--brand-d:#0b6e66;
+  --bg:#f5f6f4;--surface:#fff;--line:#dfe3e0;--line-2:#eceeec;--ink:#13201e;--mut:#56655f;
+  --brand:#0b5d57;--brand-d:#08433f;--brand-l:#e3f0ee;--accent:#b45309;
+  --ok:#17703a;--bad:#b42318;--ring:0 0 0 3px rgba(11,93,87,.28);
 }
-html{background:#e8f1f5}
-body{
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Segoe UI Variable","Segoe UI",system-ui,sans-serif;
-  letter-spacing:-.011em;color:#0b1b2b;
-  background:
-    radial-gradient(60vmax 45vmax at 8% -5%,rgba(45,212,191,.55),transparent 60%),
-    radial-gradient(55vmax 45vmax at 105% 8%,rgba(96,165,250,.50),transparent 60%),
-    radial-gradient(50vmax 40vmax at 55% 105%,rgba(251,191,36,.38),transparent 60%),
-    radial-gradient(40vmax 35vmax at -5% 85%,rgba(167,139,250,.30),transparent 60%),
-    #eaf3f6;
-  background-attachment:fixed;
-}
-h1,h2,h3{letter-spacing:-.025em}
-h1{font-weight:800}
-.mut{color:#4b6074}
+html{background:var(--bg)}
+body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI Variable Text","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;letter-spacing:0;font-size:16px;line-height:1.55}
+h1,h2,h3{letter-spacing:-.02em;font-weight:650;color:var(--ink)}
+h1{font-size:2.25rem;line-height:1.12;font-weight:700}h2{font-size:1.3rem}h3{font-size:1.05rem}
+.mut{color:var(--mut)}.price{color:var(--brand-d);font-weight:700}
+a{color:var(--brand)}
+:focus-visible{outline:none;box-shadow:var(--ring);border-radius:8px}
 
-/* glass surfaces */
-.card,details,table,.hold,.email,.alert,.note,.opt,.day,.slot,.field input,.field select,.field textarea{
-  -webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur)}
-.card,details,.email{background:var(--glass);border:1px solid var(--glass-edge);border-radius:26px;box-shadow:var(--shadow),var(--shine)}
-.card{padding:22px}
-.hold{background:rgba(207,250,254,.55);border:1px solid rgba(255,255,255,.8);border-radius:18px;box-shadow:var(--shine)}
-.alert{background:rgba(254,243,199,.6);border:1px solid rgba(255,255,255,.8);border-radius:18px;box-shadow:var(--shine)}
-.note{background:rgba(219,234,254,.55);border:1px solid rgba(255,255,255,.8);border-radius:18px;box-shadow:var(--shine)}
-details{padding:0 20px}
-table{background:var(--glass);border:1px solid var(--glass-edge);border-radius:22px;box-shadow:var(--shadow),var(--shine);border-collapse:separate;border-spacing:0}
-th{background:rgba(255,255,255,.35)}
-th,td{border-bottom:1px solid rgba(15,23,42,.06)}
-tr:last-child td{border-bottom:0}
+/* buttons: solid, quiet */
+.btn{background:var(--brand);color:#fff;border:1px solid var(--brand);border-radius:10px;box-shadow:none;text-shadow:none;font-weight:600;min-height:46px;padding:0 20px;transition:background .15s,border-color .15s}
+.btn:hover{background:var(--brand-d);border-color:var(--brand-d);transform:none;box-shadow:none}
+.btn:active{transform:none;background:#06312e}
+.btn.accent{background:var(--brand);color:#fff;border-color:var(--brand)}
+.btn.accent:hover{background:var(--brand-d)}
+.btn.ghost{background:#fff;color:var(--brand-d);border:1px solid #b9c7c3;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+.btn.ghost:hover{background:var(--brand-l);border-color:var(--brand)}
+.btn.sm{min-height:38px;padding:0 14px;border-radius:9px;font-size:.9rem}
+.btn:disabled{background:#cfd8d5;border-color:#cfd8d5;color:#fff;opacity:1}
 
-/* top prototype bar and segmented control */
-#proto{background:rgba(15,23,42,.62);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border-bottom:1px solid rgba(255,255,255,.12)}
-.seg{background:rgba(255,255,255,.14);border-radius:999px;padding:3px;box-shadow:inset 0 1px 2px rgba(0,0,0,.25)}
-.seg button{border-radius:999px;color:#e2e8f0}
-.seg button.on{background:rgba(255,255,255,.92);color:#0b1b2b;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+/* surfaces */
+.card,details,.email,table{background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:0 1px 2px rgba(19,32,30,.04);-webkit-backdrop-filter:none;backdrop-filter:none}
+.card{padding:20px}
+details{padding:0 18px;margin-bottom:8px}
+summary{min-height:52px}
+table{border-collapse:separate;border-spacing:0;overflow:hidden}
+th{background:#f1f3f1;color:var(--mut);font-weight:600;letter-spacing:.03em}
+th,td{border-bottom:1px solid var(--line-2)}tr:last-child td{border-bottom:0}
+.hold{background:#eef6f5;border:1px solid #cfe3e0;border-radius:10px;box-shadow:none}
+.alert{background:#fbf3e4;border:1px solid #ecd9ae;color:#5b3d06;border-radius:10px;box-shadow:none}
+.note{background:#eef2f7;border:1px solid #d6dfeb;color:#2a3b52;border-radius:10px;box-shadow:none}
+.pill{background:var(--brand-l);border:0;box-shadow:none;color:var(--brand-d);font-weight:600;border-radius:6px;padding:2px 8px}
+.pill.warn{background:#fbefd5;color:#7a4a00}.pill.ok{background:#dff1e5;color:#17703a}.pill.bad{background:#fbe3e0;color:#a1281c}.pill.grey{background:#e9ecea;color:#44524c}
 
-/* floating glass header */
-header.site{background:transparent;border:0;top:52px;padding:0 12px}
-header.site .wrap{background:var(--glass-strong);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border:1px solid var(--glass-edge);border-radius:999px;box-shadow:var(--shadow),var(--shine);padding:0 10px 0 16px;min-height:58px}
-.logo i{background:linear-gradient(145deg,#2dd4bf,#0a8f84);box-shadow:inset 0 1px 1px rgba(255,255,255,.7),0 4px 10px rgba(10,143,132,.35);border-radius:11px}
-nav.main a{border-radius:999px;color:#35506a}
-nav.main a.on{background:rgba(255,255,255,.85);color:var(--brand-d);box-shadow:0 1px 6px rgba(30,64,90,.15),var(--shine)}
+/* prototype bar */
+#proto{background:#13201e;color:#d9e1de;border-bottom:0;-webkit-backdrop-filter:none;backdrop-filter:none}
+#proto b{color:#f3c97a}
+.seg{background:#24322f;border-radius:9px;box-shadow:none;padding:3px}
+.seg button{border-radius:7px;color:#b9c6c1;font-weight:600}
+.seg button.on{background:#fff;color:#13201e;box-shadow:none}
 
-/* buttons: glossy pills */
-.btn{border-radius:999px;border:1px solid rgba(255,255,255,.35);background:linear-gradient(180deg,#19b3a6,#0a8f84);color:#fff;box-shadow:0 6px 16px rgba(10,143,132,.35),inset 0 1.5px 0 rgba(255,255,255,.55);text-shadow:0 1px 1px rgba(0,0,0,.15);transition:transform .15s,box-shadow .15s}
-.btn:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(10,143,132,.4),inset 0 1.5px 0 rgba(255,255,255,.6)}
-.btn:active{transform:scale(.97)}
-.btn.accent{background:linear-gradient(180deg,#fbbf24,#f59e0b);color:#3b2400;text-shadow:0 1px 0 rgba(255,255,255,.4);box-shadow:0 6px 16px rgba(245,158,11,.38),inset 0 1.5px 0 rgba(255,255,255,.7)}
-.btn.ghost{background:var(--glass);color:var(--brand-d);border:1px solid var(--glass-edge);text-shadow:none;box-shadow:var(--shadow),var(--shine);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur)}
-.pill{background:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.8);box-shadow:var(--shine);color:var(--brand-d)}
-.pill.warn{background:rgba(254,243,199,.75);color:#92400e}.pill.ok{background:rgba(187,247,208,.75);color:#166534}.pill.bad{background:rgba(254,202,202,.75);color:#991b1b}.pill.grey{background:rgba(226,232,240,.7);color:#334155}
+/* header: the only frosted element */
+header.site{background:rgba(255,255,255,.86);-webkit-backdrop-filter:saturate(180%) blur(18px);backdrop-filter:saturate(180%) blur(18px);border-bottom:1px solid var(--line);padding:0;top:48px}
+header.site .wrap{background:none;border:0;border-radius:0;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;padding:0 16px;min-height:64px}
+.logo{font-weight:700;font-size:1.05rem;color:var(--brand-d);letter-spacing:-.01em;white-space:nowrap}
+.logo i{width:30px;height:30px;border-radius:8px;background:var(--brand);box-shadow:none;position:relative;font-size:0;color:transparent}
+.logo i::before,.logo i::after{content:"";position:absolute;background:#fff;border-radius:2px}
+.logo i::before{width:14px;height:4px;left:8px;top:13px}.logo i::after{width:4px;height:14px;left:13px;top:8px}
+nav.main a{border-radius:8px;color:var(--mut);font-weight:500}
+nav.main a:hover{color:var(--ink);background:#eef1ef}
+nav.main a.on{background:var(--brand-l);color:var(--brand-d);box-shadow:none;font-weight:600}
 
-/* hero becomes a big glass-over-colour panel */
-.hero{background:transparent;color:#fff;padding:26px 0 8px}
-.hero .wrap{position:relative;overflow:hidden;border-radius:36px;padding:46px 28px;border:1px solid rgba(255,255,255,.5);
-  background:linear-gradient(135deg,rgba(13,148,136,.88),rgba(14,116,144,.82) 55%,rgba(79,70,229,.7));
-  box-shadow:0 24px 60px rgba(14,116,144,.35),inset 0 2px 0 rgba(255,255,255,.45),inset 0 -2px 0 rgba(255,255,255,.1)}
-.hero .wrap::before{content:"";position:absolute;width:420px;height:420px;right:-120px;top:-160px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.55),transparent 65%);pointer-events:none}
-.hero .wrap::after{content:"";position:absolute;width:300px;height:300px;left:-90px;bottom:-150px;border-radius:50%;background:radial-gradient(circle,rgba(251,191,36,.5),transparent 65%);pointer-events:none}
-.hero h1,.hero p,.hero .row{position:relative;z-index:1}
-.hero .btn.ghost{background:rgba(255,255,255,.2);color:#fff;border-color:rgba(255,255,255,.55);text-shadow:none}
+/* home */
+.hero2{padding:44px 0 24px}
+.hero-grid{display:grid;gap:28px;grid-template-columns:1.15fr .85fr;align-items:start}
+.eyebrow{margin:0 0 8px;font-size:.78rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--brand)}
+.lead{font-size:1.1rem;color:var(--mut);max-width:520px;margin:10px 0 0}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.ticks{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:8px;color:var(--mut);font-size:.95rem}
+.ticks li{padding-left:26px;position:relative}
+.ticks li::before{content:"";position:absolute;left:3px;top:.45em;width:12px;height:7px;border-left:2px solid var(--brand);border-bottom:2px solid var(--brand);transform:rotate(-45deg)}
+.next h2{font-size:1.6rem;margin:2px 0 4px}
+.next hr{border:0;border-top:1px solid var(--line-2);margin:18px 0}
+.hrsrow{display:flex;justify-content:space-between;font-size:.93rem;padding:3px 0;color:var(--mut)}.hrsrow b{color:var(--ink);font-weight:600}
+.how{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));counter-reset:s}
+.how .card{counter-increment:s;position:relative;padding-top:54px}
+.how .card::before{content:counter(s);position:absolute;left:20px;top:16px;width:28px;height:28px;border-radius:50%;background:var(--brand-l);color:var(--brand-d);font-weight:700;display:grid;place-items:center;font-size:.9rem}
+.sec{padding:26px 0}
+@media(max-width:860px){.hero-grid{grid-template-columns:1fr}h1{font-size:1.85rem}}
 
 /* booking controls */
-.opt,.day,.slot{background:var(--glass);border:1px solid var(--glass-edge);border-radius:20px;box-shadow:var(--shadow),var(--shine);transition:transform .15s}
-.opt:hover,.slot:hover,.day:hover{transform:translateY(-1px);background:var(--glass-strong);border-color:var(--glass-edge)}
-.opt.sel,.slot.sel,.day.sel{background:linear-gradient(180deg,#19b3a6,#0a8f84);color:#fff;border-color:rgba(255,255,255,.5);box-shadow:0 8px 20px rgba(10,143,132,.4),inset 0 1.5px 0 rgba(255,255,255,.55)}
-.opt.sel .mut,.opt.sel .price{color:#e6fffb}
-.slot{border-radius:16px}
-.steps li{border-bottom:0;background:rgba(255,255,255,.4);border-radius:999px;margin:0 2px;padding:9px 2px;box-shadow:var(--shine)}
-.steps li.on{background:rgba(255,255,255,.9);color:var(--brand-d);box-shadow:var(--shadow),var(--shine)}
-.steps li.done{background:rgba(187,247,208,.7);color:#166534}
-.field input,.field select,.field textarea{background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.85);border-radius:16px;box-shadow:inset 0 2px 5px rgba(30,64,90,.08),var(--shine);outline:none}
-.field input:focus,.field select:focus,.field textarea:focus{box-shadow:0 0 0 4px rgba(10,143,132,.25),inset 0 2px 5px rgba(30,64,90,.06);border-color:#2dd4bf}
-.tick{background:linear-gradient(180deg,#bbf7d0,#4ade80);color:#fff;box-shadow:0 10px 24px rgba(34,197,94,.4),inset 0 2px 0 rgba(255,255,255,.7)}
+.opt,.day,.slot{background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;transition:border-color .12s,background .12s}
+.opt:hover,.slot:hover,.day:hover{background:#f7faf9;border-color:#9db8b3;transform:none}
+.opt.sel,.slot.sel,.day.sel{background:var(--brand);color:#fff;border-color:var(--brand);box-shadow:none}
+.opt.sel .mut,.opt.sel .price{color:#d4ebe7}
+.opt{padding:14px 16px;border-radius:12px}
+.slot{font-weight:600;font-variant-numeric:tabular-nums}
+.steps{gap:4px}
+.steps li{background:none;border-radius:0;margin:0;padding:8px 2px;box-shadow:none;border-bottom:3px solid var(--line);color:var(--mut);font-weight:600;font-size:.8rem}
+.steps li.on{background:none;border-color:var(--brand);color:var(--brand-d);box-shadow:none}
+.steps li.done{background:none;border-color:var(--brand);color:var(--mut)}
+.field input,.field select,.field textarea{background:#fff;border:1px solid #aab8b3;border-radius:9px;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--brand);box-shadow:var(--ring);outline:none}
+.tick{background:#dff1e5;color:var(--ok);box-shadow:none;width:56px;height:56px;font-size:1.6rem}
+.email{background:#fafaf8;border-style:solid;border-radius:12px}
 
 /* footer + phone bar */
-footer.site{background:rgba(15,23,42,.72);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border-radius:36px 36px 0 0;margin-top:40px}
-.mbar{left:12px;right:12px;bottom:12px;background:var(--glass-strong);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border:1px solid var(--glass-edge);border-radius:999px;box-shadow:var(--shadow),var(--shine);padding:7px}
+footer.site{background:#13201e;color:#b9c6c1;border-radius:0;margin-top:36px;-webkit-backdrop-filter:none;backdrop-filter:none}
+.mbar{left:0;right:0;bottom:0;border-radius:0;border:0;border-top:1px solid var(--line);background:rgba(255,255,255,.92);-webkit-backdrop-filter:saturate(180%) blur(18px);backdrop-filter:saturate(180%) blur(18px);box-shadow:none;padding:8px 12px calc(8px + env(safe-area-inset-bottom))}
 
 /* admin */
-.side{background:rgba(15,23,42,.6);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);margin:12px;border-radius:28px;border:1px solid rgba(255,255,255,.18);box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.25)}
-.side a{border-radius:999px}
-.side a.on{background:rgba(255,255,255,.2);box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
-.stat{text-align:left}.stat b{font-size:2rem;letter-spacing:-.03em;color:var(--brand-d)}
-@media(max-width:760px){.side{margin:8px;border-radius:999px;padding:6px}}
-.toast{background:rgba(15,23,42,.78);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border:1px solid rgba(255,255,255,.2);border-radius:999px;box-shadow:0 12px 34px rgba(0,0,0,.3);padding:13px 22px}
-.logo{white-space:nowrap}
+.side{background:#13201e;margin:0;border-radius:0;border:0;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+.side a{border-radius:8px;font-weight:500}
+.side a.on{background:#24322f;color:#fff;box-shadow:none}
+.stat b{color:var(--ink);font-size:1.9rem;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.stat{color:var(--mut)}
+.toast{background:#13201e;border:0;border-radius:10px;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:0 8px 24px rgba(0,0,0,.25);padding:12px 18px}
 @media(max-width:799px){
   #proto{position:static}
-  header.site{top:8px;padding:0 8px}
-  header.site .wrap{flex-wrap:wrap;border-radius:28px;padding:6px 10px;row-gap:0}
-  .logo{order:1;font-size:1rem}
-  header.site .btn{order:2;margin-left:auto}
-  nav.main{order:3;flex:0 0 100%;margin:0 -4px;padding-bottom:4px;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent)}
-  nav.main::-webkit-scrollbar{display:none}nav.main{scrollbar-width:none}
-  .hero .wrap{padding:34px 20px;border-radius:30px}
-  h1{font-size:1.65rem}
+  header.site{top:0}
+  header.site .wrap{flex-wrap:wrap;padding:4px 12px 0;row-gap:0;border-radius:0}
+  .logo{order:1}header.site .btn{order:2;margin-left:auto}
+  nav.main{order:3;flex:0 0 100%;margin:0 -6px;padding:0 0 6px;-webkit-mask-image:linear-gradient(90deg,#000 90%,transparent);mask-image:linear-gradient(90deg,#000 90%,transparent);scrollbar-width:none}
+  nav.main::-webkit-scrollbar{display:none}
+  .hero2{padding-top:26px}
+  .side{margin:0;border-radius:0;padding:6px}
 }
+.seg button{min-height:44px}
+footer.site p a{display:inline-flex;align-items:center;min-height:44px;padding:0 6px}
+p.small a{display:inline-flex;align-items:center;min-height:44px}
+td input[type=number],.hrs input[type=time]{min-height:44px!important}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
-@media(prefers-reduced-transparency:reduce){.card,details,table,.opt,.day,.slot{-webkit-backdrop-filter:none;backdrop-filter:none;background:#fff}}
 </style>
 </head>
 <body>
@@ -300,15 +309,21 @@ function render(){
 
 /* ---------- patient pages ---------- */
 const card=s=>`<div class="card"><h3>${s.name}</h3><p class="mut small" style="margin:0 0 8px">${s.desc}</p><p class="small"><span class="price">${euro(s.price)}</span> · ${s.mins} min</p><button class="btn accent sm" onclick="booking={step:2,sid:'${s.id}'};go('book')">Book</button></div>`;
-function home(){return `
-<section class="hero"><div class="wrap"><h1>Your GP in Dublin.<br>Book online in minutes.</h1>
-<p>See only the times that are really free, pay online or at the clinic, and get your confirmation by email straight away.</p>
-<div class="row"><a class="btn accent" onclick="go('book')">Book an appointment</a><a class="btn ghost" onclick="go('services')">Our services</a></div></div></section>
-<section class="sec"><div class="wrap"><div class="grid g3">
-<div class="card"><h3>Real-time booking</h3><p class="mut small">Only free times are shown, so there are no clashes.</p></div>
-<div class="card"><h3>Pay your way</h3><p class="mut small">Card, Apple Pay, Google Pay, or at the clinic.</p></div>
-<div class="card"><h3>Easy changes</h3><p class="mut small">Change or cancel from the link in your email.</p></div></div></div></section>
-<section class="sec" style="padding-top:0"><div class="wrap"><h2>Popular services</h2><div class="grid g3">${S.slice(0,3).map(card).join('')}</div></div></section>`}
+function nextFree(){for(let i=0;i<14;i++){const d=new Date(today);d.setDate(d.getDate()+i);const k=iso(d),sl=slotsFor('gp',k);if(sl.length)return {k,t:sl[0],label:(i===0?'Today':i===1?'Tomorrow':fmtDay(d))+' at '+sl[0]}}return {k:'',label:'No free times in the next two weeks'}}
+function home(){const nx=nextFree(),N=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+return `<section class="hero2"><div class="wrap hero-grid"><div>
+<p class="eyebrow">General practice, Dublin</p><h1>Book your GP appointment online</h1>
+<p class="lead">Choose a service, pick a time that is genuinely free, and receive your confirmation by email. Pay online or at the clinic.</p>
+<div class="row"><a class="btn" onclick="go('book')">Book an appointment</a><a class="btn ghost" onclick="go('services')">Services and prices</a></div>
+<ul class="ticks"><li>Free changes up to 24 hours before</li><li>Card, Apple Pay and Google Pay accepted</li><li>Reminders by email before your visit</li></ul></div>
+<aside class="card next"><p class="eyebrow">Next available</p><h2>${nx.label}</h2><p class="mut" style="margin:0 0 16px">GP consultation with ${D.name} · 15 min</p>
+<button class="btn" style="width:100%" onclick="booking={step:2,sid:'gp',date:'${nx.k}'};go('book')">Book this time</button><hr>
+<h3 style="margin-bottom:6px">Opening hours</h3>${[1,2,3,4,5,6,0].map(i=>`<div class="hrsrow"><span>${N[i]}</span><b>${hours[i]?hours[i][0]+' to '+hours[i][1]:'Closed'}</b></div>`).join('')}</aside></div></section>
+<section class="sec"><div class="wrap"><h2 style="margin-bottom:14px">How booking works</h2><div class="how">
+<div class="card"><h3>Choose a service</h3><p class="mut small" style="margin:0">GP, children, vaccines, forms and more, with the price shown up front.</p></div>
+<div class="card"><h3>Pick a free time</h3><p class="mut small" style="margin:0">You only see times that are available, so nothing is double booked.</p></div>
+<div class="card"><h3>Confirm and pay</h3><p class="mut small" style="margin:0">Pay online or at the clinic. Your confirmation and calendar file arrive by email.</p></div></div></div></section>
+<section class="sec" style="padding-top:8px"><div class="wrap"><h2 style="margin-bottom:14px">Popular services</h2><div class="grid g3">${S.slice(0,3).map(card).join('')}</div></div></section>`}
 function about(){return `<section class="sec"><div class="wrap"><h1>About the doctor</h1><div class="grid g2"><div class="card" style="min-height:200px;display:grid;place-items:center;color:var(--mut)">Photo placeholder</div><div class="card"><h3>${D.name}</h3><p class="mut">Biography, qualifications and registration number go here once supplied by the clinic.</p></div></div></div></section>`}
 function services(){return `<section class="sec"><div class="wrap"><h1>Our services</h1><div class="grid g3">${S.map(card).join('')}</div></div></section>`}
 function prices(){return `<section class="sec"><div class="wrap"><h1>Prices</h1><p class="note">Try it: change a price in <b>Clinic admin → Services and prices</b> and come back. This page updates straight away.</p><div class="tw"><table><tr><th>Service</th><th>Length</th><th>Price</th></tr>${S.map(s=>`<tr><td>${s.name}</td><td>${s.mins} min</td><td class="price">${euro(s.price)}</td></tr>`).join('')}</table></div></div></section>`}
