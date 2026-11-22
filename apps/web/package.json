@@ -8,19 +8,23 @@
     "start": "next start",
     "lint": "tsc --noEmit",
     "typecheck": "tsc --noEmit",
-    "test": "echo \"no web unit tests yet\""
+    "test": "vitest run"
   },
   "dependencies": {
     "@rmc/core": "workspace:*",
     "@rmc/db": "workspace:*",
     "next": "^15.1.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
-    "typescript": "^5.6.0"
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0",
+    "@electric-sql/pglite": "^0.2.15",
+    "drizzle-orm": "^0.38.0"
   }
 }

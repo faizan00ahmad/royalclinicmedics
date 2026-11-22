@@ -36,3 +36,11 @@
 - **Decision:** Cleanup job `expireUnpaidAppointments` cancels unpaid online bookings 30 minutes after the hold expires and cancels the PaymentIntent. A late payment after that is taken then refunded.
 - **Decision:** Receipt numbers are `RC-<year>-<6 chars>`. Payment method is recorded as CARD for Stripe payments for now; Apple Pay / Google Pay detection needs the `charge.succeeded` event (to do).
 - **To do before launch:** register the domain for Apple Pay in the Stripe dashboard, enable the payment methods, create the webhook endpoint (`/api/webhooks/stripe`, events: payment_intent.succeeded, payment_intent.payment_failed, charge.refunded), and test with the Stripe CLI.
+
+## 2026-11-22 – API routes
+- **Decision:** Routes live in `apps/web/src/app/api` and only parse, validate (Zod), rate-limit and call `@rmc/core`. Errors are mapped centrally in `lib/http.ts`; only error names and codes are logged, because database and validation errors can contain patient data. Validation responses return field paths and rule messages, never submitted values.
+- **Decision:** The booking manage token is sent in the `x-manage-token` header. Only the ICS download also accepts `?token=` so email links work. Unknown reference and wrong token both return the same 404.
+- **Decision:** Checkout requires `terms`, `privacy` and `cancellation` to be exactly `true` before anything is created. Consents are recorded after the booking. A failure there surfaces as a 500 for staff to fix; it does not silently skip consent.
+- **Limit:** Rate limiting is in memory per server instance (SEC-06). On Netlify each function instance has its own counter, so it only slows basic abuse. Cloudflare Turnstile on checkout and contact is still to add; the exclusion constraint is the real double-booking protection.
+- **Cron:** one job, `POST /api/cron/maintenance` with `Authorization: Bearer $CRON_SECRET`, releases expired holds and cancels abandoned online checkouts. Reminder emails will be added to it with email sending.
+- **Not built yet:** `POST /api/contact`, `GET /api/bookings/[ref]/receipt.pdf`, discount codes, Turnstile.
