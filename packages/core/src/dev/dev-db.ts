@@ -1,6 +1,6 @@
 /**
- * Creates and seeds the LOCAL development database. No accounts or Docker needed.
- * Real Postgres (PGlite) with its data in `.devdb/`. Run `pnpm dev:db` once, then again whenever migrations change.
+ * Creates, migrates and seeds the LOCAL development database. No accounts or Docker needed.
+ * Real Postgres (PGlite) with its data in `.devdb/`. Run `pnpm dev:db` once, and again whenever migrations change.
  * The website opens the same folder itself (DATABASE_URL=pglite:...), so this script must not be running while you use the site.
  * Development only. Production uses Neon.
  */
@@ -21,34 +21,33 @@ async function main() {
   const client = new PGlite({ dataDir: DATA_DIR, extensions: { btree_gist } });
   await client.waitReady;
 
-  const has = await client.query<{ n: number }>(
-    `SELECT count(*)::int AS n FROM information_schema.schemata WHERE schema_name = 'core'`,
-  );
-  if (!has.rows[0]?.n) {
-    console.log("Creating tables...");
-    for (const f of readdirSync(MIGRATIONS).filter((x) => x.endsWith(".sql")).sort()) {
-      for (const stmt of readFileSync(join(MIGRATIONS, f), "utf8").split("--> statement-breakpoint")) {
-        if (stmt.trim()) await client.exec(stmt);
-      }
-    }
-  } else {
-    // Apply migrations added after the first run (they are additive and written to be applied once, in order).
-    const done = await client.query<{ n: number }>(
+  await client.exec(`CREATE TABLE IF NOT EXISTS public.__rmc_migrations (name text PRIMARY KEY, applied_at timestamptz NOT NULL DEFAULT now())`);
+
+  // Databases created by the first version of this script have no tracking table: record what they already have.
+  const tracked = await client.query<{ n: number }>(`SELECT count(*)::int AS n FROM public.__rmc_migrations`);
+  const hasCore = await client.query<{ n: number }>(`SELECT count(*)::int AS n FROM information_schema.schemata WHERE schema_name = 'core'`);
+  if (!tracked.rows[0]?.n && hasCore.rows[0]?.n) {
+    const hasHold = await client.query<{ n: number }>(
       `SELECT count(*)::int AS n FROM information_schema.columns WHERE table_schema='core' AND table_name='appointments' AND column_name='hold_id'`,
     );
-    if (!done.rows[0]?.n) {
-      console.log("Applying newer migrations...");
-      for (const stmt of readFileSync(join(MIGRATIONS, "0002_appointment_hold.sql"), "utf8").split("--> statement-breakpoint")) {
-        if (stmt.trim()) await client.exec(stmt);
-      }
+    const already = ["0000_init.sql", "0001_guards.sql", ...(hasHold.rows[0]?.n ? ["0002_appointment_hold.sql"] : [])];
+    for (const name of already) await client.query(`INSERT INTO public.__rmc_migrations (name) VALUES ($1) ON CONFLICT DO NOTHING`, [name]);
+  }
+
+  const done = new Set((await client.query<{ name: string }>(`SELECT name FROM public.__rmc_migrations`)).rows.map((r) => r.name));
+  for (const f of readdirSync(MIGRATIONS).filter((x) => x.endsWith(".sql")).sort()) {
+    if (done.has(f)) continue;
+    console.log(`Applying ${f}...`);
+    for (const stmt of readFileSync(join(MIGRATIONS, f), "utf8").split("--> statement-breakpoint")) {
+      if (stmt.trim()) await client.exec(stmt);
     }
+    await client.query(`INSERT INTO public.__rmc_migrations (name) VALUES ($1)`, [f]);
   }
 
   await seed(drizzle(client, { schema }));
 
   await client.close();
   console.log("Dev database ready in " + DATA_DIR);
-  console.log("DATABASE_URL=pglite:" + DATA_DIR.split("\\").join("/"));
 }
 
 main().catch((err) => {

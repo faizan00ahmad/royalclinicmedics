@@ -20,9 +20,15 @@ export const patientInput = z.object({
 });
 export type PatientInput = z.input<typeof patientInput>;
 
+/**
+ * Staff may book a walk-in who has no email. The public booking routes still validate with `patientInput`
+ * (a real email is required) before anything reaches findOrCreatePatient.
+ */
+export const staffPatientInput = patientInput.extend({ email: z.union([z.literal(""), patientInput.shape.email]) });
+
 /** EXT-04. Matches on name + date of birth + email so family members sharing an email stay separate. */
-export async function findOrCreatePatient(tx: Database, raw: PatientInput): Promise<{ id: string; created: boolean }> {
-  const p = patientInput.parse(raw);
+export async function findOrCreatePatient(tx: Database, raw: z.input<typeof staffPatientInput>): Promise<{ id: string; created: boolean }> {
+  const p = staffPatientInput.parse(raw);
   const [existing] = await tx
     .select({ id: schema.patients.id })
     .from(schema.patients)

@@ -7,3 +7,5 @@ export * from "./db-types";
 export * from "./booking";
 export * from "./payments";
 export * from "./content";
+export * from "./audit";
+export * from "./admin";

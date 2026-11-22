@@ -1,4 +1,4 @@
-import { boolean, index, jsonb, pgSchema, text, timestamp, uniqueIndex, uuid } from "drizzle-orm/pg-core";
+import { boolean, index, integer, jsonb, pgSchema, text, timestamp, uniqueIndex, uuid } from "drizzle-orm/pg-core";
 
 export const ops = pgSchema("ops");
 
@@ -15,7 +15,9 @@ export const users = ops.table("users", {
   role: roleEnum("role").notNull(),
   passwordHash: text("password_hash").notNull(),
   totpSecretEnc: text("totp_secret_enc"),
-  failedLogins: text("failed_logins").notNull().default("0"),
+  failedLogins: integer("failed_logins").notNull().default(0),
+  totpConfirmedAt: timestamp("totp_confirmed_at", { withTimezone: true }), // null = 2FA not set up yet
+  totpLastStep: integer("totp_last_step"), // replay protection: a code is accepted once
   lockedUntil: timestamp("locked_until", { withTimezone: true }),
   isActive: boolean("is_active").notNull().default(true),
   lastLoginAt: timestamp("last_login_at", { withTimezone: true }),
@@ -97,3 +99,16 @@ export const dataExports = ops.table("data_exports", {
   type: text("type").notNull(),
   createdAt: created(),
 });
+
+/** Server-side sessions (SEC-02). Only a hash of the cookie token is stored. */
+export const sessions = ops.table("sessions", {
+  id: id(),
+  userId: uuid("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  tokenHash: text("token_hash").notNull(),
+  mfaVerified: boolean("mfa_verified").notNull().default(false),
+  createdAt: created(),
+  lastSeenAt: timestamp("last_seen_at", { withTimezone: true }).notNull().defaultNow(),
+  expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
+  ip: text("ip"),
+  userAgent: text("user_agent"),
+}, (t) => [uniqueIndex("sessions_token_uq").on(t.tokenHash), index("sessions_user_idx").on(t.userId)]);
