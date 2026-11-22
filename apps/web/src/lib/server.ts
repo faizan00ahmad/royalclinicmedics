@@ -1,4 +1,4 @@
-import { createStripeGatewayFromEnv, type Database, type PaymentGateway } from "@rmc/core";
+import { createStripeGatewayFromEnv, createTransportFromEnv, type Database, type EmailTransport, type OutboxDeps, type PaymentGateway } from "@rmc/core";
 import { getDb } from "@rmc/db";
 
 /**
@@ -8,6 +8,7 @@ import { getDb } from "@rmc/db";
 interface Overrides {
   db?: () => Database;
   gateway?: () => PaymentGateway;
+  email?: () => EmailTransport;
 }
 let overrides: Overrides = {};
 
@@ -33,5 +34,23 @@ export function lazyGateway(): PaymentGateway {
     cancelPaymentIntent: (id) => gateway().cancelPaymentIntent(id),
     refund: (p) => gateway().refund(p),
     constructEvent: (raw, sig) => gateway().constructEvent(raw, sig),
+  };
+}
+
+let transport: EmailTransport | undefined;
+export function emailTransport(): EmailTransport {
+  if (overrides.email) return overrides.email();
+  transport ??= createTransportFromEnv();
+  return transport;
+}
+
+export const siteUrl = () => process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
+/** Everything the email dispatcher needs. Resolves the provider only when it is actually used. */
+export function mailDeps(): OutboxDeps {
+  return {
+    siteUrl: siteUrl(),
+    clinicNotifyFallback: process.env.CLINIC_NOTIFY_EMAIL,
+    transport: { send: (m) => emailTransport().send(m) },
   };
 }

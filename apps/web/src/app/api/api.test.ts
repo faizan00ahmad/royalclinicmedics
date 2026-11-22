@@ -1,7 +1,8 @@
 import { schema } from "@rmc/db";
 import { eq } from "drizzle-orm";
-import { beforeEach, describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { seed } from "@rmc/core/src/seed/seed";
+import { MemoryTransport } from "@rmc/core";
 import { FakeGateway, succeededEvent } from "@rmc/core/src/test-utils/fake-gateway";
 import { createTestDb } from "@rmc/core/src/test-utils/pglite";
 import { __resetRateLimits } from "@/lib/http";
@@ -16,7 +17,7 @@ import { GET as icsGET } from "./bookings/[ref]/ics/route";
 import { POST as webhookPOST } from "./webhooks/stripe/route";
 import { POST as cronPOST } from "./cron/[job]/route";
 
-type Ctx = Awaited<ReturnType<typeof createTestDb>> & { serviceId: string; gw: FakeGateway };
+type Ctx = Awaited<ReturnType<typeof createTestDb>> & { serviceId: string; gw: FakeGateway; mail: MemoryTransport };
 let ctx: Ctx;
 
 beforeEach(async () => {
@@ -25,8 +26,9 @@ beforeEach(async () => {
   await seed(t.db);
   const [svc] = await t.db.select().from(schema.services).where(eq(schema.services.slug, "gp-consultation"));
   const gw = new FakeGateway();
-  ctx = { ...t, serviceId: svc!.id, gw };
-  __setServices({ db: () => t.db, gateway: () => gw });
+  const mail = new MemoryTransport();
+  ctx = { ...t, serviceId: svc!.id, gw, mail };
+  __setServices({ db: () => t.db, gateway: () => gw, email: () => mail });
 });
 
 const url = (path: string, qs?: Record<string, string>) =>
@@ -271,5 +273,36 @@ describe("POST /api/cron/[job]", () => {
     await ctx.client.exec(`UPDATE core.slot_holds SET expires_at = now() - interval '2 hours'`);
     const res = await call("maintenance", "Bearer s3cret-value-for-tests");
     expect((await res.json()).expiredUnpaid).toBe(1);
+  });
+});
+
+describe("emails sent by the routes", () => {
+  it("a pay-at-clinic booking emails the patient a confirmation with a working manage link, and no health data", async () => {
+    const { body } = await bookAtClinic();
+    await vi.waitFor(() => expect(ctx.mail.sent.some((m) => m.to === "aoife@example.com")).toBe(true), { timeout: 8000 });
+    const mail = ctx.mail.sent.find((m) => m.to === "aoife@example.com")!;
+    expect(mail.subject).toContain(body.bookingRef);
+    expect(mail.text).toContain(`#token=${body.manageToken}`); // the very link the page gave the patient
+    expect(JSON.stringify(ctx.mail.sent)).not.toMatch(/SECRET-/);
+  });
+
+  it("cancelling by the manage link emails the patient", async () => {
+    const { body } = await bookAtClinic();
+    await vi.waitFor(() => expect(ctx.mail.sent.length).toBeGreaterThan(0), { timeout: 8000 });
+    ctx.mail.sent.length = 0;
+    await cancelPOST(new Request(url(`/api/bookings/${body.bookingRef}/cancel`), { method: "POST", headers: { "x-manage-token": body.manageToken } }), refCtx(body.bookingRef));
+    await vi.waitFor(() => expect(ctx.mail.sent.some((m) => m.subject.includes("cancelled"))).toBe(true), { timeout: 8000 });
+  });
+
+  it("the cron job sends reminders and retries emails that failed earlier", async () => {
+    process.env.CRON_SECRET = "s3cret-value-for-tests";
+    ctx.mail.failNext = 1;
+    await bookAtClinic();
+    await new Promise((r) => setTimeout(r, 1500)); // let the first (failing) attempt finish
+    const res = await cronPOST(new Request(url("/api/cron/maintenance"), { method: "POST", headers: { authorization: "Bearer s3cret-value-for-tests" } }), { params: Promise.resolve({ job: "maintenance" }) });
+    const json = await res.json();
+    expect(res.status).toBe(200);
+    expect(json.emails + ctx.mail.sent.length).toBeGreaterThan(0);
+    expect(ctx.mail.sent.some((m) => m.to === "aoife@example.com")).toBe(true);
   });
 });

@@ -1,4 +1,4 @@
-import { createHash, randomBytes, randomInt, timingSafeEqual } from "node:crypto";
+import { createHash, createHmac, randomInt, timingSafeEqual } from "node:crypto";
 
 // No 0/O/1/I so references are easy to read out over the phone.
 const REF_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -13,9 +13,24 @@ export function hashToken(token: string): string {
   return createHash("sha256").update(token).digest("hex");
 }
 
-/** The plain token goes in the email link once. Only the hash is stored (SEC-04). */
-export function generateManageToken(): { token: string; hash: string } {
-  const token = randomBytes(32).toString("base64url");
+function linkSecret(): string {
+  const s = process.env.SIGNED_LINK_SECRET;
+  if (!s || s.length < 16) throw new Error("SIGNED_LINK_SECRET is not set");
+  return s;
+}
+
+/**
+ * SEC-04. The manage token is an HMAC of the appointment id, so the same link can be rebuilt whenever an email is
+ * sent (confirmation, reminders, changes) without storing the token. Only its SHA-256 hash is stored, and that
+ * hash is what the manage page checks. Rotating the secret keeps links already sent working, but emails sent later for
+ * older bookings would carry a link that no longer matches, so only rotate it on purpose.
+ */
+export function manageTokenFor(appointmentId: string): string {
+  return createHmac("sha256", linkSecret()).update(`manage:${appointmentId}`).digest("base64url");
+}
+
+export function generateManageToken(appointmentId: string): { token: string; hash: string } {
+  const token = manageTokenFor(appointmentId);
   return { token, hash: hashToken(token) };
 }
 

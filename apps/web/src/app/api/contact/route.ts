@@ -1,6 +1,8 @@
+import { emitEvent } from "@rmc/core";
 import { schema } from "@rmc/db";
 import { z } from "zod";
 import { json, rateLimit, readJson, route } from "@/lib/http";
+import { sendEmailsSoon } from "@/lib/mail";
 import { db } from "@/lib/server";
 
 const body = z.object({
@@ -15,14 +17,18 @@ const body = z.object({
 
 /**
  * POST /api/contact (WEB-08). Saved for staff to answer in admin.
- * Notes: do not put medical details in this form (the page says so). Turnstile and the clinic email are added with email sending.
+ * Do not put medical details in this form (the page says so). Cloudflare Turnstile is still to add.
  */
 export const POST = route("contact", async (req) => {
   rateLimit(req, "contact", 5);
   const input = await readJson(req, body);
   if (input.website) return json({ ok: true }, 201); // bot: pretend it worked, store nothing
-  await db().insert(schema.enquiries).values({
-    name: input.name, email: input.email, phone: input.phone ?? null, message: input.message,
+  await db().transaction(async (tx) => {
+    const [enq] = await tx.insert(schema.enquiries).values({
+      name: input.name, email: input.email, phone: input.phone ?? null, message: input.message,
+    }).returning({ id: schema.enquiries.id });
+    await emitEvent(tx, { type: "enquiry.created", aggregateType: "enquiry", aggregateId: enq!.id });
   });
+  sendEmailsSoon(); // alert to the clinic and automatic reply to the sender
   return json({ ok: true }, 201);
 });

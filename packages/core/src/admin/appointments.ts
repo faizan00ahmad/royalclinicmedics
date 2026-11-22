@@ -180,8 +180,8 @@ export async function createStaffBooking(db: Database, raw: StaffBookingInput) {
         const endAt = new Date(input.startAt.getTime() + service.durationMin * 60_000);
         const lockEnd = new Date(endAt.getTime() + service.bufferMin * 60_000);
         const patient = await findOrCreatePatient(tx, input.patient);
-        const { token, hash } = generateManageToken();
         const id = randomUUID();
+        const { token, hash } = generateManageToken(id);
 
         await tx.insert(schema.appointments).values({
           id, bookingRef: generateBookingRef(), patientId: patient.id, doctorId: doctor.id, serviceId: service.id,

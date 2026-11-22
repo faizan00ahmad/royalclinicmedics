@@ -1,6 +1,7 @@
 import { resolveAppointmentByToken, rescheduleAppointment } from "@rmc/core";
 import { z } from "zod";
 import { ApiError, json, manageToken, rateLimit, readJson, route } from "@/lib/http";
+import { sendEmailsSoon } from "@/lib/mail";
 import { db } from "@/lib/server";
 
 type Ctx = { params: Promise<{ ref: string }> };
@@ -14,5 +15,6 @@ export const POST = route<Ctx>("reschedule", async (req, { params }) => {
   const appt = await resolveAppointmentByToken(db(), ref, manageToken(req));
   if (!appt) throw new ApiError(404, "NOT_FOUND", "Booking not found");
   const moved = await rescheduleAppointment(db(), { appointmentId: appt.id, newStartAt: input.newStartAt, by: "PATIENT" });
+  sendEmailsSoon();
   return json({ startAt: moved.startAt.toISOString(), endAt: moved.endAt.toISOString(), rescheduleCount: moved.rescheduleCount });
 });

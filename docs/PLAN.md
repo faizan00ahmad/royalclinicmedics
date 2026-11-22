@@ -17,6 +17,7 @@
 - [ ] Cookie consent + GA4 consent mode [WEB-13, WEB-16]; SEO [WEB-14]; reviews [WEB-17]
 
 ## M3 Booking and payments
+- [x] Emails: confirmation, alerts, reminders, moved, cancelled, refund, did-not-go-ahead, contact form, editable templates, outbox with retries (N-01..N-09)
 - [x] API routes: slots, hold, checkout, manage, cancel, reschedule, ics, Stripe webhook, cron (SRS section 8; contact and receipt.pdf pending)
 - [x] Booking core: availability, holds, confirm, cancel, reschedule, patients, outbox events (BK-01..04, BK-20..23, BK-30..33, EXT-03, EXT-04)
 - [ ] Slot engine + DST tests [BK-10..15]; holds/locks [BK-20..23]; wizard [BK-01..09]; questionnaire [BK-40..42]

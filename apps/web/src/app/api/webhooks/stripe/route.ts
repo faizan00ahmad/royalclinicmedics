@@ -1,5 +1,6 @@
 import { processStripeEvent, type GatewayEvent } from "@rmc/core";
 import { ApiError, json, route } from "@/lib/http";
+import { sendEmailsSoon } from "@/lib/mail";
 import { db, gateway } from "@/lib/server";
 
 export const runtime = "nodejs";
@@ -22,5 +23,6 @@ export const POST = route("stripe-webhook", async (req) => {
   }
 
   const { outcome } = await processStripeEvent(db(), gateway(), event);
+  sendEmailsSoon(); // confirmation, or "did not go ahead" plus refund
   return json({ received: true, outcome });
 });

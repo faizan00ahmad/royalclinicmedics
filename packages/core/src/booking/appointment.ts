@@ -58,8 +58,8 @@ export async function confirmAppointment(db: Database, raw: ConfirmInput) {
         }
 
         const patient = await findOrCreatePatient(tx, input.patient);
-        const { token, hash } = generateManageToken();
         const appointmentId = randomUUID();
+        const { token, hash } = generateManageToken(appointmentId);
         const paid = input.paymentChoice === "FREE";
 
         await tx.insert(schema.appointments).values({

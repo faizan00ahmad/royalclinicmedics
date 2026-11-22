@@ -9,3 +9,4 @@ export * from "./payments";
 export * from "./content";
 export * from "./audit";
 export * from "./admin";
+export * from "./email";

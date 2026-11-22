@@ -3,6 +3,7 @@ import {
 } from "@rmc/core";
 import { z } from "zod";
 import { clientIp, json, rateLimit, readJson, route } from "@/lib/http";
+import { sendEmailsSoon } from "@/lib/mail";
 import { db, gateway } from "@/lib/server";
 
 const body = z.object({
@@ -47,6 +48,7 @@ export const POST = route("checkout", async (req) => {
 
   const { appointment, manageToken } = await confirmAppointment(db(), { ...common, paymentChoice: "AT_CLINIC" });
   await consent(appointment.id);
+  sendEmailsSoon(); // confirmation email
   return json({
     bookingRef: appointment.bookingRef, manageToken, status: appointment.status, amountCents: appointment.totalCents,
   }, 201);

@@ -2,7 +2,7 @@
 
 import { AuthError, createStaffUser, resetTwoFactor, setStaffActive, type SessionUser } from "@rmc/auth";
 import {
-  audit, addHoliday, addOverride, addTimeBlock, cancelWithRefund, createStaffBooking, deleteFaq, dublinToUtc, markPaidAtClinic,
+  resetTemplate, saveTemplate, sendTestEmail, audit, addHoliday, addOverride, addTimeBlock, cancelWithRefund, createStaffBooking, deleteFaq, dublinToUtc, markPaidAtClinic,
   publishLegalPage, refundAppointment, removeHoliday, removeOverride, removeTimeBlock, rescheduleAppointment, saveAnnouncement,
   saveDoctor, saveFaq, saveService, saveSettings, saveWeeklyHours, setAppointmentStatus, setStaffNote, updateEnquiry, EDITABLE_SETTINGS,
   BookingError,
@@ -10,7 +10,8 @@ import {
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { actorOf, bool, can, cents, go, int, opt, requestIp, requireCan, requireVerified, str } from "@/lib/admin";
-import { db, lazyGateway } from "@/lib/server";
+import { sendEmailsSoon } from "@/lib/mail";
+import { db, emailTransport, lazyGateway } from "@/lib/server";
 
 /** datetime-local gives "2026-11-24T09:00" in Irish time. */
 const irishTime = (v: string): Date => {
@@ -39,6 +40,7 @@ export async function cancelAction(form: FormData) {
     const r = await cancelWithRefund(db(), lazyGateway(), { appointmentId: id, by: "CLINIC", reason: opt(form, "reason") ?? "Cancelled by clinic" });
     await audit(db(), { actorUserId: user.id, actorRole: user.role, action: "appointment.cancel", entityType: "appointment", entityId: id, ip: await requestIp(), changes: { refundedCents: r.refundedCents } });
     revalidatePath("/admin/appointments");
+    sendEmailsSoon();
     return r.refundedCents ? `Cancelled and refunded €${(r.refundedCents / 100).toFixed(2)}.` : "Cancelled.";
   });
 }
@@ -49,7 +51,8 @@ export async function rescheduleAction(form: FormData) {
     const user = await requireCan("appointments:write");
     await rescheduleAppointment(db(), { appointmentId: id, newStartAt: irishTime(str(form, "when")), by: "CLINIC" });
     await audit(db(), { actorUserId: user.id, actorRole: user.role, action: "appointment.reschedule", entityType: "appointment", entityId: id, ip: await requestIp() });
-    return "Appointment moved. (Remember to tell the patient: automatic emails are not switched on yet.)";
+    sendEmailsSoon();
+    return "Appointment moved. The patient has been emailed.";
   });
 }
 
@@ -99,6 +102,7 @@ export async function walkInAction(form: FormData) {
       actor: await actorOf(user),
     });
     revalidatePath("/admin");
+    sendEmailsSoon();
     return {
       to: `/admin/appointments/${r.appointment.id}`,
       message: r.outsideNormalHours ? "Booked. Note: this time is outside the doctor's normal hours." : "Booked.",
@@ -313,3 +317,29 @@ export async function toggleStaffAction(form: FormData) {
   });
 }
 
+
+// --------------------------------------------------------------------- emails
+
+export async function saveTemplateAction(form: FormData) {
+  await go("/admin/email", async () => {
+    const user = await requireCan("settings:write");
+    await saveTemplate(db(), { id: str(form, "id"), subject: str(form, "subject"), body: String(form.get("body") ?? "") }, await actorOf(user));
+    return "Saved. New emails use this wording.";
+  });
+}
+
+export async function resetTemplateAction(form: FormData) {
+  await go("/admin/email", async () => {
+    const user = await requireCan("settings:write");
+    await resetTemplate(db(), str(form, "id"), await actorOf(user));
+    return "Back to the standard wording.";
+  });
+}
+
+export async function testEmailAction(form: FormData) {
+  await go("/admin/email", async () => {
+    const user = await requireCan("settings:write");
+    await sendTestEmail(db(), emailTransport(), { id: str(form, "id"), to: str(form, "to") }, await actorOf(user));
+    return `Test email sent to ${str(form, "to")}.`;
+  });
+}

@@ -55,8 +55,8 @@ export async function startOnlineCheckout(db: Database, gateway: PaymentGateway,
     if (service.priceCents <= 0) throw new BookingError("POLICY", "This service has no online payment");
 
     const patient = await findOrCreatePatient(tx, input.patient);
-    const { token, hash } = generateManageToken();
     const appointmentId = randomUUID();
+    const { token, hash } = generateManageToken(appointmentId);
     const bookingRef = generateBookingRef();
 
     await tx.insert(schema.appointments).values({
@@ -291,7 +291,7 @@ async function handleSucceeded(tx: Tx, event: GatewayEvent, payment: PaymentRow,
         status: "CANCELLED_BY_CLINIC", cancelledAt: now, cancelledBy: "SYSTEM",
         cancelReason: "Time no longer available after payment", updatedAt: now,
       }).where(eq(schema.appointments.id, appt.id));
-      await emitEvent(tx, { type: "appointment.cancelled", aggregateType: "appointment", aggregateId: appt.id, payload: { by: "SYSTEM", refundDue: true } });
+      await emitEvent(tx, { type: "appointment.cancelled", aggregateType: "appointment", aggregateId: appt.id, payload: { by: "SYSTEM", refundDue: true, reason: "slot_lost" } });
       return { outcome: "REFUNDED_SLOT_LOST" as WebhookOutcome, refund: appt.id };
     }
     await markPaid();
@@ -343,9 +343,12 @@ export async function expireUnpaidAppointments(
 
   for (const a of stale) {
     const [payment] = await db.select().from(schema.payments).where(eq(schema.payments.appointmentId, a.id));
-    await db.update(schema.appointments).set({
+    const changed = await db.update(schema.appointments).set({
       status: "CANCELLED_BY_CLINIC", cancelledAt: now, cancelledBy: "SYSTEM", cancelReason: "Payment not completed", updatedAt: now,
-    }).where(and(eq(schema.appointments.id, a.id), eq(schema.appointments.status, "PENDING_PAYMENT")));
+    }).where(and(eq(schema.appointments.id, a.id), eq(schema.appointments.status, "PENDING_PAYMENT"))).returning({ id: schema.appointments.id });
+    if (changed.length) {
+      await emitEvent(db, { type: "appointment.cancelled", aggregateType: "appointment", aggregateId: a.id, payload: { by: "SYSTEM", refundDue: false, reason: "payment_not_completed" } });
+    }
     if (payment?.status === "UNPAID") {
       await db.update(schema.payments).set({ status: "FAILED", updatedAt: now }).where(eq(schema.payments.id, payment.id));
       if (payment.stripePaymentIntentId) {

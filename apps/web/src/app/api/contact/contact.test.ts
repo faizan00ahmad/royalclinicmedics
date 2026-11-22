@@ -1,16 +1,19 @@
 import { schema } from "@rmc/db";
-import { beforeEach, describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { MemoryTransport, saveSettings } from "@rmc/core";
 import { createTestDb } from "@rmc/core/src/test-utils/pglite";
 import { __resetRateLimits } from "@/lib/http";
 import { __setServices } from "@/lib/server";
 import { POST } from "./route";
 
 let t: Awaited<ReturnType<typeof createTestDb>>;
+let mail: MemoryTransport;
 
 beforeEach(async () => {
   __resetRateLimits();
   t = await createTestDb();
-  __setServices({ db: () => t.db });
+  mail = new MemoryTransport();
+  __setServices({ db: () => t.db, email: () => mail });
 });
 
 const send = (body: unknown, ip = "1.1.1.1") =>
@@ -45,5 +48,19 @@ describe("POST /api/contact", () => {
     const statuses: number[] = [];
     for (let i = 0; i < 7; i++) statuses.push((await send(valid, "2.2.2.2")).status);
     expect(statuses).toContain(429);
+  });
+
+  it("emails the clinic and sends the sender an automatic reply", async () => {
+    await saveSettings(t.db, { "clinic.email": "reception@clinic.example" }, { id: "00000000-0000-4000-8000-000000000001", role: "ADMIN" });
+    await send(valid);
+    await vi.waitFor(() => expect(mail.sent).toHaveLength(2), { timeout: 8000 });
+    expect(mail.sent.map((m) => m.to).sort()).toEqual(["aoife@example.com", "reception@clinic.example"]);
+    expect(mail.sent.find((m) => m.to === "reception@clinic.example")!.replyTo).toBe("aoife@example.com");
+  });
+
+  it("a bot's honeypot submission sends nothing", async () => {
+    await send({ ...valid, website: "http://spam.example" });
+    await new Promise((r) => setTimeout(r, 500));
+    expect(mail.sent).toHaveLength(0);
   });
 });

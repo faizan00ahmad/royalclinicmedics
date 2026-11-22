@@ -8,7 +8,8 @@ export type DomainEventType =
   | "appointment.checked_in"
   | "patient.updated"
   | "payment.succeeded"
-  | "payment.refunded";
+  | "payment.refunded"
+  | "enquiry.created";
 
 /**
  * EXT-03 outbox. Always call with the SAME transaction as the change itself.
@@ -16,7 +17,7 @@ export type DomainEventType =
  */
 export async function emitEvent(
   tx: Database,
-  e: { type: DomainEventType; aggregateType: "appointment" | "patient" | "payment"; aggregateId: string; payload?: Record<string, unknown> },
+  e: { type: DomainEventType; aggregateType: "appointment" | "patient" | "payment" | "enquiry"; aggregateId: string; payload?: Record<string, unknown> },
 ) {
   await tx.insert(schema.domainEvents).values({
     type: e.type,

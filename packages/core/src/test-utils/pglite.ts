@@ -9,6 +9,7 @@ const MIGRATIONS = join(__dirname, "..", "..", "..", "db", "migrations");
 
 /** Fresh in-memory Postgres with every migration applied. Tests only. */
 export async function createTestDb() {
+  process.env.SIGNED_LINK_SECRET ??= "test-only-signed-link-secret-0123456789";
   const client = new PGlite({ extensions: { btree_gist } });
   for (const f of readdirSync(MIGRATIONS).filter((x) => x.endsWith(".sql")).sort()) {
     const sql = readFileSync(join(MIGRATIONS, f), "utf8");
