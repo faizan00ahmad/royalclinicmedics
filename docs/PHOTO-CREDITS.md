@@ -9,6 +9,7 @@ Stock photos in `apps/web/public/photos/`, from Unsplash (free to use commercial
 | phone-consult.jpg | Phone consultation | https://unsplash.com/photos/a-smart-phone-with-a-stethoscope-on-top-of-it-SJwYvNVW1qY |
 | urgent-bp.jpg | Urgent care | https://unsplash.com/photos/stethoscope-and-blood-pressure-gauge-njrDE70M2VI |
 | blood-tubes.jpg | Blood collection | https://unsplash.com/photos/four-test-tubes-with-colorful-liquids-and-a-syringe-OqnmlNYRWC0 |
+| child-teddy.jpg | Children's consultation | https://unsplash.com/photos/a-teddy-bear-wearing-a-stethoscope-sits-on-floor-MhI69q6QrNI |
 | blood-sample.jpg | spare | https://unsplash.com/photos/a-gloved-hand-holding-a-test-tube-filled-with-liquid-fKC9eWRnlGY |
 | pills.jpg | Medication | https://unsplash.com/photos/a-pile-of-pills-sitting-next-to-each-other-on-top-of-a-table-RS0-h_pyByk |
 | syringe.jpg | Vaccinations | https://unsplash.com/photos/a-close-up-of-a-syringe-WRx5ZxwHh4k |

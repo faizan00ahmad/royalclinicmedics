@@ -61,7 +61,7 @@ export function ServiceArt({ name, className = "" }: { name: string; className?:
 /** Real photos (free Unsplash licence, see docs/PHOTO-CREDITS.md). Keys without a photo fall back to the drawing. */
 const PHOTOS: Record<string, string> = {
   steth: "stethoscope-blue", phone: "phone-consult", urgent: "urgent-bp", drop: "blood-tubes",
-  heart: "stethoscope-burgundy", syringe: "syringe", pills: "pills",
+  heart: "stethoscope-burgundy", child: "child-teddy", syringe: "syringe", pills: "pills",
 };
 
 export function ServicePicture({ slug, category, className = "" }: { slug: string; category?: string; className?: string }) {
