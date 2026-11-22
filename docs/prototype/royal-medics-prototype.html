@@ -5,249 +5,179 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Royal Medics Clinic: Phase 1 design prototype</title>
 <style>
-:root{--brand:#0F766E;--brand-d:#115E59;--brand-l:#CCFBF1;--accent:#F59E0B;--ink:#0f172a;--mut:#475569;--line:#e2e8f0;--bg:#f8fafc;--ok:#15803d;--bad:#b91c1c}
+:root{--brand:#1b4b9b;--brand-d:#133a7c;--brand-l:#e6edf9;--ink:#0f1a2b;--mut:#6b7686;--line:#e6e8ec;--shell:#f4f4f5;--page:#e2e6ee;--ok:#1f7a45;--bad:#b42318;--ring:0 0 0 3px rgba(27,75,155,.28);--sh:0 2px 14px rgba(30,45,80,.06)}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--bg);padding-bottom:76px}
-a{color:var(--brand-d)}
-button,input,select,textarea{font:inherit}
-h1{font-size:1.9rem;line-height:1.2;margin:0 0 .5rem}h2{font-size:1.4rem;margin:0 0 .75rem}h3{margin:0 0 .25rem;font-size:1.1rem}
-.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
-.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 18px;border-radius:10px;border:2px solid transparent;font-weight:700;cursor:pointer;text-decoration:none;background:var(--brand);color:#fff}
-.btn.accent{background:var(--accent);color:#0f172a}.btn.ghost{background:#fff;color:var(--brand-d);border-color:var(--brand)}.btn.sm{min-height:36px;padding:0 12px;font-size:.9rem}.btn:disabled{opacity:.45;cursor:not-allowed}
-.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 1px 2px #0001}
+html{scroll-behavior:smooth;background:var(--page)}
+body{margin:0;background:var(--page);color:var(--ink);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI Variable Text","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;padding-bottom:92px}
+a{color:var(--brand)}button,input,select,textarea{font:inherit}
+h1,h2,h3{margin:0;letter-spacing:-.025em;color:var(--ink)}h1{font-size:2.2rem;line-height:1.12;font-weight:700}h2{font-size:1.3rem;font-weight:650}h3{font-size:1.05rem;font-weight:650}
+:focus-visible{outline:none;box-shadow:var(--ring)}
+.mut{color:var(--mut)}.small{font-size:.875rem}.price{color:var(--brand-d);font-weight:700}
+.wrap{max-width:none;margin:0 auto;padding:0}
+
+/* page frame */
+#proto{display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap;padding:12px 14px;font-size:.82rem;color:#4b5a70;text-align:center}
+#proto b{color:var(--ink)}
+.seg{display:flex;background:#fff;border-radius:999px;padding:4px;box-shadow:var(--sh)}
+.seg button{border:0;background:none;color:var(--brand);padding:0 18px;border-radius:999px;font-weight:600;cursor:pointer;min-height:44px}
+.seg button.on{background:var(--brand);color:#fff}
+.shell{max-width:1220px;margin:0 auto 24px;background:var(--shell);border-radius:40px;padding:26px 30px 30px;box-shadow:0 20px 50px rgba(30,45,80,.08),inset 0 1px 0 #fff}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px}
+.wordmark{font-size:1.8rem;letter-spacing:-.035em;color:var(--brand);cursor:pointer;font-weight:300;white-space:nowrap;line-height:1}.wordmark b{font-weight:800}
+.wordmark em{font-style:normal;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);font-weight:600;margin-left:8px}
+.pillnav{display:flex;gap:2px;background:#fff;border-radius:999px;padding:6px;box-shadow:var(--sh);overflow-x:auto;scrollbar-width:none}
+.pillnav::-webkit-scrollbar{display:none}
+.pillnav a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;color:var(--brand);font-weight:500;font-size:.95rem;white-space:nowrap;cursor:pointer;text-decoration:none}
+.pillnav a:hover{background:var(--brand-l)}.pillnav a.on{background:var(--brand);color:#fff}
+.tools{display:flex;align-items:center;gap:10px}
+.circ{width:48px;height:48px;border-radius:50%;background:#fff;border:0;display:grid;place-items:center;color:var(--ink);box-shadow:var(--sh);cursor:pointer;position:relative}
+.circ i{position:absolute;top:12px;right:13px;width:9px;height:9px;border-radius:50%;background:#e5484d;border:2px solid #fff}
+.avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(145deg,#a9c3f0,#4a78c9);color:#fff;display:grid;place-items:center;font-weight:700;font-size:.95rem;flex:0 0 auto}
+.who{line-height:1.2;text-align:right;white-space:nowrap}
+#anav a{padding:0 14px}
+a.small,p.small a{display:inline-flex;align-items:center;min-height:44px}
+.btn{white-space:nowrap}.who b{display:block}.who span{font-size:.85rem;color:var(--mut)}
+
+/* controls */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 22px;border-radius:999px;border:0;background:var(--brand);color:#fff;font-weight:600;cursor:pointer;text-decoration:none;transition:background .15s}
+.btn:hover{background:var(--brand-d)}.btn:disabled{background:#c5cedd;cursor:not-allowed}
+.btn.ghost{background:#fff;color:var(--brand);box-shadow:var(--sh)}.btn.ghost:hover{background:var(--brand-l)}
+.btn.light{background:#fff;color:var(--brand)}.btn.light:hover{background:#eaf0fc}
+.btn.accent{background:var(--brand)}.btn.sm{min-height:38px;padding:0 16px;font-size:.88rem}
+.field{display:block;margin-bottom:12px;font-weight:600;font-size:.92rem}
+.field input,.field select,.field textarea{display:block;width:100%;margin-top:5px;min-height:48px;padding:8px 14px;border:1px solid #d6dbe4;border-radius:14px;background:#fff}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--brand);box-shadow:var(--ring);outline:none}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:10px 0;font-size:.92rem}.chk input{width:22px;height:22px;margin-top:2px;flex:0 0 22px;accent-color:var(--brand)}
+
+/* cards */
+.card{background:#fff;border-radius:26px;padding:22px;box-shadow:var(--sh)}
+.cardhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
+.sel{background:#f1f2f5;border-radius:999px;padding:4px 12px;font-size:.78rem;color:var(--mut);font-weight:600}
+.col{display:flex;flex-direction:column;gap:18px;min-width:0}
+.dash2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:start}
+.dash3{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr) minmax(0,.9fr);gap:18px;align-items:start}
+.hello h1{font-size:2.8rem;font-weight:600;letter-spacing:-.035em}.hello p{margin:4px 0 0;font-size:1.25rem;color:var(--mut)}
+.feature{background:var(--brand);color:#fff}.feature h2,.feature p{color:#fff}.feature .eyebrow{color:#bcd0f4}.feature h2{font-size:1.7rem;margin:4px 0}.feature p{opacity:.88;margin:0 0 16px}
+.eyebrow{margin:0;font-size:.74rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--brand)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
+.tile{background:#fff;border:0;border-radius:22px;padding:14px;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;text-align:left;cursor:pointer;box-shadow:var(--sh);transition:transform .15s}
+.tile:hover{transform:translateY(-2px)}.tile small{color:var(--mut)}.tile b{display:block;line-height:1.25}
+.tile .gl{width:44px;height:44px;border-radius:14px;background:var(--brand-l);color:var(--brand);display:grid;place-items:center;align-self:flex-end}
+.tile:nth-child(2) .gl{background:#efeaff;color:#5b3fc4}.tile:nth-child(3) .gl{background:#e3f4ee;color:#157a5b}
+.chips{display:flex;gap:8px;margin-bottom:12px}
+.chip{flex:1 1 0;min-width:0;min-height:68px;border:0;border-radius:16px;background:#efeff1;font-weight:700;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--ink);font-size:.82rem}
+.chip span{font-size:1.15rem;font-weight:700}.chip small{font-weight:500;color:var(--mut);font-size:.7rem}
+.chip.on{background:var(--brand);color:#fff}.chip.on small{color:#c9d8f5}.chip:disabled{opacity:.45;cursor:not-allowed}
+.li{display:flex;align-items:center;gap:12px;width:100%;background:#f4f4f6;border:1px solid #ececef;border-radius:999px;padding:8px 16px 8px 8px;margin-bottom:8px;text-align:left;cursor:pointer;color:var(--ink)}
+.li:hover{background:#eef2fb;border-color:#d4def2}
+.li .ico{width:42px;height:42px;border-radius:50%;background:#fff;color:var(--brand);display:grid;place-items:center;font-weight:700;flex:0 0 auto;font-size:.9rem;box-shadow:0 1px 3px rgba(30,45,80,.1)}
+.li b{display:block;font-size:.92rem;line-height:1.2}.li small{color:var(--mut);font-size:.78rem}.li .r{margin-left:auto;font-size:.78rem;color:var(--mut);text-align:right;white-space:nowrap}
+.appt{background:#f1f1f3;border-radius:18px;padding:12px;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:center;margin-bottom:10px}
+.appt .avatar{width:42px;height:42px;font-size:.8rem;grid-row:span 2}
+.appt b{font-size:.92rem;line-height:1.2}.appt small{color:var(--mut)}
+.appt .foot{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;font-size:.76rem;color:var(--mut);margin-top:6px}
+.st{border-radius:8px;padding:3px 12px;font-size:.72rem;font-weight:700;color:#fff;display:inline-block}
+.st.new{background:#86abe8}.st.conf{background:#3a72d4}.st.in{background:var(--ok)}.st.done{background:#8b93a0}.st.x{background:#c0392b}
+.mini{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stat b{display:block;font-size:2rem;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.1}.stat{color:var(--mut);font-size:.88rem}.stat .card{padding:16px}
+.chart{width:100%;height:auto;display:block}
+.hrsrow{display:flex;justify-content:space-between;font-size:.93rem;padding:4px 0;color:var(--mut)}.hrsrow b{color:var(--ink);font-weight:600}
+.pill{display:inline-block;padding:2px 10px;border-radius:8px;font-size:.74rem;font-weight:700;background:var(--brand-l);color:var(--brand-d)}
+.pill.warn{background:#fdf0d5;color:#7a4a00}.pill.ok{background:#dff1e5;color:#17703a}.pill.bad{background:#fbe3e0;color:#a1281c}.pill.grey{background:#e8eaee;color:#47505f}
+.alert{background:#fdf5e4;border-radius:16px;color:#5b3d06;padding:12px 16px;font-size:.92rem}
+.note{background:#e9eefa;border-radius:16px;color:#233a63;padding:11px 16px;font-size:.84rem;margin:0 0 16px}
+.hold{background:#e9eefa;border-radius:14px;padding:10px 14px;font-size:.9rem;margin-bottom:14px}
+.sec{padding:0}.sec h1{margin-bottom:6px}
 .grid{display:grid;gap:14px}.g2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
-.mut{color:var(--mut)}.small{font-size:.875rem}.pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.78rem;font-weight:700;background:var(--brand-l);color:var(--brand-d)}
-.pill.warn{background:#fef3c7;color:#92400e}.pill.ok{background:#dcfce7;color:#166534}.pill.bad{background:#fee2e2;color:#991b1b}.pill.grey{background:#e2e8f0;color:#334155}
-
-/* prototype bar */
-#proto{position:sticky;top:0;z-index:60;background:#0f172a;color:#fff;font-size:.85rem}
-#proto .wrap{display:flex;gap:10px;align-items:center;justify-content:space-between;padding-top:8px;padding-bottom:8px;flex-wrap:wrap}
-#proto b{color:var(--accent)}
-.seg{display:flex;background:#1e293b;border-radius:10px;padding:3px}
-.seg button{background:none;border:0;color:#cbd5e1;padding:8px 14px;border-radius:8px;font-weight:700;cursor:pointer;min-height:36px}
-.seg button.on{background:#fff;color:#0f172a}
-
-/* patient site */
-header.site{position:sticky;top:44px;z-index:50;background:#ffffffee;backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
-header.site .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:60px}
-.logo{font-weight:800;color:var(--brand-d);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;gap:8px;min-height:44px}
-.logo i{width:30px;height:30px;border-radius:8px;background:var(--brand);color:#fff;display:grid;place-items:center;font-style:normal}
-nav.main{display:flex;gap:4px;overflow-x:auto}
-nav.main a{white-space:nowrap;padding:0 10px;min-height:44px;display:inline-flex;align-items:center;text-decoration:none;color:var(--mut);font-weight:600;border-radius:8px;cursor:pointer}
-nav.main a.on{color:var(--brand-d);background:var(--brand-l)}
-.hero{background:linear-gradient(135deg,#0F766E,#115E59);color:#fff;padding:44px 0}
-.hero p{max-width:560px;opacity:.95}.hero .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-.hero .btn.ghost{background:transparent;color:#fff;border-color:#fff}
-.sec{padding:34px 0}
-.alert{background:#fffbeb;border:1px solid #fde68a;color:#78350f;padding:10px 14px;border-radius:10px;font-size:.9rem}
-.price{font-weight:800;color:var(--brand-d)}
-footer.site{background:#0f172a;color:#cbd5e1;margin-top:30px;padding:28px 0;font-size:.9rem}
-.mbar{position:fixed;left:0;right:0;bottom:0;z-index:55;display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#fff;border-top:1px solid var(--line);padding:8px}
-@media(min-width:800px){.mbar{display:none}body{padding-bottom:0}}
-details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:0 16px;margin-bottom:10px}
-summary{cursor:pointer;min-height:48px;display:flex;align-items:center;font-weight:700}
-details p{margin:0 0 14px;color:var(--mut)}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border-radius:22px;overflow:hidden;box-shadow:var(--sh);font-size:.92rem}
+th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}th{background:#f7f7f9;font-size:.74rem;text-transform:uppercase;letter-spacing:.05em;color:var(--mut)}tr:last-child td{border-bottom:0}
+details{background:#fff;border-radius:20px;padding:0 20px;margin-bottom:10px;box-shadow:var(--sh)}
+summary{cursor:pointer;min-height:54px;display:flex;align-items:center;font-weight:650}details p{margin:0 0 14px;color:var(--mut)}
 
 /* booking */
-.steps{display:flex;gap:6px;margin:0 0 16px;padding:0;list-style:none}
-.steps li{flex:1;text-align:center;font-size:.78rem;padding:8px 2px;border-bottom:4px solid var(--line);color:var(--mut);font-weight:600}
-.steps li.on{border-color:var(--brand);color:var(--brand-d)}.steps li.done{border-color:var(--ok);color:var(--ok)}
-.opt{display:flex;justify-content:space-between;gap:10px;align-items:center;width:100%;text-align:left;background:#fff;border:2px solid var(--line);border-radius:12px;padding:14px;margin-bottom:10px;cursor:pointer;min-height:56px}
-.opt:hover,.opt.sel{border-color:var(--brand);background:#f0fdfa}
-.days{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:12px}
-.day{flex:0 0 auto;min-width:76px;min-height:56px;border:2px solid var(--line);background:#fff;border-radius:12px;font-weight:700;cursor:pointer;padding:6px}
-.day.sel{border-color:var(--brand);background:var(--brand);color:#fff}
-.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px}
-.slot{min-height:46px;border:2px solid var(--line);background:#fff;border-radius:10px;font-weight:700;cursor:pointer}
-.slot.sel{background:var(--brand);color:#fff;border-color:var(--brand)}
-.field{display:block;margin-bottom:12px;font-weight:600;font-size:.92rem}
-.field input,.field select,.field textarea{display:block;width:100%;margin-top:4px;min-height:46px;padding:8px 12px;border:1px solid #94a3b8;border-radius:10px;background:#fff}
-.chk{display:flex;gap:10px;align-items:flex-start;margin:10px 0;font-size:.92rem}.chk input{width:22px;height:22px;margin-top:2px;flex:0 0 22px}
-.hold{background:#ecfeff;border:1px solid #a5f3fc;padding:8px 12px;border-radius:10px;font-size:.9rem;margin-bottom:12px}
-.ok-box{text-align:center;padding:26px}.tick{width:64px;height:64px;border-radius:50%;background:#dcfce7;color:var(--ok);display:grid;place-items:center;font-size:2rem;margin:0 auto 10px}
-dl.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:0;text-align:left}dl.kv dt{color:var(--mut)}dl.kv dd{margin:0;font-weight:600}
-.email{border:1px dashed #94a3b8;border-radius:12px;background:#fff;padding:14px;font-size:.88rem;text-align:left;margin-top:14px}
+.steps{display:flex;gap:6px;margin:0 0 18px;padding:0;list-style:none}
+.steps li{flex:1;text-align:center;font-size:.78rem;padding:9px 2px;border-radius:999px;background:#ebecef;color:var(--mut);font-weight:600}
+.steps li.on{background:var(--brand);color:#fff}.steps li.done{background:var(--brand-l);color:var(--brand-d)}
+.opt{display:flex;justify-content:space-between;gap:10px;align-items:center;width:100%;text-align:left;background:#fff;border:2px solid transparent;border-radius:20px;padding:14px 18px;margin-bottom:10px;cursor:pointer;min-height:60px;box-shadow:var(--sh)}
+.opt:hover{border-color:#c9d6ef}.opt.sel{border-color:var(--brand);background:#f3f6fd}
+.days{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:14px;scrollbar-width:none}
+.day{flex:0 0 auto;min-width:82px;min-height:60px;border:0;background:#fff;border-radius:16px;font-weight:700;cursor:pointer;padding:6px;box-shadow:var(--sh);color:var(--ink)}
+.day.sel{background:var(--brand);color:#fff}.day:disabled{opacity:.45;cursor:not-allowed}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px}
+.slot{min-height:48px;border:0;background:#fff;border-radius:14px;font-weight:650;cursor:pointer;box-shadow:var(--sh);font-variant-numeric:tabular-nums;color:var(--ink)}
+.slot:hover{background:#eef2fb}.slot.sel{background:var(--brand);color:#fff}
+.ok-box{text-align:center;padding:28px}.tick{width:60px;height:60px;border-radius:50%;background:#dff1e5;color:var(--ok);display:grid;place-items:center;font-size:1.7rem;margin:0 auto 12px}
+dl.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;margin:0;text-align:left}dl.kv dt{color:var(--mut)}dl.kv dd{margin:0;font-weight:600}
+.email{border-radius:20px;background:#fff;padding:16px 18px;font-size:.88rem;text-align:left;margin-top:14px;box-shadow:var(--sh)}
+.hrs{display:grid;grid-template-columns:84px minmax(0,1fr) minmax(0,1fr) 54px;gap:6px;align-items:center;margin-bottom:8px}
+.hrs input[type=time]{width:100%;min-width:0;min-height:44px;border:1px solid #d6dbe4;border-radius:12px;padding:0 6px}.hrs label{display:flex;gap:4px;align-items:center}
+td input[type=number]{min-height:44px!important;border:1px solid #d6dbe4!important;border-radius:12px!important}
 
-/* admin */
+footer.site{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);color:var(--mut);font-size:.86rem}
+footer.site p{margin:2px 0}footer.site a{display:inline-flex;align-items:center;min-height:44px;padding:0 8px 0 0;color:var(--mut)}
+.mbar{position:fixed;left:12px;right:12px;bottom:12px;z-index:55;display:none;grid-template-columns:1fr 1fr;gap:8px;background:rgba(255,255,255,.9);-webkit-backdrop-filter:saturate(180%) blur(18px);backdrop-filter:saturate(180%) blur(18px);border-radius:999px;padding:7px;box-shadow:0 8px 28px rgba(30,45,80,.18)}
+.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:#0f1a2b;color:#fff;padding:12px 20px;border-radius:999px;z-index:90;display:none;max-width:92vw;font-size:.9rem;box-shadow:0 8px 24px rgba(0,0,0,.25)}
 #admin{display:none}
-.adm{display:grid;grid-template-columns:210px 1fr;min-height:calc(100vh - 44px)}
-.side{background:#0f172a;color:#cbd5e1;padding:14px}
-.side b{color:#fff;display:block;margin:4px 8px 14px}
-.side a{display:flex;align-items:center;min-height:44px;padding:0 10px;border-radius:8px;cursor:pointer;color:#cbd5e1;text-decoration:none;font-weight:600}
-.side a.on{background:#1e293b;color:#fff}
-.main-a{padding:20px;min-width:0}
-@media(max-width:760px){.adm{grid-template-columns:1fr}.side{display:flex;overflow-x:auto;gap:4px;padding:8px}.side b{display:none}.side a{white-space:nowrap}}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}.stat b{font-size:1.7rem;display:block}
-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:.92rem}
-th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}th{background:#f1f5f9;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--mut)}
-.tw{overflow-x:auto}
-.hrs{display:grid;grid-template-columns:78px minmax(0,1fr) minmax(0,1fr) 50px;gap:6px;align-items:center;margin-bottom:8px}
-.hrs input[type=time]{width:100%;min-width:0;min-height:40px;border:1px solid #94a3b8;border-radius:8px;padding:0 4px}
-.hrs label{display:flex;gap:4px;align-items:center}
-.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#0f172a;color:#fff;padding:12px 18px;border-radius:12px;z-index:90;display:none;max-width:92vw;font-size:.92rem}
-.note{font-size:.82rem;background:#eff6ff;border:1px solid #bfdbfe;color:#1e3a8a;border-radius:10px;padding:8px 12px;margin:0 0 14px}
 
-/* ================= REFINED CLINIC STYLE ================= */
-:root{
-  --bg:#f5f6f4;--surface:#fff;--line:#dfe3e0;--line-2:#eceeec;--ink:#13201e;--mut:#56655f;
-  --brand:#0b5d57;--brand-d:#08433f;--brand-l:#e3f0ee;--accent:#b45309;
-  --ok:#17703a;--bad:#b42318;--ring:0 0 0 3px rgba(11,93,87,.28);
-}
-html{background:var(--bg)}
-body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI Variable Text","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;letter-spacing:0;font-size:16px;line-height:1.55}
-h1,h2,h3{letter-spacing:-.02em;font-weight:650;color:var(--ink)}
-h1{font-size:2.25rem;line-height:1.12;font-weight:700}h2{font-size:1.3rem}h3{font-size:1.05rem}
-.mut{color:var(--mut)}.price{color:var(--brand-d);font-weight:700}
-a{color:var(--brand)}
-:focus-visible{outline:none;box-shadow:var(--ring);border-radius:8px}
-
-/* buttons: solid, quiet */
-.btn{background:var(--brand);color:#fff;border:1px solid var(--brand);border-radius:10px;box-shadow:none;text-shadow:none;font-weight:600;min-height:46px;padding:0 20px;transition:background .15s,border-color .15s}
-.btn:hover{background:var(--brand-d);border-color:var(--brand-d);transform:none;box-shadow:none}
-.btn:active{transform:none;background:#06312e}
-.btn.accent{background:var(--brand);color:#fff;border-color:var(--brand)}
-.btn.accent:hover{background:var(--brand-d)}
-.btn.ghost{background:#fff;color:var(--brand-d);border:1px solid #b9c7c3;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
-.btn.ghost:hover{background:var(--brand-l);border-color:var(--brand)}
-.btn.sm{min-height:38px;padding:0 14px;border-radius:9px;font-size:.9rem}
-.btn:disabled{background:#cfd8d5;border-color:#cfd8d5;color:#fff;opacity:1}
-
-/* surfaces */
-.card,details,.email,table{background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:0 1px 2px rgba(19,32,30,.04);-webkit-backdrop-filter:none;backdrop-filter:none}
-.card{padding:20px}
-details{padding:0 18px;margin-bottom:8px}
-summary{min-height:52px}
-table{border-collapse:separate;border-spacing:0;overflow:hidden}
-th{background:#f1f3f1;color:var(--mut);font-weight:600;letter-spacing:.03em}
-th,td{border-bottom:1px solid var(--line-2)}tr:last-child td{border-bottom:0}
-.hold{background:#eef6f5;border:1px solid #cfe3e0;border-radius:10px;box-shadow:none}
-.alert{background:#fbf3e4;border:1px solid #ecd9ae;color:#5b3d06;border-radius:10px;box-shadow:none}
-.note{background:#eef2f7;border:1px solid #d6dfeb;color:#2a3b52;border-radius:10px;box-shadow:none}
-.pill{background:var(--brand-l);border:0;box-shadow:none;color:var(--brand-d);font-weight:600;border-radius:6px;padding:2px 8px}
-.pill.warn{background:#fbefd5;color:#7a4a00}.pill.ok{background:#dff1e5;color:#17703a}.pill.bad{background:#fbe3e0;color:#a1281c}.pill.grey{background:#e9ecea;color:#44524c}
-
-/* prototype bar */
-#proto{background:#13201e;color:#d9e1de;border-bottom:0;-webkit-backdrop-filter:none;backdrop-filter:none}
-#proto b{color:#f3c97a}
-.seg{background:#24322f;border-radius:9px;box-shadow:none;padding:3px}
-.seg button{border-radius:7px;color:#b9c6c1;font-weight:600}
-.seg button.on{background:#fff;color:#13201e;box-shadow:none}
-
-/* header: the only frosted element */
-header.site{background:rgba(255,255,255,.86);-webkit-backdrop-filter:saturate(180%) blur(18px);backdrop-filter:saturate(180%) blur(18px);border-bottom:1px solid var(--line);padding:0;top:48px}
-header.site .wrap{background:none;border:0;border-radius:0;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;padding:0 16px;min-height:64px}
-.logo{font-weight:700;font-size:1.05rem;color:var(--brand-d);letter-spacing:-.01em;white-space:nowrap}
-.logo i{width:30px;height:30px;border-radius:8px;background:var(--brand);box-shadow:none;position:relative;font-size:0;color:transparent}
-.logo i::before,.logo i::after{content:"";position:absolute;background:#fff;border-radius:2px}
-.logo i::before{width:14px;height:4px;left:8px;top:13px}.logo i::after{width:4px;height:14px;left:13px;top:8px}
-nav.main a{border-radius:8px;color:var(--mut);font-weight:500}
-nav.main a:hover{color:var(--ink);background:#eef1ef}
-nav.main a.on{background:var(--brand-l);color:var(--brand-d);box-shadow:none;font-weight:600}
-
-/* home */
-.hero2{padding:44px 0 24px}
-.hero-grid{display:grid;gap:28px;grid-template-columns:1.15fr .85fr;align-items:start}
-.eyebrow{margin:0 0 8px;font-size:.78rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--brand)}
-.lead{font-size:1.1rem;color:var(--mut);max-width:520px;margin:10px 0 0}
-.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
-.ticks{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:8px;color:var(--mut);font-size:.95rem}
-.ticks li{padding-left:26px;position:relative}
-.ticks li::before{content:"";position:absolute;left:3px;top:.45em;width:12px;height:7px;border-left:2px solid var(--brand);border-bottom:2px solid var(--brand);transform:rotate(-45deg)}
-.next h2{font-size:1.6rem;margin:2px 0 4px}
-.next hr{border:0;border-top:1px solid var(--line-2);margin:18px 0}
-.hrsrow{display:flex;justify-content:space-between;font-size:.93rem;padding:3px 0;color:var(--mut)}.hrsrow b{color:var(--ink);font-weight:600}
-.how{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));counter-reset:s}
-.how .card{counter-increment:s;position:relative;padding-top:54px}
-.how .card::before{content:counter(s);position:absolute;left:20px;top:16px;width:28px;height:28px;border-radius:50%;background:var(--brand-l);color:var(--brand-d);font-weight:700;display:grid;place-items:center;font-size:.9rem}
-.sec{padding:26px 0}
-@media(max-width:860px){.hero-grid{grid-template-columns:1fr}h1{font-size:1.85rem}}
-
-/* booking controls */
-.opt,.day,.slot{background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;transition:border-color .12s,background .12s}
-.opt:hover,.slot:hover,.day:hover{background:#f7faf9;border-color:#9db8b3;transform:none}
-.opt.sel,.slot.sel,.day.sel{background:var(--brand);color:#fff;border-color:var(--brand);box-shadow:none}
-.opt.sel .mut,.opt.sel .price{color:#d4ebe7}
-.opt{padding:14px 16px;border-radius:12px}
-.slot{font-weight:600;font-variant-numeric:tabular-nums}
-.steps{gap:4px}
-.steps li{background:none;border-radius:0;margin:0;padding:8px 2px;box-shadow:none;border-bottom:3px solid var(--line);color:var(--mut);font-weight:600;font-size:.8rem}
-.steps li.on{background:none;border-color:var(--brand);color:var(--brand-d);box-shadow:none}
-.steps li.done{background:none;border-color:var(--brand);color:var(--mut)}
-.field input,.field select,.field textarea{background:#fff;border:1px solid #aab8b3;border-radius:9px;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--brand);box-shadow:var(--ring);outline:none}
-.tick{background:#dff1e5;color:var(--ok);box-shadow:none;width:56px;height:56px;font-size:1.6rem}
-.email{background:#fafaf8;border-style:solid;border-radius:12px}
-
-/* footer + phone bar */
-footer.site{background:#13201e;color:#b9c6c1;border-radius:0;margin-top:36px;-webkit-backdrop-filter:none;backdrop-filter:none}
-.mbar{left:0;right:0;bottom:0;border-radius:0;border:0;border-top:1px solid var(--line);background:rgba(255,255,255,.92);-webkit-backdrop-filter:saturate(180%) blur(18px);backdrop-filter:saturate(180%) blur(18px);box-shadow:none;padding:8px 12px calc(8px + env(safe-area-inset-bottom))}
-
-/* admin */
-.side{background:#13201e;margin:0;border-radius:0;border:0;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
-.side a{border-radius:8px;font-weight:500}
-.side a.on{background:#24322f;color:#fff;box-shadow:none}
-.stat b{color:var(--ink);font-size:1.9rem;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-.stat{color:var(--mut)}
-.toast{background:#13201e;border:0;border-radius:10px;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:0 8px 24px rgba(0,0,0,.25);padding:12px 18px}
+@media(max-width:1000px){.dash3{grid-template-columns:1fr 1fr}.dash3>.col:nth-child(3){grid-column:1/-1}}
+@media(max-width:860px){.dash2,.dash3{grid-template-columns:1fr}.hello h1{font-size:2.3rem}}
 @media(max-width:799px){
-  #proto{position:static}
-  header.site{top:0}
-  header.site .wrap{flex-wrap:wrap;padding:4px 12px 0;row-gap:0;border-radius:0}
-  .logo{order:1}header.site .btn{order:2;margin-left:auto}
-  nav.main{order:3;flex:0 0 100%;margin:0 -6px;padding:0 0 6px;-webkit-mask-image:linear-gradient(90deg,#000 90%,transparent);mask-image:linear-gradient(90deg,#000 90%,transparent);scrollbar-width:none}
-  nav.main::-webkit-scrollbar{display:none}
-  .hero2{padding-top:26px}
-  .side{margin:0;border-radius:0;padding:6px}
+  .mbar{display:grid}
+  .shell{border-radius:30px;padding:16px 14px 24px;margin:0 8px 16px}
+  .topbar{flex-wrap:wrap;margin-bottom:18px}
+  .wordmark{font-size:1.55rem}
+  .pillnav{order:3;flex:0 0 100%}
+  .who{display:none}
 }
-.seg button{min-height:44px}
-footer.site p a{display:inline-flex;align-items:center;min-height:44px;padding:0 6px}
-p.small a{display:inline-flex;align-items:center;min-height:44px}
-td input[type=number],.hrs input[type=time]{min-height:44px!important}
+@media(min-width:800px){body{padding-bottom:0}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
 
 <div id="proto">
-  <div class="wrap">
-    <span><b>Design prototype.</b> Sample data only. Prices, names and hours are placeholders.</span>
-    <div class="seg" role="tablist" aria-label="Switch view">
-      <button id="vP" class="on" onclick="setView('patient')">Patient website</button>
-      <button id="vA" onclick="setView('admin')">Clinic admin</button>
-    </div>
+  <span><b>Design prototype.</b> Sample data only. Prices, names and hours are placeholders.</span>
+  <div class="seg" role="tablist" aria-label="Switch view">
+    <button id="vP" class="on" onclick="setView('patient')">Patient website</button>
+    <button id="vA" onclick="setView('admin')">Clinic admin</button>
   </div>
 </div>
 
 <!-- ============ PATIENT SIDE ============ -->
 <div id="patient">
-  <header class="site"><div class="wrap">
-    <div class="logo" onclick="go('home')"><i>+</i> Royal Medics Clinic</div>
-    <nav class="main" id="nav"></nav>
-    <a class="btn accent sm" onclick="go('book')" style="cursor:pointer">Book now</a>
-  </div></header>
-  <main id="page"></main>
-  <footer class="site"><div class="wrap">
-    <p><b style="color:#fff">Royal Medics Clinic</b>, Dublin. Address, phone and opening hours to be confirmed.</p>
-    <p><a href="#" style="color:#cbd5e1" onclick="go('privacy');return false">Privacy policy</a> · <a href="#" style="color:#cbd5e1" onclick="go('privacy');return false">Terms</a> · <a href="#" style="color:#cbd5e1" onclick="go('privacy');return false">Cookies</a> · <a href="#" style="color:#cbd5e1" onclick="go('privacy');return false">Cancellation policy</a></p>
-    <p><b style="color:#fff">This service is not for emergencies.</b> In an emergency call 112 or 999.</p>
-  </div></footer>
-  <div class="mbar"><a class="btn ghost" onclick="toast('On the live site this dials the clinic')">Call</a><a class="btn accent" onclick="go('book')">Book now</a></div>
+  <div class="shell">
+    <div class="topbar">
+      <div class="wordmark" onclick="go('home')">Royal<b>Medics</b></div>
+      <nav class="pillnav" id="nav" aria-label="Main"></nav>
+      <div class="tools">
+        <button class="circ" aria-label="Call the clinic" onclick="toast('On the live site this dials the clinic')"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></button>
+        <a class="btn" onclick="go('book')">Book now</a>
+      </div>
+    </div>
+    <main id="page"></main>
+    <footer class="site">
+      <p><b style="color:var(--ink)">Royal Medics Clinic</b>, Dublin. Address, phone and opening hours to be confirmed.</p>
+      <p><a href="#" onclick="go('privacy');return false">Privacy policy</a><a href="#" onclick="go('privacy');return false">Terms</a><a href="#" onclick="go('privacy');return false">Cookies</a><a href="#" onclick="go('privacy');return false">Cancellation policy</a></p>
+      <p><b style="color:var(--ink)">This service is not for emergencies.</b> In an emergency call 112 or 999.</p>
+    </footer>
+  </div>
+  <div class="mbar"><a class="btn ghost" onclick="toast('On the live site this dials the clinic')">Call</a><a class="btn" onclick="go('book')">Book now</a></div>
 </div>
 
 <!-- ============ ADMIN SIDE ============ -->
 <div id="admin">
-  <div class="adm">
-    <aside class="side">
-      <b>Royal Medics admin</b>
-      <a data-a="dash" class="on" onclick="adm('dash')">Dashboard</a>
-      <a data-a="appts" onclick="adm('appts')">Appointments</a>
-      <a data-a="walk" onclick="adm('walk')">Walk-in booking</a>
-      <a data-a="services" onclick="adm('services')">Services and prices</a>
-      <a data-a="hours" onclick="adm('hours')">Doctor hours</a>
-      <a data-a="closed" onclick="adm('closed')">Closed days</a>
-    </aside>
-    <section class="main-a" id="apage"></section>
+  <div class="shell">
+    <div class="topbar">
+      <div class="wordmark">Royal<b>Medics</b><em>Admin</em></div>
+      <nav class="pillnav" id="anav" aria-label="Admin"></nav>
+      <div class="tools">
+        <div class="who"><b>Dr Khalid Siddig</b><span>Administrator</span></div>
+        <div class="avatar" aria-hidden="true">KS</div>
+        <button class="circ" aria-label="Notifications" onclick="toast('Alerts for new bookings and enquiries appear here')"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 1 1 12 0c0 6 2 7 2 7H4s2-1 2-7zM10 20a2 2 0 0 0 4 0"/></svg><i></i></button>
+      </div>
+    </div>
+    <section id="apage"></section>
   </div>
 </div>
 <div class="toast" id="toast"></div>
@@ -283,16 +213,18 @@ const euro = n => '€'+Number(n).toFixed(2).replace(/\.00$/,'');
 const $ = s => document.querySelector(s);
 const svc = id => S.find(x=>x.id===id);
 
-/* a few appointments already in the diary */
+/* sample diary for the next week */
 (function seedDiary(){
-  const d = new Date(today); d.setDate(d.getDate()+ (d.getDay()===0?1:0)); // today or Monday
-  const k = iso(d);
-  [['09:30','Aoife Byrne','gp','paid','confirmed'],['09:45','Liam Murphy','gp','unpaid','confirmed'],['10:15','Sinead Kelly','vax','paid','confirmed'],['11:00','Conor Walsh','chk','unpaid','confirmed']]
-   .forEach(([t,n,s,p,st],i)=>{appts.push({ref:'RMC-'+(1000+i),date:k,time:t,name:n,s,paid:p,status:st});taken[k+'|'+t]=true});
+  const P=['Aoife Byrne','Liam Murphy','Sinead Kelly','Conor Walsh','Niamh Doyle','Oisin Ryan','Ciara Nolan','Darragh Quinn','Emer Brady','Cian Daly'];
+  const SV=['gp','gp','vax','chk','kid','gp','form'],T=['09:30','10:00','10:30','11:00','11:30','12:00'],plan=[5,3,6,4,5,0,0];let n=0;
+  for(let i=0;i<7;i++){const d=new Date(today);d.setDate(d.getDate()+i);if(!hours[d.getDay()])continue;const k=iso(d);
+    for(let j=0;j<plan[i];j++){const sid=SV[(i+j)%SV.length],t=T[j];
+      appts.push({ref:'RMC-'+(1000+n++),date:k,time:t,name:P[(i*3+j)%P.length],s:sid,paid:(i+j)%2===0?'paid':'unpaid',status:i===0&&j===0?'completed':i===0&&j===1?'checked in':'confirmed'});
+      const m=parseInt(t)*60+parseInt(t.slice(3));for(let x=0;x<svc(sid).mins;x+=15){const mm=m+x;taken[k+'|'+String(Math.floor(mm/60)).padStart(2,'0')+':'+String(mm%60).padStart(2,'0')]=true}}}
 })();
 
 /* ---------- navigation ---------- */
-const NAVI=[['home','Home'],['about','About the doctor'],['services','Services'],['prices','Prices'],['faqs','FAQs'],['contact','Contact']];
+const NAVI=[['home','Home','home'],['about','About the doctor','user'],['services','Services','grid'],['prices','Prices','tag'],['faqs','FAQs','help'],['contact','Contact','mail']];
 function setView(v){view=v;$('#patient').style.display=v==='patient'?'block':'none';$('#admin').style.display=v==='admin'?'block':'none';
   $('#vP').classList.toggle('on',v==='patient');$('#vA').classList.toggle('on',v==='admin');
   document.body.style.paddingBottom=v==='patient'&&innerWidth<800?'76px':'0';window.scrollTo(0,0);
@@ -301,7 +233,7 @@ function go(p){page=p;if(p==='book'&&!booking)booking={step:1};render();window.s
 function toast(t){const e=$('#toast');e.textContent=t;e.style.display='block';clearTimeout(e._t);e._t=setTimeout(()=>e.style.display='none',3200)}
 
 function render(){
-  $('#nav').innerHTML=NAVI.map(([k,l])=>`<a class="${page===k?'on':''}" onclick="go('${k}')">${l}</a>`).join('');
+  $('#nav').innerHTML=NAVI.map(([k,l,i])=>`<a class="${page===k?'on':''}" onclick="go('${k}')">${ic(i)} ${l}</a>`).join('');
   const f={home,about,services,prices,faqs,contact,book,privacy,manage}[page]||home;
   $('#page').innerHTML=f();
   if(page==='book')bindBook();
@@ -309,21 +241,43 @@ function render(){
 
 /* ---------- patient pages ---------- */
 const card=s=>`<div class="card"><h3>${s.name}</h3><p class="mut small" style="margin:0 0 8px">${s.desc}</p><p class="small"><span class="price">${euro(s.price)}</span> · ${s.mins} min</p><button class="btn accent sm" onclick="booking={step:2,sid:'${s.id}'};go('book')">Book</button></div>`;
+const IC={
+ home:'<path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
+ user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',
+ grid:'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
+ tag:'<path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.3"/>',
+ help:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/>',
+ mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
+ cal:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+ plus:'<path d="M12 5v14M5 12h14"/>',
+ clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+ off:'<circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/>',
+ pulse:'<path d="M3 12h4l2-6 4 12 2-6h6"/>'
+};
+const ic=(n,s=18)=>`<svg viewBox="0 0 24 24" width="${s}" height="${s}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[n]}</svg>`;
+const initials=n=>n.split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase();
+
 function nextFree(){for(let i=0;i<14;i++){const d=new Date(today);d.setDate(d.getDate()+i);const k=iso(d),sl=slotsFor('gp',k);if(sl.length)return {k,t:sl[0],label:(i===0?'Today':i===1?'Tomorrow':fmtDay(d))+' at '+sl[0]}}return {k:'',label:'No free times in the next two weeks'}}
-function home(){const nx=nextFree(),N=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-return `<section class="hero2"><div class="wrap hero-grid"><div>
-<p class="eyebrow">General practice, Dublin</p><h1>Book your GP appointment online</h1>
-<p class="lead">Choose a service, pick a time that is genuinely free, and receive your confirmation by email. Pay online or at the clinic.</p>
-<div class="row"><a class="btn" onclick="go('book')">Book an appointment</a><a class="btn ghost" onclick="go('services')">Services and prices</a></div>
-<ul class="ticks"><li>Free changes up to 24 hours before</li><li>Card, Apple Pay and Google Pay accepted</li><li>Reminders by email before your visit</li></ul></div>
-<aside class="card next"><p class="eyebrow">Next available</p><h2>${nx.label}</h2><p class="mut" style="margin:0 0 16px">GP consultation with ${D.name} · 15 min</p>
-<button class="btn" style="width:100%" onclick="booking={step:2,sid:'gp',date:'${nx.k}'};go('book')">Book this time</button><hr>
-<h3 style="margin-bottom:6px">Opening hours</h3>${[1,2,3,4,5,6,0].map(i=>`<div class="hrsrow"><span>${N[i]}</span><b>${hours[i]?hours[i][0]+' to '+hours[i][1]:'Closed'}</b></div>`).join('')}</aside></div></section>
-<section class="sec"><div class="wrap"><h2 style="margin-bottom:14px">How booking works</h2><div class="how">
-<div class="card"><h3>Choose a service</h3><p class="mut small" style="margin:0">GP, children, vaccines, forms and more, with the price shown up front.</p></div>
-<div class="card"><h3>Pick a free time</h3><p class="mut small" style="margin:0">You only see times that are available, so nothing is double booked.</p></div>
-<div class="card"><h3>Confirm and pay</h3><p class="mut small" style="margin:0">Pay online or at the clinic. Your confirmation and calendar file arrive by email.</p></div></div></div></section>
-<section class="sec" style="padding-top:8px"><div class="wrap"><h2 style="margin-bottom:14px">Popular services</h2><div class="grid g3">${S.slice(0,3).map(card).join('')}</div></div></section>`}
+const tile=s=>`<button class="tile" onclick="booking={step:2,sid:'${s.id}'};go('book')"><span class="gl">${ic('pulse',22)}</span><span><small>Service</small><b>${s.name}</b><span class="small price">${euro(s.price)} · ${s.mins} min</span></span></button>`;
+function home(){
+  const nx=nextFree(),days=nextDays().slice(0,5),N=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const hd=window._hd&&days.map(iso).includes(window._hd)&&slotsFor('gp',window._hd).length?window._hd:(days.map(iso).find(k=>slotsFor('gp',k).length)||iso(days[0]));window._hd=hd;
+  const sl=slotsFor('gp',hd).slice(0,4);
+  return `<div class="dash2"><div class="col">
+  <div class="hello"><h1>Hello!</h1><p>How can we help you today?</p></div>
+  <div class="card feature"><p class="eyebrow">Next available</p><h2>${nx.label}</h2><p>GP consultation with ${D.name} · 15 min</p><button class="btn light" onclick="booking={step:2,sid:'gp',date:'${nx.k}'};go('book')">Book this time</button></div>
+  <div class="tiles">${S.slice(0,3).map(tile).join('')}</div>
+  </div><div class="col">
+  <div class="card"><div class="cardhead"><h3>Choose a day</h3><span class="sel">GP consultation</span></div>
+   <div class="chips">${days.map(d=>{const k=iso(d),n=slotsFor('gp',k).length;return `<button class="chip ${k===hd?'on':''}" ${n?'':'disabled'} onclick="window._hd='${k}';render()">${N[d.getDay()]}<span>${d.getDate()}</span><small>${n?n+' free':'closed'}</small></button>`}).join('')}</div>
+   ${sl.map(t=>`<button class="li" onclick="booking={step:2,sid:'gp',date:'${hd}',time:'${t}'};go('book')"><span class="ico">${t}</span><span><b>GP consultation</b><small>${D.name}</small></span><span class="r">${euro(svc('gp').price)}<br>15 min</span></button>`).join('')||'<p class="mut">No free times.</p>'}
+   <p style="margin:6px 0 0"><a class="small" href="#" onclick="go('book');return false">See all times</a></p></div>
+  <div class="card"><h3 style="margin-bottom:8px">Opening hours</h3>${[1,2,3,4,5,6,0].map(i=>`<div class="hrsrow"><span>${N[i]}</span><b>${hours[i]?hours[i][0]+' to '+hours[i][1]:'Closed'}</b></div>`).join('')}</div>
+  <div class="card"><h3 style="margin-bottom:10px">How booking works</h3>
+   <div class="li" style="cursor:default"><span class="ico">1</span><span><b>Choose a service</b><small>Price shown up front</small></span></div>
+   <div class="li" style="cursor:default"><span class="ico">2</span><span><b>Pick a free time</b><small>Only available times are shown</small></span></div>
+   <div class="li" style="cursor:default;margin-bottom:0"><span class="ico">3</span><span><b>Confirm and pay</b><small>Online or at the clinic. Email confirmation</small></span></div></div>
+  </div></div>`}
 function about(){return `<section class="sec"><div class="wrap"><h1>About the doctor</h1><div class="grid g2"><div class="card" style="min-height:200px;display:grid;place-items:center;color:var(--mut)">Photo placeholder</div><div class="card"><h3>${D.name}</h3><p class="mut">Biography, qualifications and registration number go here once supplied by the clinic.</p></div></div></div></section>`}
 function services(){return `<section class="sec"><div class="wrap"><h1>Our services</h1><div class="grid g3">${S.map(card).join('')}</div></div></section>`}
 function prices(){return `<section class="sec"><div class="wrap"><h1>Prices</h1><p class="note">Try it: change a price in <b>Clinic admin → Services and prices</b> and come back. This page updates straight away.</p><div class="tw"><table><tr><th>Service</th><th>Length</th><th>Price</th></tr>${S.map(s=>`<tr><td>${s.name}</td><td>${s.mins} min</td><td class="price">${euro(s.price)}</td></tr>`).join('')}</table></div></div></section>`}
@@ -390,13 +344,37 @@ function manage(){const b=booking;if(!b||!b.ref)return `<section class="sec"><di
 function cancelAppt(ref){const a=appts.find(x=>x.ref===ref);a.status='cancelled';const s=svc(a.s);for(let x=0;x<s.mins;x+=15){const m=parseInt(a.time)*60+parseInt(a.time.split(':')[1])+x;delete taken[a.date+'|'+String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0')]}toast('Cancelled. The time is free again and the patient gets an email'+(a.paid==='paid'?' with a refund notice.':'.'));render()}
 
 /* ---------- admin ---------- */
-function adm(k){window._a=k;document.querySelectorAll('.side a').forEach(a=>a.classList.toggle('on',a.dataset.a===k));
+const ANAV=[['dash','Dashboard','grid'],['appts','Appointments','cal'],['walk','Walk-in','plus'],['services','Services','tag'],['hours','Hours','clock'],['closed','Closed','off']];
+function adm(k){window._a=k;$('#anav').innerHTML=ANAV.map(([a,l,i])=>`<a class="${a===k?'on':''}" onclick="adm('${a}')">${ic(i)} ${l}</a>`).join('');
   $('#apage').innerHTML=({dash:aDash,appts:aAppts,walk:aWalk,services:aServices,hours:aHours,closed:aClosed}[k])();window.scrollTo(0,0)}
 const sn=a=>svc(a.s).name;
 function pill(a){return a.status==='cancelled'?'<span class="pill bad">cancelled</span>':a.status==='checked in'?'<span class="pill ok">checked in</span>':a.status==='completed'?'<span class="pill grey">completed</span>':'<span class="pill">confirmed</span>'}
 function payPill(a){return a.paid==='paid'?'<span class="pill ok">paid</span>':'<span class="pill warn">unpaid</span>'}
-function aDash(){const t=appts.filter(a=>a.date===iso(today)||a===null),up=appts.filter(a=>a.status==='confirmed'),rev=appts.filter(a=>a.paid==='paid').reduce((n,a)=>n+svc(a.s).price,0);
-  return `<h1>Dashboard</h1><p class="note">Sample clinic day. Everything on this side is what reception and the doctor see.</p><div class="stats"><div class="card stat"><b>${up.length}</b>upcoming</div><div class="card stat"><b>${appts.filter(a=>a.paid==='unpaid'&&a.status!=='cancelled').length}</b>to collect</div><div class="card stat"><b>${euro(rev)}</b>paid so far</div><div class="card stat"><b>${appts.filter(a=>a.online).length}</b>booked online</div></div><h2>Next appointments</h2>${tbl(appts.filter(a=>a.status!=='cancelled').sort(cmp).slice(0,6))}`}
+function stBadge(a){if(a.status==='cancelled')return '<span class="st x">Cancelled</span>';if(a.status==='completed')return '<span class="st done">Completed</span>';if(a.status==='checked in')return '<span class="st in">Checked in</span>';return a.online?'<span class="st new">New</span>':'<span class="st conf">Confirmed</span>'}
+function chartSvg(vals,labels){
+  const W=340,H=150,pl=8,pr=8,pt=12,pb=26,max=Math.max(4,...vals)+1,n=vals.length;
+  const x=i=>pl+i*(W-pl-pr)/(n-1),y=v=>pt+(H-pt-pb)*(1-v/max);
+  let d=`M${x(0)},${y(vals[0])}`;for(let i=1;i<n;i++){const mx=(x(i-1)+x(i))/2;d+=` C${mx},${y(vals[i-1])} ${mx},${y(vals[i])} ${x(i)},${y(vals[i])}`}
+  const grid=[0,.5,1].map(f=>{const v=max*f,yy=y(v);return `<line x1="${pl}" x2="${W-pr}" y1="${yy}" y2="${yy}" stroke="#dfe3ea" stroke-dasharray="4 4"/>`}).join('');
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Appointments per day for the next 7 days: ${vals.join(', ')}"><defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1b4b9b" stop-opacity=".22"/><stop offset="1" stop-color="#1b4b9b" stop-opacity="0"/></linearGradient></defs>${grid}<path d="${d} L${x(n-1)},${y(0)} L${x(0)},${y(0)} Z" fill="url(#g)"/><path d="${d}" fill="none" stroke="#1b4b9b" stroke-width="2.5" stroke-linecap="round"/>${vals.map((v,i)=>`<circle cx="${x(i)}" cy="${y(v)}" r="3.5" fill="#fff" stroke="#1b4b9b" stroke-width="2"/>`).join('')}${labels.map((l,i)=>`<text x="${x(i)}" y="${H-6}" text-anchor="middle" font-size="10" fill="#6b7686">${l}</text>`).join('')}</svg>`}
+function aDash(){
+  const days=nextDays().slice(0,7),N=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const live=a=>a.status!=='cancelled';
+  const sel=window._sd&&days.map(iso).includes(window._sd)?window._sd:iso(days.find(d=>appts.some(a=>a.date===iso(d)))||days[0]);window._sd=sel;
+  const cnt=days.map(d=>appts.filter(a=>a.date===iso(d)&&live(a)).length);
+  const collect=appts.filter(a=>a.paid==='unpaid'&&live(a)),paid=appts.filter(a=>a.paid==='paid').reduce((n,a)=>n+svc(a.s).price,0);
+  const day=appts.filter(a=>a.date===sel).sort(cmp),show=day.slice(0,4);
+  const month=new Date(sel+'T00:00:00').toLocaleDateString('en-IE',{month:'short'});
+  return `<div class="dash3">
+  <div class="col"><div class="hello"><h1>Hello, Dr Khalid!</h1><p>Here is the clinic today.</p></div>
+   <div class="mini stat"><div class="card"><b>${appts.filter(a=>live(a)&&a.status!=='completed').length}</b>upcoming</div><div class="card"><b>${collect.length}</b>to collect</div><div class="card"><b>${euro(paid)}</b>paid so far</div><div class="card"><b>${appts.filter(a=>a.online).length}</b>booked online</div></div>
+   <p class="note" style="margin:0">Sample clinic day. This is what reception and the doctor see.</p></div>
+  <div class="col"><div class="card"><div class="cardhead"><h3>Appointments this week</h3><span class="sel">Next 7 days</span></div>${chartSvg(cnt,days.map(d=>N[d.getDay()]))}</div>
+   <div class="card"><div class="cardhead"><h3>To collect</h3><span class="sel">${collect.length} unpaid</span></div>${collect.slice(0,4).map(a=>`<div class="li" style="cursor:default"><span class="ico">${initials(a.name)}</span><span><b>${a.name}</b><small>${sn(a)} · ${fmtDay(new Date(a.date+'T00:00:00'))} ${a.time}</small></span><button class="btn ghost sm" style="margin-left:auto" onclick="act('${a.ref}','pay')">Mark paid</button></div>`).join('')||'<p class="mut" style="margin:0">Nothing to collect.</p>'}</div></div>
+  <div class="col"><div class="card"><div class="cardhead"><h3>My schedule</h3><span class="sel">${month}</span></div>
+   <div class="chips">${days.slice(0,5).map(d=>{const k=iso(d);return `<button class="chip ${k===sel?'on':''}" onclick="window._sd='${k}';adm('dash')">${N[d.getDay()]}<span>${d.getDate()}</span></button>`}).join('')}</div>
+   ${show.map(a=>`<div class="appt"><span class="avatar">${initials(a.name)}</span><b>${a.name}</b><small>${sn(a)}</small><div class="foot"><span>${fmtDay(new Date(a.date+'T00:00:00'))}, ${a.time}</span>${stBadge(a)}</div></div>`).join('')||'<p class="mut">No appointments this day.</p>'}
+   ${day.length>4?`<p style="margin:4px 0 0"><a class="small" href="#" onclick="adm('appts');return false">View all ${day.length}</a></p>`:''}</div></div></div>`}
 const cmp=(a,b)=>(a.date+a.time).localeCompare(b.date+b.time);
 function tbl(list){return `<div class="tw"><table><tr><th>When</th><th>Patient</th><th>Service</th><th>Status</th><th>Payment</th><th></th></tr>${list.map(a=>`<tr><td>${fmtDay(new Date(a.date+'T00:00:00'))}<br><b>${a.time}</b></td><td>${a.name}${a.online?' <span class="pill grey">online</span>':''}<br><span class="mut small">${a.ref}</span></td><td>${sn(a)}</td><td>${pill(a)}</td><td>${payPill(a)}</td><td style="white-space:nowrap">${a.status==='confirmed'?`<button class="btn ghost sm" onclick="act('${a.ref}','in')">Check in</button>`:''}${a.status==='checked in'?`<button class="btn sm" onclick="act('${a.ref}','done')">Complete</button>`:''}${a.paid==='unpaid'&&a.status!=='cancelled'?` <button class="btn ghost sm" onclick="act('${a.ref}','pay')">Mark paid</button>`:''}</td></tr>`).join('')||'<tr><td colspan="6" class="mut">Nothing here.</td></tr>'}</table></div>`}
 function act(ref,w){const a=appts.find(x=>x.ref===ref);if(w==='in')a.status='checked in';if(w==='done')a.status='completed';if(w==='pay'){a.paid='paid';toast('Marked paid. A receipt number is issued.')}adm(window._a)}
