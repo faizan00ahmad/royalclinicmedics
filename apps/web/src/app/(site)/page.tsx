@@ -1,6 +1,7 @@
 import { isTbd, listReviews, listServices } from "@rmc/core";
 import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
+import { HeroVideo } from "@/components/HeroVideo";
 import { AutoRail } from "@/components/AutoRail";
 import { ServiceCard } from "@/components/ServiceCard";
 import { db } from "@/lib/server";
@@ -33,17 +34,16 @@ export default async function Home() {
         medicalSpecialty: "GeneralPractice",
       }} />
 
-      <section className="bg-gradient-to-br from-brand-800 via-brand-700 to-brand-600 text-white">
-        <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 py-14 md:grid-cols-2 md:py-20"><div>
-          <p className="text-xs font-semibold uppercase tracking-widest text-white/70">Dr Khalid Siddig · General Practice</p>
-          <h1 className="mt-3 max-w-2xl font-serif text-4xl font-bold tracking-tight md:text-5xl">Your GP in Waterford. Book online in minutes.</h1>
-          <p className="mt-4 max-w-xl text-lg text-white/85">See a doctor at {clinic.name}. Choose a service, pick a free time and pay online or at the clinic.</p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/book" className="inline-flex min-h-12 items-center rounded-full bg-accent-500 px-7 text-lg font-bold text-white hover:bg-accent-600">Book now</Link>
+      <section className="relative isolate flex min-h-[78vh] items-end overflow-hidden bg-brand-800 text-white md:min-h-[82vh]">
+        <HeroVideo src="/video/hero-consultation.mp4" />
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-900/90 via-brand-900/45 to-brand-900/20" aria-hidden="true" />
+        <div className="relative z-10 mx-auto w-full max-w-6xl px-4 pb-16 pt-32">
+          <h1 className="max-w-xl font-serif text-4xl font-bold tracking-tight md:text-6xl">Your GP in Waterford.</h1>
+          <p className="mt-3 max-w-md text-lg text-white/90">Book in minutes.</p>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <Link href="/book" className="inline-flex min-h-12 items-center rounded-full bg-accent-500 px-8 text-lg font-bold text-white hover:bg-accent-600">Book now</Link>
             {phone && <a href={telHref(clinic.phone)} className="inline-flex min-h-12 items-center rounded-full border-2 border-white/70 px-7 text-lg font-bold text-white">Call {clean(clinic.phone)}</a>}
-          </div></div>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/photos/waiting-room.jpg" alt="The clinic waiting area" width={900} height={1350} className="hidden aspect-[4/3] w-full rounded-3xl object-cover shadow-xl md:block" />
+          </div>
         </div>
       </section>
 

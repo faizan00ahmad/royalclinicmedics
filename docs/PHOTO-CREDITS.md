@@ -16,3 +16,6 @@ Stock photos in `apps/web/public/photos/`, from Unsplash (free to use commercial
 | waiting-room.jpg | Home hero, About | https://unsplash.com/photos/modern-waiting-room-with-chairs-and-inspirational-sign-pxOQ-P97sA8 |
 
 Not used: a certificate photo (it showed a real organisation's document), so Sick Certificate keeps the drawn picture.
+
+## Video
+`apps/web/public/video/hero-consultation.mp4`: "Doctor on Video Call Providing Virtual Consultation", Pexels (free licence): https://www.pexels.com/video/doctor-on-video-call-providing-virtual-consultation-28950489/. Stock placeholder; replace with the clinic's own footage. The hero text does not promise video calls, which are Phase 2.

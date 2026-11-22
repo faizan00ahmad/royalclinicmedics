@@ -2,18 +2,10 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { CookieBanner } from "@/components/CookieBanner";
 import { Logo } from "@/components/Logo";
+import { SiteHeader } from "@/components/SiteHeader";
 import { clean, hasPhone, loadChrome, telHref } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
-
-const NAV = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About the doctor" },
-  { href: "/services", label: "Services" },
-  { href: "/prices", label: "Prices" },
-  { href: "/faqs", label: "FAQs" },
-  { href: "/contact", label: "Contact" },
-];
 
 export default async function SiteLayout({ children }: { children: ReactNode }) {
   const { clinic, announcement } = await loadChrome();
@@ -27,27 +19,7 @@ export default async function SiteLayout({ children }: { children: ReactNode }) 
         </div>
       )}
 
-      <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 shadow-sm backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
-          <Link href="/" className="inline-flex min-h-11 items-center" aria-label={`${clinic.name} home`}><Logo /></Link>
-          <nav aria-label="Main" className="hidden gap-5 text-sm font-medium text-slate-700 md:flex">
-            {NAV.map((n) => <Link key={n.href} href={n.href} className="inline-flex min-h-11 items-center rounded-full px-3 hover:bg-brand-100 hover:text-brand-800">{n.label}</Link>)}
-          </nav>
-          <div className="flex items-center gap-2">
-            {phone && (
-              <a href={telHref(clinic.phone)} className="hidden rounded-full border border-brand-700 px-4 py-2 text-sm font-semibold text-brand-700 lg:inline-block">
-                Call {clean(clinic.phone)}
-              </a>
-            )}
-            <Link href="/book" className="inline-flex min-h-11 items-center rounded-full bg-brand-700 px-5 py-2 text-sm font-bold text-white hover:bg-brand-800">
-              Book now
-            </Link>
-          </div>
-        </div>
-        <nav aria-label="Main (mobile)" className="flex gap-4 overflow-x-auto border-t border-slate-100 px-4 py-2 text-sm font-medium text-slate-700 md:hidden">
-          {NAV.map((n) => <Link key={n.href} href={n.href} className="inline-flex min-h-11 items-center whitespace-nowrap px-1">{n.label}</Link>)}
-        </nav>
-      </header>
+      <SiteHeader name={clinic.name} phoneLabel={phone ? clean(clinic.phone) : undefined} phoneHref={phone ? telHref(clinic.phone) : undefined} />
 
       <main id="main">{children}</main>
 
