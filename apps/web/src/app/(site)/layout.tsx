@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { CookieBanner } from "@/components/CookieBanner";
+import { Logo } from "@/components/Logo";
 import { clean, hasPhone, loadChrome, telHref } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
@@ -21,24 +22,24 @@ export default async function SiteLayout({ children }: { children: ReactNode }) 
   return (
     <>
       {announcement && (
-        <div className="bg-accent-500 px-4 py-2 text-center text-sm font-medium text-slate-900" role="status">
+        <div className="bg-accent-500 px-4 py-2 text-center text-sm font-medium text-white" role="status">
           {announcement.text}
         </div>
       )}
 
-      <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 shadow-sm backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
-          <Link href="/" className="inline-flex min-h-11 items-center text-lg font-bold text-brand-800">{clinic.name}</Link>
+          <Link href="/" className="inline-flex min-h-11 items-center" aria-label={`${clinic.name} home`}><Logo /></Link>
           <nav aria-label="Main" className="hidden gap-5 text-sm font-medium text-slate-700 md:flex">
-            {NAV.map((n) => <Link key={n.href} href={n.href} className="hover:text-brand-700">{n.label}</Link>)}
+            {NAV.map((n) => <Link key={n.href} href={n.href} className="inline-flex min-h-11 items-center rounded-full px-3 hover:bg-brand-100 hover:text-brand-800">{n.label}</Link>)}
           </nav>
           <div className="flex items-center gap-2">
             {phone && (
-              <a href={telHref(clinic.phone)} className="hidden rounded-lg border border-brand-700 px-4 py-2 text-sm font-semibold text-brand-700 lg:inline-block">
+              <a href={telHref(clinic.phone)} className="hidden rounded-full border border-brand-700 px-4 py-2 text-sm font-semibold text-brand-700 lg:inline-block">
                 Call {clean(clinic.phone)}
               </a>
             )}
-            <Link href="/book" className="inline-flex min-h-11 items-center rounded-lg bg-accent-500 px-4 py-2 text-sm font-bold text-slate-900 hover:bg-accent-600">
+            <Link href="/book" className="inline-flex min-h-11 items-center rounded-full bg-brand-700 px-5 py-2 text-sm font-bold text-white hover:bg-brand-800">
               Book now
             </Link>
           </div>
@@ -50,10 +51,10 @@ export default async function SiteLayout({ children }: { children: ReactNode }) 
 
       <main id="main">{children}</main>
 
-      <footer className="mt-16 bg-slate-900 text-slate-200">
+      <footer className="mt-16 border-t-4 border-accent-500 bg-brand-900 text-slate-200">
         <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 md:grid-cols-4">
           <div>
-            <p className="font-bold text-white">{clinic.name}</p>
+            <Logo light size={40} />
             <p className="mt-2 text-sm">{clean(clinic.address) || "Address to be confirmed"}</p>
             {clean(clinic.eircode) && <p className="text-sm">{clean(clinic.eircode)}</p>}
           </div>
@@ -87,11 +88,11 @@ export default async function SiteLayout({ children }: { children: ReactNode }) 
       {/* WEB-00: fixed Call and Book bar on phones */}
       <div className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-2 border-t border-slate-200 bg-white p-2 md:hidden">
         {phone ? (
-          <a href={telHref(clinic.phone)} data-click-to-call className="flex min-h-12 items-center justify-center rounded-lg border-2 border-brand-700 font-bold text-brand-700">Call</a>
+          <a href={telHref(clinic.phone)} data-click-to-call className="flex min-h-12 items-center justify-center rounded-full border-2 border-brand-700 font-bold text-brand-700">Call</a>
         ) : (
-          <Link href="/contact" className="flex min-h-12 items-center justify-center rounded-lg border-2 border-brand-700 font-bold text-brand-700">Contact</Link>
+          <Link href="/contact" className="flex min-h-12 items-center justify-center rounded-full border-2 border-brand-700 font-bold text-brand-700">Contact</Link>
         )}
-        <Link href="/book" className="flex min-h-12 items-center justify-center rounded-lg bg-accent-500 font-bold text-slate-900">Book now</Link>
+        <Link href="/book" className="flex min-h-12 items-center justify-center rounded-full bg-brand-700 font-bold text-white">Book now</Link>
       </div>
 
       <CookieBanner gaId={process.env.NEXT_PUBLIC_GA_ID ?? ""} />

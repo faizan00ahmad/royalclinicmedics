@@ -1,20 +1,21 @@
 import { groupBy, listServices } from "@rmc/core";
 import type { Metadata } from "next";
-import { ServiceCard } from "@/components/ServiceCard";
+import { Rail, ServiceCard } from "@/components/ServiceCard";
 import { db } from "@/lib/server";
 
-export const metadata: Metadata = { title: "Services", description: "GP services, check-ups, children's appointments, vaccinations and more. Book online." };
+export const metadata: Metadata = { title: "Services", description: "GP services, tests, certificates and more. Book online." };
 
 export default async function ServicesPage() {
   const groups = groupBy(await listServices(db()), (s) => s.category);
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
-      <h1 className="text-3xl font-bold">Our services</h1>
+      <p className="text-xs font-semibold uppercase tracking-widest text-accent-500">What we offer</p>
+      <h1 className="font-serif text-4xl font-bold text-brand-800">Our services</h1>
+      <p className="mt-2 text-slate-600">Swipe through each group. Tap a card for details, or book in a few taps.</p>
       {groups.map((g) => (
-        <section key={g.key} className="mt-8">
-          <h2 className="text-xl font-semibold text-brand-800">{g.key}</h2>
-          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{g.items.map((s) => <ServiceCard key={s.id} s={s} />)}</div>
-        </section>
+        <Rail key={g.key} title={g.key} hint={`${g.items.length} ${g.items.length === 1 ? "service" : "services"}`}>
+          {g.items.map((s) => <ServiceCard key={s.id} s={s} rail />)}
+        </Rail>
       ))}
     </div>
   );

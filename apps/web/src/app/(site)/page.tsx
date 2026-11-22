@@ -1,7 +1,7 @@
 import { isTbd, listReviews, listServices } from "@rmc/core";
 import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
-import { ServiceCard } from "@/components/ServiceCard";
+import { Rail, ServiceCard } from "@/components/ServiceCard";
 import { db } from "@/lib/server";
 import { clean, hasPhone, loadChrome, telHref } from "@/lib/site";
 
@@ -32,29 +32,31 @@ export default async function Home() {
         medicalSpecialty: "GeneralPractice",
       }} />
 
-      <section className="bg-gradient-to-b from-brand-50 to-white">
-        <div className="mx-auto max-w-6xl px-4 py-14 md:py-20">
-          <h1 className="max-w-2xl text-4xl font-bold tracking-tight text-brand-900 md:text-5xl">Your GP in Dublin. Book online in minutes.</h1>
-          <p className="mt-4 max-w-xl text-lg text-slate-700">See a doctor at {clinic.name}. Choose a service, pick a free time and pay online or at the clinic.</p>
+      <section className="bg-gradient-to-br from-brand-800 via-brand-700 to-brand-600 text-white">
+        <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 py-14 md:grid-cols-2 md:py-20"><div>
+          <p className="text-xs font-semibold uppercase tracking-widest text-white/70">Dr Khalid Siddig · General Practice</p>
+          <h1 className="mt-3 max-w-2xl font-serif text-4xl font-bold tracking-tight md:text-5xl">Your GP in Waterford. Book online in minutes.</h1>
+          <p className="mt-4 max-w-xl text-lg text-white/85">See a doctor at {clinic.name}. Choose a service, pick a free time and pay online or at the clinic.</p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/book" className="min-h-12 rounded-lg bg-accent-500 px-6 py-3 text-lg font-bold text-slate-900 hover:bg-accent-600">Book now</Link>
-            {phone && <a href={telHref(clinic.phone)} className="min-h-12 rounded-lg border-2 border-brand-700 px-6 py-3 text-lg font-bold text-brand-700">Call {clean(clinic.phone)}</a>}
-          </div>
+            <Link href="/book" className="inline-flex min-h-12 items-center rounded-full bg-accent-500 px-7 text-lg font-bold text-white hover:bg-accent-600">Book now</Link>
+            {phone && <a href={telHref(clinic.phone)} className="inline-flex min-h-12 items-center rounded-full border-2 border-white/70 px-7 text-lg font-bold text-white">Call {clean(clinic.phone)}</a>}
+          </div></div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/photos/waiting-room.jpg" alt="The clinic waiting area" width={900} height={1350} className="hidden aspect-[4/3] w-full rounded-3xl object-cover shadow-xl md:block" />
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-12">
-        <h2 className="text-2xl font-bold">Popular services</h2>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{featured.map((s) => <ServiceCard key={s.id} s={s} />)}</div>
-        <p className="mt-6"><Link href="/services" className="font-semibold text-brand-700 underline">See all services and prices</Link></p>
+      <section className="mx-auto max-w-6xl px-4 pb-4 pt-4">
+        <Rail title="Popular services" hint="Swipe to see more">{featured.map((s) => <ServiceCard key={s.id} s={s} rail />)}</Rail>
+        <p className="mt-2"><Link href="/services" className="font-semibold text-brand-700 underline">See all services and prices</Link></p>
       </section>
 
-      <section className="bg-slate-50 py-12">
+      <section className="bg-page py-12">
         <div className="mx-auto max-w-6xl px-4">
-          <h2 className="text-2xl font-bold">How it works</h2>
+          <h2 className="font-serif text-2xl font-bold text-brand-800">How it works</h2>
           <ol className="mt-6 grid gap-4 md:grid-cols-3">
             {STEPS.map(([n, t, d]) => (
-              <li key={n} className="rounded-xl bg-white p-5 shadow-sm">
+              <li key={n} className="rounded-2xl bg-white p-5 shadow-sm">
                 <span className="flex size-9 items-center justify-center rounded-full bg-brand-700 font-bold text-white">{n}</span>
                 <h3 className="mt-3 font-semibold">{t}</h3>
                 <p className="mt-1 text-sm text-slate-600">{d}</p>
@@ -65,21 +67,21 @@ export default async function Home() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-12">
-        <h2 className="text-2xl font-bold">Why choose us</h2>
+        <h2 className="font-serif text-2xl font-bold text-brand-800">Why choose us</h2>
         <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {why.map(([t, d]) => (
-            <li key={t} className="rounded-xl border border-slate-200 p-5"><h3 className="font-semibold">{t}</h3><p className="mt-1 text-sm text-slate-600">{d}</p></li>
+            <li key={t} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"><h3 className="font-semibold">{t}</h3><p className="mt-1 text-sm text-slate-600">{d}</p></li>
           ))}
         </ul>
       </section>
 
       {reviews.length > 0 && (
-        <section className="bg-slate-50 py-12">
+        <section className="bg-page py-12">
           <div className="mx-auto max-w-6xl px-4">
-            <h2 className="text-2xl font-bold">What patients say</h2>
+            <h2 className="font-serif text-2xl font-bold text-brand-800">What patients say</h2>
             <div className="mt-6 grid gap-4 md:grid-cols-3">
               {reviews.map((r) => (
-                <figure key={r.id} className="rounded-xl bg-white p-5 shadow-sm">
+                <figure key={r.id} className="rounded-2xl bg-white p-5 shadow-sm">
                   <p aria-label={`${r.rating} out of 5 stars`}>{"★".repeat(r.rating)}</p>
                   <blockquote className="mt-2 text-sm text-slate-700">{r.text}</blockquote>
                   <figcaption className="mt-2 text-sm font-semibold">{r.authorName}</figcaption>
@@ -92,14 +94,14 @@ export default async function Home() {
       )}
 
       <section className="mx-auto max-w-6xl px-4 py-12">
-        <h2 className="text-2xl font-bold">Opening hours and location</h2>
+        <h2 className="font-serif text-2xl font-bold text-brand-800">Opening hours and location</h2>
         <p className="mt-3">{clean(clinic.openingHoursText)}</p>
         <p className="mt-1 text-slate-600">{clean(clinic.address) || "Address to be confirmed"}</p>
       </section>
 
-      <section className="bg-brand-700 py-12 text-center text-white">
-        <h2 className="text-2xl font-bold">Ready to book?</h2>
-        <Link href="/book" className="mt-5 inline-block min-h-12 rounded-lg bg-accent-500 px-8 py-3 text-lg font-bold text-slate-900">Book now</Link>
+      <section className="bg-brand-800 py-12 text-center text-white">
+        <h2 className="font-serif text-2xl font-bold text-white">Ready to book?</h2>
+        <Link href="/book" className="mt-5 inline-block min-h-12 rounded-full bg-accent-500 px-8 py-3 text-lg font-bold text-white">Book now</Link>
       </section>
     </>
   );

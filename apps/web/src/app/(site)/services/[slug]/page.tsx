@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/JsonLd";
+import { ServicePicture } from "@/components/ServiceArt";
 import { db } from "@/lib/server";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -38,7 +39,8 @@ export default async function ServicePage({ params }: Props) {
         }} />
       )}
       <p className="text-sm"><Link href="/services" className="underline">All services</Link></p>
-      <h1 className="mt-2 text-3xl font-bold">{service.name}</h1>
+      <ServicePicture slug={service.slug} category={service.category} className="mt-3 aspect-[16/6] w-full rounded-2xl" />
+      <h1 className="mt-4 font-serif text-4xl font-bold text-brand-800">{service.name}</h1>
       <p className="mt-3 text-lg text-slate-700">{service.description ?? service.shortDescription}</p>
       <dl className="mt-6 grid grid-cols-2 gap-4 rounded-xl bg-brand-50 p-5">
         <div><dt className="text-sm text-slate-600">Price</dt><dd className="text-xl font-bold">{formatEuro(service.priceCents)}</dd></div>
@@ -48,7 +50,7 @@ export default async function ServicePage({ params }: Props) {
         {service.payAtClinicAllowed ? "Pay online when you book, or at the clinic." : "Payment is taken online when you book."}
       </p>
       {doctors.length > 0 && <p className="mt-2 text-sm text-slate-600">With {doctors.map((d) => d.displayName).join(", ")}.</p>}
-      <Link href={`/book?service=${service.slug}`} className="mt-6 inline-flex min-h-12 items-center rounded-lg bg-accent-500 px-8 font-bold text-slate-900 hover:bg-accent-600">
+      <Link href={`/book?service=${service.slug}`} className="mt-6 inline-flex min-h-12 items-center rounded-full bg-accent-500 px-8 font-bold text-white hover:bg-accent-600">
         Book this appointment
       </Link>
       {faqs.length > 0 && (

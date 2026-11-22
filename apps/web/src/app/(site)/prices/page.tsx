@@ -1,6 +1,7 @@
 import { formatEuro, groupBy, listServices } from "@rmc/core";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ServicePicture } from "@/components/ServiceArt";
 import { db } from "@/lib/server";
 import { loadChrome } from "@/lib/site";
 
@@ -11,23 +12,22 @@ export default async function PricesPage() {
   const groups = groupBy(await listServices(db()), (s) => s.category);
   return (
     <div className="mx-auto max-w-3xl px-4 py-10">
-      <h1 className="text-3xl font-bold">Prices</h1>
+      <h1 className="font-serif text-4xl font-bold text-brand-800">Prices</h1>
       {groups.map((g) => (
         <section key={g.key} className="mt-8">
-          <h2 className="text-xl font-semibold text-brand-800">{g.key}</h2>
-          <table className="mt-3 w-full text-left">
-            <caption className="sr-only">{g.key} prices</caption>
-            <thead className="sr-only"><tr><th>Service</th><th>Length</th><th>Price</th></tr></thead>
-            <tbody>
-              {g.items.map((s) => (
-                <tr key={s.id} className="border-b border-slate-200">
-                  <td className="py-3"><Link className="font-medium hover:text-brand-700" href={`/services/${s.slug}`}>{s.name}</Link></td>
-                  <td className="py-3 text-sm text-slate-600">{s.durationMin} min</td>
-                  <td className="py-3 text-right font-semibold">{formatEuro(s.priceCents)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <h2 className="font-serif text-xl font-bold text-brand-800">{g.key}</h2>
+          <ul className="mt-3 divide-y divide-slate-200 overflow-hidden rounded-2xl border border-slate-200 bg-white">
+            {g.items.map((s) => (
+              <li key={s.id} className="flex items-center gap-3 p-3">
+                <ServicePicture slug={s.slug} category={s.category} className="h-12 w-16 shrink-0 rounded-lg" />
+                <div className="grow">
+                  <Link className="font-semibold text-brand-800 hover:underline" href={`/services/${s.slug}`}>{s.name}</Link>
+                  <p className="text-sm text-slate-600">{s.durationMin} min</p>
+                </div>
+                <b className="text-brand-800">{formatEuro(s.priceCents)}</b>
+              </li>
+            ))}
+          </ul>
         </section>
       ))}
       <section className="mt-10 space-y-3 rounded-xl bg-slate-50 p-5 text-sm text-slate-700">

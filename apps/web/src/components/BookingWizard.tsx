@@ -245,7 +245,7 @@ function DetailsStep({ service, hold, p, onExpired, onBack, onDone }: {
 
       <Turnstile onToken={onToken} />
       {error && <p role="alert" className="rounded-lg bg-red-50 p-3 text-red-800">{error}</p>}
-      <button disabled={busy || options.length === 0} className="min-h-12 w-full rounded-lg bg-accent-500 px-6 text-lg font-bold text-slate-900 disabled:opacity-50">
+      <button disabled={busy || options.length === 0} className="min-h-12 w-full rounded-lg bg-accent-500 px-6 text-lg font-bold text-white disabled:opacity-50">
         {busy ? "Please wait..." : choice === "ONLINE" ? "Continue to payment" : "Confirm booking"}
       </button>
     </form>
@@ -288,7 +288,7 @@ function PayForm({ result }: { result: Result }) {
     <form onSubmit={pay} className="space-y-4">
       <PaymentElement />
       {error && <p role="alert" className="rounded-lg bg-red-50 p-3 text-red-800">{error}</p>}
-      <button disabled={!stripe || busy} className="min-h-12 w-full rounded-lg bg-accent-500 text-lg font-bold text-slate-900 disabled:opacity-50">{busy ? "Processing..." : "Pay now"}</button>
+      <button disabled={!stripe || busy} className="min-h-12 w-full rounded-lg bg-accent-500 text-lg font-bold text-white disabled:opacity-50">{busy ? "Processing..." : "Pay now"}</button>
     </form>
   );
 }
