@@ -11,3 +11,4 @@ coverage
 .netlify
 *.tsbuildinfo
 next-env.d.ts
+.claude/

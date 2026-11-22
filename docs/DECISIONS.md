@@ -10,3 +10,8 @@
 - Resend: about 25 bookings/day at ~4 emails each. SRS NFR-06 (300/day) needs a paid email plan.
 - Neon cold start after 5 min idle adds latency to the first request.
 - Netlify credits are shared by all functions; monitor usage.
+
+## 2026-11-22 – Seed data and holidays
+- **Decision:** Seed is idempotent and never overwrites admin edits. Irish public holidays are computed in `packages/core/src/holidays.ts` (fixed rules, Easter algorithm) for this and next year. Weekend substitute days are not computed; admin adds them if the clinic closes.
+- **Decision:** `modes` columns are `text[]` with a CHECK instead of a Postgres enum array, because Drizzle emits unqualified enum array types for non-public schemas and the migration fails.
+- **Decision:** All clinic details, prices, hours and legal text in seed are `[TBD]` placeholders (see docs/TBD.md). Reviews and online consultations are off by default.

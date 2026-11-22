@@ -10,9 +10,10 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "generate": "drizzle-kit generate",
-    "migrate": "tsx src/migrate.ts"
+    "seed": "tsx src/seed-cli.ts"
   },
   "dependencies": {
+    "@rmc/core": "workspace:*",
     "drizzle-orm": "^0.38.0",
     "pg": "^8.13.0"
   },

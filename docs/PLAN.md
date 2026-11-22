@@ -6,7 +6,7 @@
 - [ ] T03 packages/config, packages/ui (brand tokens), packages/core, packages/db, packages/auth, packages/emails stubs [EXT-04, EXT-09]
 - [ ] T04 apps/web Next.js App Router with Tailwind, home placeholder, /api/health [WEB-11]
 - [x] T05 Drizzle schema core/cms/ops + empty clinical, slot_locks exclusion constraint [Sec 7, BK-21, EXT-02, EXT-03, EXT-06]
-- [ ] T06 Migrations + seed (services, doctor, hours, holidays, FAQs) [BK-15, Sec 4.1 seed]
+- [x] T06 Migrations + seed (services, doctor, hours, holidays, FAQs) [BK-15, Sec 4.1 seed]
 - [ ] T07 Settings loader, env validation, .env.example [Sec 15]
 - [ ] T08 CI workflow (lint, typecheck, test) [SEC-10]
 - [ ] T09 docs/M1-REPORT.md
