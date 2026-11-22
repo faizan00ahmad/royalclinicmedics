@@ -5,3 +5,4 @@ export * from "./slots";
 export * from "./settings";
 export * from "./db-types";
 export * from "./booking";
+export * from "./payments";

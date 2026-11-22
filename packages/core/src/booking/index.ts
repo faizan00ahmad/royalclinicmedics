@@ -5,3 +5,4 @@ export * from "./patients";
 export * from "./availability";
 export * from "./hold";
 export * from "./appointment";
+export * from "./locks";

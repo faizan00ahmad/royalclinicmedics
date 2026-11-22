@@ -1,0 +1,2 @@
+ALTER TABLE "core"."appointments" ADD COLUMN "hold_id" uuid;--> statement-breakpoint
+ALTER TABLE "core"."appointments" ADD CONSTRAINT "appointments_hold_id_slot_holds_id_fk" FOREIGN KEY ("hold_id") REFERENCES "core"."slot_holds"("id") ON DELETE no action ON UPDATE no action;

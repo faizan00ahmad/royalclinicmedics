@@ -198,6 +198,7 @@ export const appointments = core.table("appointments", {
   rescheduledFromId: uuid("rescheduled_from_id"),
   rescheduleCount: integer("reschedule_count").notNull().default(0),
   manageTokenHash: text("manage_token_hash").notNull(),
+  holdId: uuid("hold_id").references(() => slotHolds.id), // online checkout: the hold kept while the patient pays
   consultationId: uuid("consultation_id"), // EXT-02, Phase 2
   externalRef: text("external_ref"), // EXT-02, Phase 2
   createdAt: created(), updatedAt: updated(),

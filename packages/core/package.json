@@ -16,6 +16,7 @@
     "date-fns": "^4.1.0",
     "date-fns-tz": "^3.2.0",
     "drizzle-orm": "^0.38.0",
+    "stripe": "^23.2.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {

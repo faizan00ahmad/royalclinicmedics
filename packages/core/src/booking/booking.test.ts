@@ -4,6 +4,8 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { seed } from "../seed/seed";
 import { dublinToUtc } from "../time";
 import { createTestDb } from "../test-utils/pglite";
+import { FakeGateway, succeededEvent } from "../test-utils/fake-gateway";
+import { processStripeEvent, startOnlineCheckout } from "../payments";
 import {
   BookingError, SlotTakenError, cancelAppointment, confirmAppointment, createHold, findOrCreatePatient,
   generateBookingRef, getAvailability, rescheduleAppointment, verifyManageToken,
@@ -129,21 +131,7 @@ describe("confirming an appointment", () => {
     expect(JSON.stringify(events)).not.toContain("cough");
   });
 
-  it("online payment: PAID with a payments row and payment.succeeded event", async () => {
-    const hold = await holdFor();
-    const { appointment } = await confirmAppointment(ctx.db, {
-      holdId: hold.id, patient: PATIENT, paymentChoice: "ONLINE", now: NOW,
-      payment: { stripePaymentIntentId: "pi_test_123", method: "APPLE_PAY" },
-    });
-    expect(appointment.paymentStatus).toBe("PAID");
-    const pays = await ctx.db.select().from(schema.payments);
-    expect(pays).toHaveLength(1);
-    expect(pays[0]!.amountCents).toBe(appointment.totalCents);
-    const events = await ctx.db.select().from(schema.domainEvents);
-    expect(events.map((e) => e.type)).toContain("payment.succeeded");
-  });
-
-  it("online choice without a payment is refused", async () => {
+  it("ONLINE is refused here: it must go through startOnlineCheckout", async () => {
     const hold = await holdFor();
     await expect(confirmAppointment(ctx.db, { holdId: hold.id, patient: PATIENT, paymentChoice: "ONLINE", now: NOW }))
       .rejects.toMatchObject({ code: "POLICY" });
@@ -209,14 +197,16 @@ describe("confirming an appointment", () => {
 });
 
 describe("cancel and reschedule", () => {
+  let gateway: FakeGateway;
+  beforeEach(() => { gateway = new FakeGateway(); });
+
   const book = async (hhmm = "09:00") => {
     const svc = ctx.svc("gp-consultation");
     const hold = await createHold(ctx.db, { serviceId: svc.id, doctorId: ctx.doctorId, startAt: at(hhmm), now: NOW });
-    const { appointment } = await confirmAppointment(ctx.db, {
-      holdId: hold.id, patient: PATIENT, paymentChoice: "ONLINE", now: NOW,
-      payment: { stripePaymentIntentId: `pi_${hhmm}`, method: "CARD" },
-    });
-    return { svc, appointment };
+    const co = await startOnlineCheckout(ctx.db, gateway, { holdId: hold.id, patient: PATIENT, now: NOW });
+    await processStripeEvent(ctx.db, gateway, succeededEvent(`evt_${hhmm}`, co.paymentIntentId, co.amountCents), NOW);
+    const [appointment] = await ctx.db.select().from(schema.appointments).where(eq(schema.appointments.id, co.appointmentId));
+    return { svc, appointment: appointment! };
   };
 
   it("patient cancels outside the window: slot freed, refund due, event written", async () => {

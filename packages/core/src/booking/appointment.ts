@@ -10,6 +10,7 @@ import { BookingError, SlotTakenError, isExclusionViolation, isUniqueViolation }
 import { emitEvent } from "./events";
 import { findOrCreatePatient, patientInput } from "./patients";
 import { generateBookingRef, generateManageToken } from "./tokens";
+import { lockSlotForAppointment } from "./locks";
 import { releaseExpiredHolds } from "./hold";
 
 const confirmInput = z.object({
@@ -20,11 +21,6 @@ const confirmInput = z.object({
   /** Stored with the appointment only. Never logged, emailed or put in events (SEC-07). */
   questionnaire: z.record(z.unknown()).optional(),
   source: z.enum(["ONLINE", "WALK_IN", "PHONE", "STAFF"]).default("ONLINE"),
-  /** Set by the Stripe webhook for ONLINE payments. */
-  payment: z.object({
-    stripePaymentIntentId: z.string().min(3),
-    method: z.enum(["CARD", "APPLE_PAY", "GOOGLE_PAY"]).default("CARD"),
-  }).optional(),
 });
 export type ConfirmInput = z.input<typeof confirmInput> & { now?: Date };
 
@@ -54,8 +50,8 @@ export async function confirmAppointment(db: Database, raw: ConfirmInput) {
         if (input.paymentChoice === "AT_CLINIC" && !service.payAtClinicAllowed) {
           throw new BookingError("POLICY", "This service cannot be paid for at the clinic");
         }
-        if (input.paymentChoice === "ONLINE" && service.priceCents > 0 && !input.payment) {
-          throw new BookingError("POLICY", "Online payment is required before confirming");
+        if (input.paymentChoice === "ONLINE") {
+          throw new BookingError("POLICY", "Online payments use startOnlineCheckout, which confirms after payment");
         }
         if (input.paymentChoice === "FREE" && input.source === "ONLINE" && service.priceCents > 0) {
           throw new BookingError("POLICY", "Free bookings are staff-only");
@@ -64,7 +60,7 @@ export async function confirmAppointment(db: Database, raw: ConfirmInput) {
         const patient = await findOrCreatePatient(tx, input.patient);
         const { token, hash } = generateManageToken();
         const appointmentId = randomUUID();
-        const paid = input.paymentChoice === "ONLINE" || input.paymentChoice === "FREE";
+        const paid = input.paymentChoice === "FREE";
 
         await tx.insert(schema.appointments).values({
           id: appointmentId,
@@ -87,40 +83,11 @@ export async function confirmAppointment(db: Database, raw: ConfirmInput) {
           manageTokenHash: hash,
         });
 
-        // Convert the hold's lock to an appointment lock, or re-lock if it expired meanwhile.
-        const [lock] = await tx.select().from(schema.slotLocks).where(eq(schema.slotLocks.holdId, hold.id));
-        const lockEnd = new Date(hold.endAt.getTime() + service.bufferMin * 60_000);
-        const stillValid = lock && lock.expiresAt && lock.expiresAt > now;
-        try {
-          if (stillValid) {
-            await tx.update(schema.slotLocks)
-              .set({ kind: "APPOINTMENT", holdId: null, appointmentId, expiresAt: null })
-              .where(eq(schema.slotLocks.id, lock.id));
-          } else {
-            await releaseExpiredHolds(tx, now);
-            await tx.insert(schema.slotLocks).values({
-              doctorId: hold.doctorId, startAt: hold.startAt, endAt: lockEnd, kind: "APPOINTMENT", appointmentId,
-            });
-          }
-        } catch (err) {
-          if (isExclusionViolation(err)) throw new SlotTakenError();
-          throw err;
-        }
+        await lockSlotForAppointment(
+          tx, { id: appointmentId, doctorId: hold.doctorId, startAt: hold.startAt, endAt: hold.endAt },
+          hold.id, service.bufferMin, now,
+        );
 
-        await tx.update(schema.slotHolds).set({ status: "CONSUMED" }).where(eq(schema.slotHolds.id, hold.id));
-
-        if (input.payment) {
-          const [pay] = await tx.insert(schema.payments).values({
-            appointmentId,
-            provider: "STRIPE",
-            stripePaymentIntentId: input.payment.stripePaymentIntentId,
-            amountCents: service.priceCents,
-            status: "PAID",
-            method: input.payment.method,
-            paidAt: now,
-          }).returning({ id: schema.payments.id });
-          await emitEvent(tx, { type: "payment.succeeded", aggregateType: "payment", aggregateId: pay!.id, payload: { appointmentId } });
-        }
         await emitEvent(tx, {
           type: "appointment.confirmed", aggregateType: "appointment", aggregateId: appointmentId,
           payload: { patientId: patient.id, doctorId: hold.doctorId, serviceId: hold.serviceId },
@@ -169,6 +136,12 @@ export async function cancelAppointment(db: Database, input: CancelInput) {
     }
 
     await tx.delete(schema.slotLocks).where(eq(schema.slotLocks.appointmentId, appt.id));
+    if (appt.holdId) {
+      // Still awaiting payment: its hold lock must go too, or the slot stays blocked until expiry.
+      await tx.delete(schema.slotLocks).where(eq(schema.slotLocks.holdId, appt.holdId));
+      await tx.update(schema.slotHolds).set({ status: "EXPIRED" })
+        .where(and(eq(schema.slotHolds.id, appt.holdId), eq(schema.slotHolds.status, "ACTIVE")));
+    }
     const [updated] = await tx.update(schema.appointments).set({
       status: input.by === "PATIENT" ? "CANCELLED_BY_PATIENT" : "CANCELLED_BY_CLINIC",
       cancelledAt: now, cancelReason: input.reason ?? null, cancelledBy: input.by, updatedAt: now,

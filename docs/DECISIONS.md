@@ -28,3 +28,11 @@
 - **Decision:** Patients are matched on name + date of birth + email, so family members sharing an email stay separate. Patients cannot cancel or reschedule inside the cancellation window; the clinic can.
 - **Limits:** repeating time blocks (`recurrence_rule`) are not expanded yet. Availability rules ignore their `modes` column in Phase 1 (only IN_CLINIC is bookable).
 - **Test caveat:** PGlite runs one connection, so the "two simultaneous requests" test proves correct outcomes but not true parallel contention. The exclusion-constraint path is exercised by the "hold expired and slot taken" test. A real two-connection test on Neon is still to do.
+
+## 2026-11-22 – Stripe payments
+- **Decision:** Online bookings are created as PENDING_PAYMENT before payment (new column `appointments.hold_id`, migration 0002) so the questionnaire and patient details are stored server-side and never sent to Stripe. The webhook confirms the booking. `confirmAppointment` no longer accepts ONLINE; use `startOnlineCheckout`.
+- **Decision:** Stripe sits behind a `PaymentGateway` interface (`packages/core/src/payments/gateway.ts`). Tests use a fake. `createStripeGatewayFromEnv` throws if keys are missing.
+- **Decision:** Webhook idempotency is three-layered: processed event ids (stored only after success so Stripe retries failures), row locks (`FOR UPDATE`), and state checks. A lost slot after payment cancels the booking and refunds in full (BK-23). A paid amount that differs from the database price is NOT confirmed and is written to the audit log for manual review.
+- **Decision:** Cleanup job `expireUnpaidAppointments` cancels unpaid online bookings 30 minutes after the hold expires and cancels the PaymentIntent. A late payment after that is taken then refunded.
+- **Decision:** Receipt numbers are `RC-<year>-<6 chars>`. Payment method is recorded as CARD for Stripe payments for now; Apple Pay / Google Pay detection needs the `charge.succeeded` event (to do).
+- **To do before launch:** register the domain for Apple Pay in the Stripe dashboard, enable the payment methods, create the webhook endpoint (`/api/webhooks/stripe`, events: payment_intent.succeeded, payment_intent.payment_failed, charge.refunded), and test with the Stripe CLI.

@@ -18,7 +18,8 @@
 ## M3 Booking and payments
 - [x] Booking core: availability, holds, confirm, cancel, reschedule, patients, outbox events (BK-01..04, BK-20..23, BK-30..33, EXT-03, EXT-04)
 - [ ] Slot engine + DST tests [BK-10..15]; holds/locks [BK-20..23]; wizard [BK-01..09]; questionnaire [BK-40..42]
-- [ ] Stripe + webhook [PAY-01..09]; emails + reminders [N-01..N-11]; manage links [BK-30..33]; outbox [EXT-03]
+- [x] Stripe + webhook, refunds, pay at clinic [PAY-01..05] (discounts PAY-06, PDF receipts PAY-07, GMS PAY-09 still to do)
+- [ ] (remaining) Stripe + webhook [PAY-01..09]; emails + reminders [N-01..N-11]; manage links [BK-30..33]; outbox [EXT-03]
 
 ## M4 Admin
 - [ ] Auth + TOTP [SEC-02]; can() [EXT-05]; AD-01..AD-14
