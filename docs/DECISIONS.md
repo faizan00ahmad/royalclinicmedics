@@ -15,3 +15,8 @@
 - **Decision:** Seed is idempotent and never overwrites admin edits. Irish public holidays are computed in `packages/core/src/holidays.ts` (fixed rules, Easter algorithm) for this and next year. Weekend substitute days are not computed; admin adds them if the clinic closes.
 - **Decision:** `modes` columns are `text[]` with a CHECK instead of a Postgres enum array, because Drizzle emits unqualified enum array types for non-public schemas and the migration fails.
 - **Decision:** All clinic details, prices, hours and legal text in seed are `[TBD]` placeholders (see docs/TBD.md). Reviews and online consultations are off by default.
+
+## 2026-11-22 – Slot engine rules
+- **Decision:** `computeSlots` in `packages/core/src/slots.ts` is a pure function (no DB, no clock). A clinic holiday removes regular hours; a closed override removes everything for that doctor and date; a non-closed override ADDS an extra range and still opens on a holiday. Appointment must end within the working range, but its buffer may run past it. The slot plus its buffer must not overlap busy time or blocked time.
+- **Reason:** SRS BK-10..BK-15 left override and holiday precedence open. Admin can still open a holiday by adding extra hours.
+- **DST:** ranges are converted from Dublin wall clock to UTC, then stepped in real elapsed minutes. Tests cover 29 Mar and 25 Oct 2026.
