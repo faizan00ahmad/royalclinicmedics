@@ -32,7 +32,7 @@ jobs:
             | gpg --batch --yes --pinentry-mode loopback --passphrase "$BACKUP_PASSPHRASE" --symmetric --cipher-algo AES256 -o "$FILE"
           test "$(stat -c%s "$FILE")" -gt 1000
           echo "FILE=$FILE" >> "$GITHUB_ENV"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: database-backup
           path: ${{ env.FILE }}
