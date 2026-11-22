@@ -185,6 +185,80 @@ td input[type=checkbox]{width:22px;height:22px;accent-color:var(--brand)}
 .edgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0 14px}
 #admin .topbar{flex-wrap:wrap}
 #admin .pillnav{order:3;flex:0 0 100%}
+/* ===== catalogue rails ===== */
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+body.noscroll{overflow:hidden}
+.toolbar{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:18px 0 6px}
+.chipbar{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:2px}
+.chipbar::-webkit-scrollbar{display:none}
+.fchip{flex:0 0 auto;min-height:44px;padding:0 18px;border-radius:999px;border:0;background:#fff;color:var(--brand);font-weight:600;cursor:pointer;box-shadow:var(--sh)}
+.fchip.on{background:var(--brand);color:#fff}
+.search{display:flex;align-items:center;gap:8px;background:#fff;border-radius:999px;padding:0 16px;min-height:48px;box-shadow:var(--sh);color:var(--mut);flex:1 1 260px;max-width:380px}
+.search input{border:0;outline:none;background:none;flex:1;min-height:44px;min-width:0;font:inherit;color:var(--ink)}
+.search:focus-within{box-shadow:var(--ring)}
+.railsec{margin-top:26px}
+.railhead{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:12px}
+.railbtns{display:flex;gap:8px}
+.railbtns button{width:44px;height:44px;border-radius:50%;border:0;background:#fff;color:var(--brand);font-size:1.4rem;line-height:1;cursor:pointer;box-shadow:var(--sh)}
+.railbtns button:hover{background:var(--brand-l)}
+.railwrap{position:relative;margin:0 -30px}
+.railwrap::after{content:"";position:absolute;top:0;right:0;bottom:12px;width:36px;background:linear-gradient(90deg,transparent,var(--shell));pointer-events:none}
+.rail{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 30px;padding:4px 30px 14px;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.rail:focus-visible{box-shadow:none;outline:2px solid var(--brand);outline-offset:-2px;border-radius:12px}
+.rcard{flex:0 0 min(290px,78vw);scroll-snap-align:start;background:#fff;border-radius:24px;box-shadow:var(--sh);display:flex;flex-direction:column;cursor:pointer;overflow:hidden;transition:transform .15s,box-shadow .15s}
+.rcard:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(30,45,80,.12)}
+.rtop{height:84px;background:linear-gradient(135deg,#17335b,#2b4f86);color:#fff;display:flex;justify-content:space-between;align-items:flex-start;padding:14px}
+.rtop.red{background:linear-gradient(135deg,#9b1c2b,#c0394a)}.rtop.gray{background:linear-gradient(135deg,#6b7280,#9aa1ad)}
+.rico{width:44px;height:44px;border-radius:14px;background:rgba(255,255,255,.18);display:grid;place-items:center}
+.rtag{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,255,255,.2);border-radius:999px;padding:3px 10px}
+.rbody{padding:14px 16px 4px;flex:1}.rbody h3{font-size:1.1rem}
+.rmeta{margin:4px 0 8px;font-size:.84rem;color:var(--mut)}
+.rtext{margin:0;font-size:.9rem;color:#3d4a5c;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.rfoot{display:flex;justify-content:space-between;align-items:center;padding:12px 16px 16px;gap:10px}
+.rfoot .price{font-size:1.15rem}.rcta{color:var(--brand);font-weight:600;font-size:.9rem}
+.rail-sm{padding:4px 4px 12px;margin:0}.rail-sm .tile{flex:0 0 150px;scroll-snap-align:start}
+.col .railwrap{margin:0 -22px}.col .rail-sm{padding-left:22px;padding-right:22px}
+/* price list */
+.plist h3{margin-bottom:6px}
+.prow{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.prow:last-child{border-bottom:0}
+.prow>div{flex:1;min-width:0}.prow b{display:block}.prow small{color:var(--mut)}
+.pr{font-weight:700;color:var(--brand-d);white-space:nowrap}
+/* sheet */
+.sheet{position:fixed;inset:0;z-index:100;background:rgba(15,23,42,.5);display:flex;align-items:flex-end;justify-content:center;padding:0}
+.sheet[hidden]{display:none}
+.sheetbox{position:relative;background:#fff;width:100%;max-width:520px;border-radius:28px 28px 0 0;padding:26px 24px 28px;max-height:88vh;overflow:auto;box-shadow:0 -10px 40px rgba(0,0,0,.25)}
+.sheetx{position:absolute;top:12px;right:12px;width:44px;height:44px;border-radius:50%;border:0;background:#f1f2f5;font-size:1.5rem;cursor:pointer;color:var(--ink)}
+@media(min-width:800px){.sheet{align-items:center}.sheetbox{border-radius:28px}}
+/* admin list rows */
+.alist{display:flex;flex-direction:column;gap:10px}
+.arow{display:grid;grid-template-columns:auto minmax(140px,1.4fr) minmax(90px,.7fr) auto auto;gap:6px 16px;align-items:center;background:#fff;border-radius:20px;padding:12px 16px;box-shadow:var(--sh)}
+.arow .avatar{width:44px;height:44px;font-size:.85rem}
+.amain b,.awhen b{display:block;line-height:1.25}.amain small,.awhen small{color:var(--mut);font-size:.8rem}
+.abadges{display:flex;gap:6px;flex-wrap:wrap}.aact{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+@media(max-width:900px){.arow{grid-template-columns:auto 1fr auto}.arow .abadges,.arow .aact{grid-column:2/-1;justify-content:flex-start}.arow .awhen{text-align:right}}
+@media(max-width:799px){.railwrap{margin:0 -14px}.rail{padding:4px 14px 14px;scroll-padding:0 14px}.railbtns{display:none}.btn.sm{min-height:44px}.col .railwrap{margin:0 -14px}.col .rail-sm{padding-left:14px;padding-right:14px}}
+@media(prefers-reduced-motion:reduce){.rail{scroll-behavior:auto}.rcard{transition:none}}
+/* ===== images ===== */
+.rimg{height:150px;position:relative;background:#e9edf4}
+.rimg img{width:100%;height:100%;object-fit:cover;display:block}
+.rimg .rtag{position:absolute;top:12px;left:12px;background:rgba(15,23,42,.6);color:#fff;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.tile{padding:0;min-height:0;overflow:hidden;justify-content:flex-start}
+.timg{display:block;height:88px;background:#e9edf4}.timg img{width:100%;height:100%;object-fit:cover;display:block}
+.tbody{display:block;padding:10px 12px 14px;text-align:left}.tbody small{display:block;color:var(--mut)}
+.rail-sm .tile{flex:0 0 170px}
+.sheetimg{margin:-26px -24px 18px;height:170px;border-radius:28px 28px 0 0;overflow:hidden;background:#e9edf4}
+.sheetimg img{width:100%;height:100%;object-fit:cover;display:block}
+@media(min-width:800px){.sheetimg{border-radius:28px 28px 0 0}}
+.dphoto{width:96px;height:96px;border-radius:50%;object-fit:cover;flex:0 0 auto;box-shadow:var(--sh)}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.gallery figure{margin:0;border-radius:20px;overflow:hidden;background:#fff;box-shadow:var(--sh)}
+.gallery img{width:100%;height:150px;object-fit:cover;display:block}
+.gallery figcaption{padding:8px 12px;font-size:.85rem;color:var(--mut)}
+.heroimg{border-radius:26px;overflow:hidden;box-shadow:var(--sh)}.heroimg img{width:100%;height:200px;object-fit:cover;display:block}
+.imgctl{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.pthumb{width:56px;height:42px;border-radius:10px;object-fit:cover;background:#e9edf4;flex:0 0 auto;display:block}
+.prow .pthumb{width:60px;height:46px}
 </style>
 </head>
 <body>
@@ -230,6 +304,7 @@ td input[type=checkbox]{width:22px;height:22px;accent-color:var(--brand)}
   </div>
 </div>
 <div class="toast" id="toast"></div>
+<div id="sheet" class="sheet" role="dialog" aria-modal="true" aria-labelledby="sh-t" hidden></div>
 
 <script>
 /* ---------- sample data (placeholders) ---------- */
@@ -269,6 +344,54 @@ const CONTENT={heroTitle:'Your doctor, booked online.',heroIntro:'Same-day and n
  about:'Royal Medics is a highly regarded general practice. Our doctors provide comprehensive, patient-centred care to individuals and families across all stages of life.\n\nWith over a decade of experience in Irish general practice, we have developed particular expertise in the management of chronic diseases, preventative medicine and holistic patient care. We believe in treating the whole person, not just the condition.\n\nWe are committed to ongoing professional development and keep up to date with the latest evidence-based guidelines.',
  banner:{on:false,text:''},soon:true};
 [FAQ,OTHER,PKG].forEach(a=>a.splice(0,a.length,...a.map(x=>Array.isArray(x)?(a===FAQ?{q:x[0],a:x[1]}:{n:x[0],d:x[1],p:x[2]}):x)));
+/* ===== images: default illustrations + admin uploads ===== */
+const GALLERY=[];CONTENT.heroImg='';
+S.forEach(s=>s.art=s.art||({gp:'steth',phone:'phone',urg:'urgent',blood:'drop',sick:'cert'}[s.id]||'steth'));
+CATS.forEach((c,i)=>c.art=c.art||['steth','heart','shield','syringe','women','child'][i%6]);
+OTHER.forEach((o,i)=>o.art=o.art||['scalpel','drop','men','women','heart','clip','pills'][i%7]);
+PKG.forEach((p,i)=>p.art=p.art||['men','heart','pulse','drop','clip'][i%5]);
+const ART={
+ steth:'<path d="M130 46C122 96 160 98 160 124M190 46C198 96 160 98 160 124" /><circle cx="130" cy="42" r="6"/><circle cx="190" cy="42" r="6"/><circle cx="160" cy="138" r="15"/><circle cx="160" cy="138" r="5" fill="#fff"/>',
+ phone:'<rect x="124" y="30" width="72" height="120" rx="14"/><path d="M146 44h28M152 136h16"/><path d="M212 66q20 22 0 46M226 54q30 34 0 70"/>',
+ urgent:'<path d="M150 40h20v36h36v20h-36v36h-20V96h-36V76h36z" fill="#fff"/><circle cx="160" cy="86" r="62" opacity=".5"/>',
+ drop:'<path d="M160 36C160 36 118 88 118 114a42 42 0 0 0 84 0C202 88 160 36 160 36z" fill="#fff"/><path d="M140 118a20 20 0 0 0 14 18" stroke="#17335b" opacity=".5"/>',
+ cert:'<rect x="118" y="30" width="84" height="116" rx="8"/><path d="M134 62h52M134 80h52M134 98h30"/><circle cx="178" cy="124" r="14"/><path d="M171 124l5 5 9-10"/>',
+ heart:'<path d="M160 142C98 102 108 52 140 52c12 0 20 10 20 20 0-10 8-20 20-20 32 0 42 50-20 90z" fill="#fff"/><path d="M92 98h36l10-22 14 46 12-30h44" stroke="#9b1c2b"/>',
+ shield:'<path d="M160 34l50 14v40c0 32-22 52-50 64-28-12-50-32-50-64V48z" fill="#fff"/><path d="M138 92l16 16 30-34" stroke="#17335b"/>',
+ syringe:'<g transform="rotate(-32 160 90)"><rect x="120" y="74" width="76" height="32" rx="6"/><path d="M196 90h40M120 90h-24M96 76v28M136 74v10M152 74v10M168 74v10"/></g>',
+ women:'<circle cx="160" cy="70" r="30"/><path d="M160 100v52M138 128h44"/>',
+ men:'<circle cx="148" cy="106" r="30"/><path d="M170 84l38-38M184 46h24v24"/>',
+ child:'<circle cx="160" cy="92" r="36"/><circle cx="128" cy="62" r="13"/><circle cx="192" cy="62" r="13"/><circle cx="148" cy="86" r="3" fill="#fff"/><circle cx="172" cy="86" r="3" fill="#fff"/><path d="M146 104q14 12 28 0"/>',
+ scalpel:'<path d="M104 146L206 56"/><path d="M206 56l32-16-12 36z" fill="#fff"/><path d="M96 152l14-12"/>',
+ pills:'<g transform="rotate(-30 150 84)"><rect x="104" y="62" width="92" height="44" rx="22"/><path d="M150 62v44"/></g><circle cx="218" cy="128" r="20"/><path d="M204 128h28"/>',
+ clip:'<rect x="120" y="38" width="80" height="108" rx="8"/><rect x="142" y="30" width="36" height="16" rx="5" fill="#fff"/><path d="M136 78l6 6 10-12M164 78h22M136 106l6 6 10-12M164 106h22"/>',
+ box:'<path d="M110 66l50-22 50 22v62l-50 22-50-22z"/><path d="M110 66l50 22 50-22M160 88v62"/>',
+ pulse:'<path d="M64 96h58l16-44 28 88 20-60h72"/>'
+};
+const BGS=[['#17335b','#2f5b99'],['#9b1c2b','#c4414f'],['#566075','#8d96a8']];
+function art(key){const k=ART[key]?key:'steth';let h=0;for(const ch of k)h+=ch.charCodeAt(0);const [a,b]=BGS[h%3];
+ const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient></defs><rect width="320" height="180" fill="url(#g)"/><circle cx="270" cy="30" r="70" fill="#fff" opacity=".08"/><circle cx="40" cy="160" r="60" fill="#fff" opacity=".07"/><g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">${ART[k]}</g></svg>`;
+ return 'data:image/svg+xml;utf8,'+encodeURIComponent(svg)}
+const imgOf=it=>(it&&it.img)||art(it&&it.art);
+const SRC={svc:()=>S,cat:()=>CATS,other:()=>OTHER,pkg:()=>PKG};
+const srcOf=(kind,i)=>SRC[kind]()[i];
+function imgFromFile(file,cb){
+  if(!/^image\/(jpeg|png|webp|gif|avif)$/.test(file.type)){toast('That file is not a supported image. Please use JPG, PNG, WebP or GIF.');return cb(null)}
+  if(file.size>8*1024*1024){toast('That image is over 8 MB. Please choose a smaller one.');return cb(null)}
+  const fr=new FileReader();
+  fr.onerror=()=>{toast('That image could not be read.');cb(null)};
+  fr.onload=()=>{const im=new Image();im.onerror=()=>{toast('That image could not be read.');cb(null)};
+    im.onload=()=>{const sc=Math.min(1,1000/im.width),c=document.createElement('canvas');c.width=Math.max(1,Math.round(im.width*sc));c.height=Math.max(1,Math.round(im.height*sc));const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0,c.width,c.height);cb(c.toDataURL('image/jpeg',.82))};
+    im.src=fr.result};
+  fr.readAsDataURL(file)}
+function pickImage(cb,multi){const inp=document.createElement('input');inp.type='file';inp.accept='image/*';if(multi)inp.multiple=true;inp.onchange=()=>{[...inp.files].forEach(f=>imgFromFile(f,cb))};inp.click()}
+const pend={};
+function imgUp(kind,i){pickImage(u=>{if(!u)return;if(kind==='doc')DOCS[i].photo=u;else srcOf(kind,i).img=u;keepAdm();toast('Photo saved. The website now shows it.')})}
+function imgRm(kind,i){if(kind==='doc')DOCS[i].photo='';else delete srcOf(kind,i).img;keepAdm();toast('Photo removed.')}
+function imgPend(kind){pickImage(u=>{if(!u)return;pend[kind]=u;const e=document.getElementById('pend-'+kind);if(e)e.src=u;toast('Photo ready. It is saved when you add the item.')})}
+const imgCtl=(kind,i,it)=>`<div class="imgctl"><img class="pthumb" src="${kind==='doc'?(it.photo||'data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 42"><rect width="56" height="42" fill="#e9edf4"/></svg>')):imgOf(it)}" alt=""><button class="btn ghost sm" onclick="imgUp('${kind}',${i})">${(kind==='doc'?it.photo:it.img)?'Change photo':'Upload photo'}</button>${(kind==='doc'?it.photo:it.img)?`<button class="btn ghost sm" onclick="imgRm('${kind}',${i})">${kind==='doc'?'Remove photo':'Use default'}</button>`:''}</div>`;
+const pendCtl=kind=>`<div class="imgctl"><img id="pend-${kind}" class="pthumb" src="${pend[kind]||'data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 42"><rect width="56" height="42" fill="#e9edf4"/></svg>')}" alt=""><button class="btn ghost sm" onclick="imgPend('${kind}')">Upload photo (optional)</button></div>`;
+const galleryHtml=()=>GALLERY.length?`<section class="railsec" aria-label="Clinic photos"><div class="railhead"><div><h2>Our clinic</h2></div></div><div class="gallery">${GALLERY.map(g=>`<figure><img src="${g.img}" alt="${g.cap||'Clinic photo'}" loading="lazy"><figcaption>${g.cap||''}</figcaption></figure>`).join('')}</div></section>`:'';
 let closed = {};               // yyyy-mm-dd -> reason
 let hours = {1:['08:00','18:00'],2:['08:00','18:00'],3:['08:00','18:00'],4:['08:00','18:00'],5:['08:00','17:00'],6:['09:00','13:00'],0:null}; // 0=Sun
 const taken = {};              // 'date|HH:MM' -> true
@@ -335,7 +458,7 @@ const ini=n=>initials(String(n).replace(/^Dr\.?\s+/i,''));
 const storyHtml=()=>CONTENT.about.split(/\n\s*\n/).map(p=>`<p class="mut">${p}</p>`).join('');
 function footInner(){return `<div class="fgrid"><div><b>${CLINIC.legal}</b><p>${CLINIC.addr1}<br>${CLINIC.addr2}<br>${CLINIC.eircode}</p></div><div><b>Contact</b><p>${CLINIC.phones.join('<br>')}<br>${CLINIC.email}</p></div><div><b>Opening hours</b><p>Shown on the <a href="#" onclick="go('contact');return false">Contact page</a></p></div><div><b>Legal</b><p><a href="#" onclick="go('privacy');return false">Privacy policy</a> &middot; <a href="#" onclick="go('privacy');return false">Terms</a><br><a href="#" onclick="go('privacy');return false">Cookies</a> &middot; <a href="#" onclick="go('privacy');return false">Cancellation policy</a></p></div></div><p class="fine"><b style="color:var(--ink)">This service is not for emergencies.</b> In an emergency call 999 or 112.</p>`}
 function nextFree(){const m=MAIN();for(let i=0;i<14;i++){const d=new Date(today);d.setDate(d.getDate()+i);const k=iso(d),sl=slotsFor(m.id,k);if(sl.length)return {k,t:sl[0],label:(i===0?'Today':i===1?'Tomorrow':fmtDay(d))+' at '+sl[0]}}return {k:'',label:'No free times in the next two weeks'}}
-const tile=s=>`<button class="tile" onclick="booking={step:2,sid:'${s.id}'};go('book')"><span class="gl">${ic('pulse',22)}</span><span><small>Service</small><b>${s.name}</b><span class="small price">${euro(s.price)} · ${s.mins} min</span></span></button>`;
+const tile=s=>`<button class="tile" onclick="booking={step:2,sid:'${s.id}'};go('book')"><span class="timg"><img src="${imgOf(s)}" alt="" loading="lazy"></span><span class="tbody"><small>Service</small><b>${s.name}</b><span class="small price">${euro(s.price)} · ${s.mins} min</span></span></button>`;
 const hrsBlock=()=>{const N=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];return [1,2,3,4,5,6,0].map(i=>`<div class="hrsrow"><span>${N[i]}</span><b>${hours[i]?hours[i][0]+' to '+hours[i][1]:'Closed'}</b></div>`).join('')};
 const emerg='<div class="alert red"><b>Medical emergency?</b> Call <b>999</b> or go to your nearest A&amp;E. Do not book online.</div>';
 function home(){
@@ -344,8 +467,8 @@ function home(){
   const sl=slotsFor(m.id,hd).slice(0,4);
   return `<div class="dash2"><div class="col">
   <div class="hello"><p class="eyebrow">General practice · Waterford</p><h1>${CONTENT.heroTitle}</h1><p>${CONTENT.heroIntro}</p></div>
-  <div class="card feature"><p class="eyebrow">Next available</p><h2>${nx.label}</h2><p>${m.name} with ${D.name} · ${m.mins} min · ${euro(m.price)}</p><button class="btn light" onclick="booking={step:2,sid:'${m.id}',date:'${nx.k}'};go('book')">Book this time</button></div>
-  <div class="tiles">${bookable().slice(0,3).map(tile).join('')}</div>
+  ${CONTENT.heroImg?`<div class="heroimg"><img src="${CONTENT.heroImg}" alt="Our clinic"></div>`:''}<div class="card feature"><p class="eyebrow">Next available</p><h2>${nx.label}</h2><p>${m.name} with ${D.name} · ${m.mins} min · ${euro(m.price)}</p><button class="btn light" onclick="booking={step:2,sid:'${m.id}',date:'${nx.k}'};go('book')">Book this time</button></div>
+  <div class="railwrap"><div class="rail rail-sm" tabindex="0" role="region" aria-label="Services you can book online">${bookable().map(tile).join('')}</div></div>
   </div><div class="col">
   <div class="card"><div class="cardhead"><h3>Choose a day</h3><span class="sel">${m.name}</span></div>
    <div class="chips">${days.map(d=>{const k=iso(d),n=slotsFor(m.id,k).length;return `<button class="chip ${k===hd?'on':''}" ${n?'':'disabled'} onclick="window._hd='${k}';render()">${N[d.getDay()]}<span>${d.getDate()}</span><small>${n?n+' free':'closed'}</small></button>`}).join('')}</div>
@@ -374,20 +497,56 @@ function about(){return `<section class="sec"><p class="eyebrow">Our story</p><h
 <div class="li" style="cursor:default"><span class="ico">ICGP</span><span><b>Irish College of GPs</b><small>Full Member (MICGP)</small></span></div>
 <div class="li" style="cursor:default"><span class="ico">RCGP</span><span><b>Royal College of GPs</b><small>Member (MRCGP)</small></span></div>
 <div class="li" style="cursor:default;margin-bottom:0"><span class="ico">${ic('pulse',18)}</span><span><b>Patient Care Award</b><small>Dublin GP Network, 2022</small></span></div></div></div></div>
-<p style="margin-top:20px"><a class="btn" onclick="go('book')">Book an appointment</a></p></section>`}
+${galleryHtml()}<p style="margin-top:20px"><a class="btn" onclick="go('book')">Book an appointment</a></p></section>`}
 function doctors(){const list=DOCS.filter(d=>d.on!==false);
 const soon=`<div class="card dim"><div class="avatar big muted" aria-hidden="true">+</div><div><h3>More doctors joining soon</h3><p class="mut small" style="margin:4px 0 0">We are expanding our team to serve you better.</p><span class="st done" style="margin-top:8px">Coming soon</span></div></div><div class="card dim"><div class="avatar big muted" aria-hidden="true">+</div><div><h3>New specialist joining soon</h3><p class="mut small" style="margin:4px 0 0">A specialist in additional areas of care will be joining our clinic.</p><span class="st done" style="margin-top:8px">Coming soon</span></div></div>`;
 return `<section class="sec"><p class="eyebrow">Our team</p><h1>Our doctors</h1><p class="lead">Meet the medical professionals committed to your health and wellbeing.</p>
-<div class="dash2" style="margin-top:20px"><div class="col">${list.map(d=>`<div class="card doc"><div class="avatar big" aria-hidden="true">${ini(d.name)}</div><div><p class="eyebrow">${d.role}</p><h2 style="margin:2px 0 4px">${d.name}</h2><p class="small mut" style="margin:0 0 10px">${d.quals}</p><p class="mut">${d.bio}</p><p class="small" style="margin:0 0 6px"><b>Areas of expertise</b></p><div class="tags">${String(d.tags).split(',').map(t=>t.trim()).filter(Boolean).map(t=>`<span>${t}</span>`).join('')}</div><p style="margin:16px 0 0">${d.years?`<span class="stat"><b style="display:inline;font-size:1.4rem">${d.years}+</b> years experience</span> &nbsp; `:''}<button class="btn sm" onclick="go('book')">Book</button></p></div></div>`).join('')||'<p class="mut">No doctors to show.</p>'}</div>
+<div class="dash2" style="margin-top:20px"><div class="col">${list.map(d=>`<div class="card doc">${d.photo?`<img class="dphoto" src="${d.photo}" alt="${d.name}">`:`<div class="avatar big" aria-hidden="true">${ini(d.name)}</div>`}<div><p class="eyebrow">${d.role}</p><h2 style="margin:2px 0 4px">${d.name}</h2><p class="small mut" style="margin:0 0 10px">${d.quals}</p><p class="mut">${d.bio}</p><p class="small" style="margin:0 0 6px"><b>Areas of expertise</b></p><div class="tags">${String(d.tags).split(',').map(t=>t.trim()).filter(Boolean).map(t=>`<span>${t}</span>`).join('')}</div><p style="margin:16px 0 0">${d.years?`<span class="stat"><b style="display:inline;font-size:1.4rem">${d.years}+</b> years experience</span> &nbsp; `:''}<button class="btn sm" onclick="go('book')">Book</button></p></div></div>`).join('')||'<p class="mut">No doctors to show.</p>'}</div>
 <div class="col">${CONTENT.soon?soon:''}</div></div></section>`}
-function services(){return `<section class="sec"><p class="eyebrow">What we offer</p><h1>Services</h1><p class="lead">A full range of general practice services delivered with care, expertise and a patient-first approach.</p>
-<div class="grid g3" style="margin-top:20px">${CATS.map(c=>`<div class="card"><h3>${c.n}</h3><p class="small mut" style="margin:4px 0 10px">${ic('clock',14)} ${c.d} &nbsp;·&nbsp; ${c.t}</p><p class="mut small">${c.x}</p><ul class="ticks small" style="margin:10px 0 0">${(c.b||[]).map(x=>`<li>${x}</li>`).join('')}</ul></div>`).join('')}</div>
-<h2 style="margin:30px 0 12px">Book online now</h2><div class="grid g3">${bookable().map(s=>`<div class="card"><h3>${s.name}</h3><p class="mut small" style="margin:4px 0 8px">${s.desc}</p><p class="small"><span class="price">${euro(s.price)}</span> · ${s.mins} min · ${s.type}</p><button class="btn sm" onclick="booking={step:2,sid:'${s.id}'};go('book')">Book</button></div>`).join('')}</div>
-<h2 style="margin:30px 0 12px">What to expect on your first visit</h2><div class="how">${[['Book online','Use our booking form or call us to select a convenient date and time.'],['Arrive and check in','Arrive 5 to 10 minutes early with your ID and any relevant documents.'],['Consultation','Our doctor listens, examines, and provides clear guidance. Approximately 15 to 20 minutes.'],['Treatment plan','Leave with a clear plan: prescriptions, referrals or follow-up as needed.']].map(x=>`<div class="card"><h3>${x[0]}</h3><p class="mut small" style="margin:0">${x[1]}</p></div>`).join('')}</div></section>`}
-function prices(){return `<section class="sec"><p class="eyebrow">Transparent pricing</p><h1>Prices</h1><p class="note">Try it: change a price in <b>Clinic admin → Services</b> and come back. This page updates straight away.</p>
-<h2 style="margin-bottom:10px">Book online</h2><div class="tw"><table><tr><th>Service</th><th>Length</th><th>Type</th><th>Price</th></tr>${bookable().map(s=>`<tr><td><b>${s.name}</b></td><td>${s.mins} min</td><td>${s.type}</td><td class="price">${euro(s.price)}</td></tr>`).join('')}</table></div>
-<h2 style="margin:28px 0 10px">Other services</h2><div class="tw"><table><tr><th>Service</th><th>What it covers</th><th>Price</th></tr>${OTHER.map(o=>`<tr><td><b>${o.n}</b></td><td>${o.d}</td><td class="price">${o.p}</td></tr>`).join('')}</table></div>
-<h2 style="margin:28px 0 10px">Screening packages</h2><div class="grid g3">${PKG.map(p=>`<div class="card"><h3>${p.n}</h3><p class="mut small" style="margin:4px 0 8px">${p.d}</p><p class="price">${p.p}</p><button class="btn ghost sm" onclick="go('contact')">Enquire</button></div>`).join('')}</div></section>`}
+/* ===== catalogue (horizontal rails), detail sheet, price list ===== */
+const RC=['','red','gray'],ICN=['pulse','cal','user','tag','help','home'];
+const bookSvc=id=>{booking={step:2,sid:id};go('book')};
+function rcard(o){const src=srcOf(o.kind,o.i);const hint=o.kind==='svc'?`<button class="btn sm" onclick="event.stopPropagation();bookSvc('${o.id}')">Book</button>`:`<span class="rcta">Details ›</span>`;
+ return `<article class="rcard" tabindex="0" role="button" aria-label="${o.title}: details" onclick="openSheet('${o.kind}',${o.i})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSheet('${o.kind}',${o.i})}"><div class="rimg"><img src="${imgOf(src)}" alt="" loading="lazy"><span class="rtag">${o.tag}</span></div><div class="rbody"><h3>${o.title}</h3><p class="rmeta">${o.meta}</p><p class="rtext">${o.text}</p></div><div class="rfoot"><span class="price">${o.price||'&nbsp;'}</span>${hint}</div></article>`}
+function catalogue(){return [
+ {key:'book',title:'Book online',sub:'Pick a free time in a few taps',items:bookable().map(s=>({kind:'svc',i:S.indexOf(s),id:s.id,tag:'Book online',title:s.name,meta:`${s.mins} min · ${s.type}`,text:s.desc,price:euro(s.price)}))},
+ {key:'care',title:'Care and consultations',sub:'What we treat and how long it takes',items:CATS.map((c,i)=>({kind:'cat',i,tag:'Care',title:c.n,meta:`${c.d} · ${c.t}`,text:c.x,price:''}))},
+ {key:'tests',title:'Tests, screening and procedures',sub:'Prices shown are starting prices',items:OTHER.map((o,i)=>({kind:'other',i,tag:'Tests and procedures',title:o.n,meta:'Enquire for a time',text:o.d,price:o.p}))},
+ {key:'pkg',title:'Screening packages',sub:'Several checks in one visit',items:PKG.map((p,i)=>({kind:'pkg',i,tag:'Package',title:p.n,meta:'Single appointment',text:p.d,price:p.p}))}]}
+function railsHtml(){const f=window._sf||'all',q=(window._sq||'').toLowerCase().trim();let shown=0;
+ const out=catalogue().filter(r=>f==='all'||f===r.key).map(r=>{const items=r.items.filter(o=>!q||(o.title+' '+o.text+' '+o.meta+' '+o.tag).toLowerCase().includes(q));if(!items.length)return '';shown+=items.length;
+  return `<section class="railsec" aria-label="${r.title}"><div class="railhead"><div><h2>${r.title}</h2><p class="mut small" style="margin:2px 0 0">${r.sub} · ${items.length} ${items.length===1?'item':'items'}</p></div><div class="railbtns"><button aria-label="Scroll ${r.title} left" onclick="railGo(this,-1)">‹</button><button aria-label="Scroll ${r.title} right" onclick="railGo(this,1)">›</button></div></div><div class="railwrap"><div class="rail" tabindex="0" role="region" aria-label="${r.title} carousel">${items.map(rcard).join('')}</div></div></section>`}).join('');
+ return out||`<div class="card" style="text-align:center"><b>No services match "${esc(window._sq||'')}"</b><p class="mut small" style="margin:6px 0 12px">Try a different word, or phone the clinic.</p><button class="btn ghost sm" onclick="window._sq='';window._sf='all';render()">Clear search</button></div>`}
+function railGo(btn,dir){const r=btn.closest('.railsec').querySelector('.rail');r.scrollBy({left:dir*Math.max(240,r.clientWidth*0.8),behavior:'smooth'})}
+function svcSearch(v){window._sq=v;const r=document.getElementById('rails');if(r)r.innerHTML=railsHtml()}
+function services(){const f=window._sf||'all';const chips=[['all','All'],['book','Book online'],['care','Care'],['tests','Tests and procedures'],['pkg','Packages']];
+return `<section class="sec"><p class="eyebrow">What we offer</p><h1>Services</h1><p class="lead">Swipe through our catalogue. Tap any card for details, or book in a few taps.</p>
+<div class="toolbar"><div class="chipbar" role="tablist" aria-label="Filter services">${chips.map(([k,l])=>`<button role="tab" aria-selected="${f===k}" class="fchip ${f===k?'on':''}" onclick="window._sf='${k}';render()">${l}</button>`).join('')}</div>
+<label class="search"><span class="sr-only">Search services</span>${ic('help',18)}<input type="search" id="svc-q" placeholder="Search services, tests, packages" value="${esc(window._sq||'')}" oninput="svcSearch(this.value)"></label></div>
+<div id="rails">${railsHtml()}</div>
+<section class="railsec" aria-label="What to expect"><div class="railhead"><div><h2>What to expect on your first visit</h2></div></div><div class="how">${[['Book online','Use our booking form or call us to select a convenient date and time.'],['Arrive and check in','Arrive 5 to 10 minutes early with your ID and any relevant documents.'],['Consultation','Our doctor listens, examines, and provides clear guidance. Approximately 15 to 20 minutes.'],['Treatment plan','Leave with a clear plan: prescriptions, referrals or follow-up as needed.']].map(x=>`<div class="card"><h3>${x[0]}</h3><p class="mut small" style="margin:0">${x[1]}</p></div>`).join('')}</div></section></section>`}
+
+/* detail sheet */
+function openSheet(kind,i){let t,meta,text,price,bul,cta;const src=srcOf(kind,i);
+ if(kind==='svc'){const s=S[i];t=s.name;meta=`${s.mins} min · ${s.type}`;text=s.desc;price=euro(s.price);bul=['Choose a free time in the next step','Pay online or at the clinic','Free changes up to 24 hours before'];cta=`<button class="btn" onclick="closeSheet();bookSvc('${s.id}')">Book this service</button>`}
+ else if(kind==='cat'){const c=CATS[i];t=c.n;meta=`${c.d} · ${c.t}`;text=c.x;price='';bul=c.b||[];cta=`<button class="btn" onclick="closeSheet();bookSvc('${MAIN().id}')">Book a consultation</button>`}
+ else{const c=src;t=c.n;meta=kind==='pkg'?'Screening package':'Tests and procedures';text=c.d;price=c.p;bul=['Book a time by phone or send us a message','The doctor will confirm exactly what is included'];cta=`<button class="btn" onclick="closeSheet();go('contact')">Enquire</button>`}
+ const sh=document.getElementById('sheet');window._sheetFrom=document.activeElement;
+ sh.innerHTML=`<div class="sheetbox"><div class="sheetimg"><img src="${imgOf(src)}" alt=""></div><button class="sheetx" aria-label="Close details" onclick="closeSheet()">×</button><p class="eyebrow">${meta}</p><h2 id="sh-t">${t}</h2>${price?`<p class="price" style="font-size:1.6rem;margin:6px 0">${price}</p>`:''}<p class="mut">${text}</p>${bul.length?`<ul class="ticks">${bul.map(x=>`<li>${x}</li>`).join('')}</ul>`:''}<div class="row" style="margin-top:18px">${cta}<button class="btn ghost" onclick="closeSheet()">Close</button></div></div>`;
+ sh.hidden=false;document.body.classList.add('noscroll');sh.querySelector('.sheetx').focus()}
+function closeSheet(){const sh=document.getElementById('sheet');if(sh.hidden)return;sh.hidden=true;sh.innerHTML='';document.body.classList.remove('noscroll');if(window._sheetFrom&&window._sheetFrom.focus)window._sheetFrom.focus()}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet()});
+
+/* price list */
+function plistsHtml(){const q=(window._pq||'').toLowerCase().trim(),m=(...a)=>!q||a.join(' ').toLowerCase().includes(q);
+ const row=(n,d,p,extra,img)=>`<div class="prow"><img class="pthumb" src="${img}" alt="" loading="lazy"><div><b>${n}</b><small>${d}</small></div><span class="pr">${p}</span>${extra||''}</div>`;
+ const g=(title,rows)=>rows.length?`<section class="card plist"><h3>${title}</h3>${rows.join('')}</section>`:'';
+ const a=bookable().filter(s=>m(s.name,s.desc,s.type)).map(s=>row(s.name,`${s.mins} min · ${s.type}`,euro(s.price),`<button class="btn sm" onclick="bookSvc('${s.id}')">Book</button>`,imgOf(s)));
+ const b=OTHER.filter(o=>m(o.n,o.d,o.p)).map(o=>row(o.n,o.d,o.p,'',imgOf(o)));const c=PKG.filter(p=>m(p.n,p.d,p.p)).map(p=>row(p.n,p.d,p.p,'',imgOf(p)));
+ return (g('Book online',a)+g('Other services',b)+g('Screening packages',c))||`<div class="card" style="text-align:center"><b>Nothing matches "${esc(window._pq||'')}"</b></div>`}
+function prices(){return `<section class="sec"><p class="eyebrow">Transparent pricing</p><h1>Prices</h1><p class="lead">Clear fees, no hidden costs. Search the list or tap Book.</p><p class="note" style="margin-top:14px">Try it: change a price in <b>Clinic admin → Services</b> and come back. This page updates straight away.</p>
+<label class="search" style="max-width:520px;margin-bottom:16px"><span class="sr-only">Search prices</span>${ic('help',18)}<input type="search" id="pr-q" placeholder="Search prices" value="${esc(window._pq||'')}" oninput="window._pq=this.value;document.getElementById('plists').innerHTML=plistsHtml()"></label>
+<div id="plists" class="grid g2" style="align-items:start">${plistsHtml()}</div></section>`}
 function faqs(){return `<section class="sec"><p class="eyebrow">Patient FAQs</p><h1>Common questions</h1><p class="lead">Have a question before booking? Find answers below, or call the clinic directly.</p><div style="margin-top:20px;max-width:760px">${FAQ.map(q=>`<details><summary>${q.q}</summary><p>${q.a}</p></details>`).join('')}</div><p class="note" style="max-width:760px">Answers are draft wording for the clinic to approve. The current website lists these questions without showing the answers.</p></section>`}
 function contact(){return `<section class="sec"><p class="eyebrow">Get in touch</p><h1>Contact and location</h1><p class="lead">Find us in Waterford city. We would love to hear from you.</p>
 <div class="dash2" style="margin-top:20px"><div class="col"><div class="card"><h3 style="margin-bottom:10px">Visit or call</h3>
@@ -469,8 +628,9 @@ const keepAdm=()=>{const y=window.scrollY;adm(window._a,true);window.scrollTo(0,
 
 /* ----- services ----- */
 const TYPES=['In-person','Phone','In-person / Phone','Phone / In-person'];
-function aServices(){return `<h1>Services and prices</h1><p class="note">Add, rename, re-price or hide any service. Changes appear on the website and in the booking page straight away.</p>
-<div class="tw"><table><tr><th>Service</th><th>Minutes</th><th>Price (€)</th><th>Type</th><th>Pay at clinic</th><th>Bookable online</th><th></th></tr>${S.map((s,i)=>`<tr>
+function aServices(){return `<h1>Services and prices</h1><p class="note">Add, rename, re-price, add a photo to, or hide any service. Changes appear on the website and in the booking page straight away.</p>
+<div class="tw"><table><tr><th>Photo</th><th>Service</th><th>Minutes</th><th>Price (€)</th><th>Type</th><th>Pay at clinic</th><th>Bookable online</th><th></th></tr>${S.map((s,i)=>`<tr>
+<td style="min-width:150px">${imgCtl('svc',i,s)}</td>
 <td style="min-width:230px"><input class="ti" aria-label="Name" value="${s.name}" onchange="svcSet(${i},'name',this.value)"><input class="ti sub" aria-label="Description" value="${s.desc}" onchange="svcSet(${i},'desc',this.value)"></td>
 <td><select class="ti" aria-label="Minutes" onchange="svcSet(${i},'mins',+this.value)">${[10,15,20,30,45,60].map(m=>`<option ${m===s.mins?'selected':''}>${m}</option>`).join('')}</select></td>
 <td><input class="ti" style="width:90px" type="number" min="0" step="0.5" aria-label="Price" value="${s.price}" onchange="svcSet(${i},'price',+this.value)"></td>
@@ -481,19 +641,19 @@ function aServices(){return `<h1>Services and prices</h1><p class="note">Add, re
 <div class="card edrow" style="max-width:680px;margin-top:18px"><h3 style="margin-bottom:10px">Add a service</h3>
 <div class="edgrid"><label class="field">Name<input id="ns-name"></label><label class="field">Price (€)<input id="ns-price" type="number" min="0" step="0.5"></label>
 <label class="field">Minutes<select id="ns-mins">${[10,15,20,30,45,60].map(m=>`<option ${m===15?'selected':''}>${m}</option>`).join('')}</select></label><label class="field">Type<select id="ns-type">${TYPES.map(t=>`<option>${t}</option>`).join('')}</select></label></div>
-<label class="field">Description<input id="ns-desc"></label><label class="chk"><input id="ns-pay" type="checkbox" checked> Patients may pay at the clinic</label><button class="btn" onclick="svcAdd()">Add service</button></div>`}
+<label class="field">Description<input id="ns-desc"></label>${pendCtl('svc')}<label class="chk"><input id="ns-pay" type="checkbox" checked> Patients may pay at the clinic</label><button class="btn" onclick="svcAdd()">Add service</button></div>`}
 function svcSet(i,k,v){S[i][k]=typeof v==='string'?esc(v):v;saved()}
 function svcAdd(){const n=gv('ns-name'),p=parseFloat(gv('ns-price'));if(!n)return toast('Please enter a name.');if(!(p>=0))return toast('Please enter a price.');
-  S.push({id:'s'+Date.now(),name:esc(n),mins:+gv('ns-mins'),price:p,pay:document.getElementById('ns-pay').checked,type:gv('ns-type'),desc:esc(gv('ns-desc')),on:true});adm('services');toast('Service added. Patients can book it now.')}
+  const o={id:'s'+Date.now(),name:esc(n),mins:+gv('ns-mins'),price:p,pay:document.getElementById('ns-pay').checked,type:gv('ns-type'),desc:esc(gv('ns-desc')),on:true,art:'steth'};if(pend.svc)o.img=pend.svc;pend.svc=null;S.push(o);adm('services');toast('Service added. Patients can book it now.')}
 function svcDel(i){const s=S[i];if(appts.some(a=>a.s===s.id))return toast('This service has bookings, so it cannot be deleted. Untick "Bookable online" to hide it instead.');if(bookable().length===1&&s.on!==false)return toast('Keep at least one bookable service.');S.splice(i,1);adm('services');toast('Deleted.')}
 
 /* ----- doctors ----- */
 function aDoctors(){const f=(i,k,l,v,ta)=>`<label class="field">${l}${ta?`<textarea rows="3" onchange="docSet(${i},'${k}',this.value)">${v}</textarea>`:`<input value="${v}" onchange="docSet(${i},'${k}',this.value)">`}</label>`;
-return `<h1>Doctors</h1><p class="note">Add or edit doctors. They appear on the Doctors page. Choosing a doctor while booking comes when a second doctor joins.</p>
-<div class="grid g2">${DOCS.map((d,i)=>`<div class="card edrow">${f(i,'name','Name',d.name)}${f(i,'role','Role',d.role)}${f(i,'quals','Qualifications',d.quals)}${f(i,'bio','About',d.bio,1)}${f(i,'tags','Areas of expertise (comma separated)',d.tags)}<label class="field">Years of experience<input type="number" min="0" value="${d.years}" onchange="docSet(${i},'years',+this.value)"></label><label class="chk"><input type="checkbox" ${d.on!==false?'checked':''} onchange="docSet(${i},'on',this.checked)"> Show on the website</label><button class="btn ghost sm" onclick="docDel(${i})">Remove</button></div>`).join('')}</div>
-<div class="card edrow" style="max-width:680px;margin-top:18px"><h3 style="margin-bottom:10px">Add a doctor</h3><div class="edgrid"><label class="field">Name<input id="nd-name"></label><label class="field">Role<input id="nd-role" value="General Practitioner"></label></div><label class="field">Qualifications<input id="nd-quals"></label><label class="field">About<textarea id="nd-bio" rows="3"></textarea></label><label class="field">Areas of expertise (comma separated)<input id="nd-tags"></label><label class="field">Years of experience<input id="nd-years" type="number" min="0"></label><button class="btn" onclick="docAdd()">Add doctor</button></div>`}
+return `<h1>Doctors</h1><p class="note">Add or edit doctors, including their photo. They appear on the Doctors page. Choosing a doctor while booking comes when a second doctor joins.</p>
+<div class="grid g2">${DOCS.map((d,i)=>`<div class="card edrow">${imgCtl('doc',i,d)}${f(i,'name','Name',d.name)}${f(i,'role','Role',d.role)}${f(i,'quals','Qualifications',d.quals)}${f(i,'bio','About',d.bio,1)}${f(i,'tags','Areas of expertise (comma separated)',d.tags)}<label class="field">Years of experience<input type="number" min="0" value="${d.years}" onchange="docSet(${i},'years',+this.value)"></label><label class="chk"><input type="checkbox" ${d.on!==false?'checked':''} onchange="docSet(${i},'on',this.checked)"> Show on the website</label><button class="btn ghost sm" onclick="docDel(${i})">Remove</button></div>`).join('')}</div>
+<div class="card edrow" style="max-width:680px;margin-top:18px"><h3 style="margin-bottom:10px">Add a doctor</h3>${pendCtl('doc')}<div class="edgrid"><label class="field">Name<input id="nd-name"></label><label class="field">Role<input id="nd-role" value="General Practitioner"></label></div><label class="field">Qualifications<input id="nd-quals"></label><label class="field">About<textarea id="nd-bio" rows="3"></textarea></label><label class="field">Areas of expertise (comma separated)<input id="nd-tags"></label><label class="field">Years of experience<input id="nd-years" type="number" min="0"></label><button class="btn" onclick="docAdd()">Add doctor</button></div>`}
 function docSet(i,k,v){DOCS[i][k]=typeof v==='string'?esc(v):v;saved()}
-function docAdd(){const n=gv('nd-name');if(!n)return toast('Please enter a name.');DOCS.push({id:'d'+Date.now(),name:esc(n),role:esc(gv('nd-role')),quals:esc(gv('nd-quals')),bio:esc(gv('nd-bio')),tags:esc(gv('nd-tags')),years:+gv('nd-years')||0,on:true});adm('doctors');toast('Doctor added. They are on the Doctors page now.')}
+function docAdd(){const n=gv('nd-name');if(!n)return toast('Please enter a name.');DOCS.push({id:'d'+Date.now(),name:esc(n),role:esc(gv('nd-role')),quals:esc(gv('nd-quals')),bio:esc(gv('nd-bio')),tags:esc(gv('nd-tags')),years:+gv('nd-years')||0,on:true,photo:pend.doc||''});pend.doc=null;adm('doctors');toast('Doctor added. They are on the Doctors page now.')}
 function docDel(i){if(DOCS.length===1)return toast('Keep at least one doctor.');DOCS.splice(i,1);adm('doctors');toast('Removed.')}
 
 /* ----- website content ----- */
@@ -501,24 +661,35 @@ const LISTS={faq:{arr:()=>FAQ,cols:[{k:'q',l:'Question'},{k:'a',l:'Answer',ta:1}
  cats:{arr:()=>CATS,cols:[{k:'n',l:'Name'},{k:'d',l:'Duration'},{k:'t',l:'Type'},{k:'x',l:'Description',ta:1},{k:'b',l:'Highlights (separate with |)',list:1}]},
  other:{arr:()=>OTHER,cols:[{k:'n',l:'Name'},{k:'d',l:'What it covers'},{k:'p',l:'Price text (for example From €60)'}]},
  pkg:{arr:()=>PKG,cols:[{k:'n',l:'Name'},{k:'d',l:'What it includes'},{k:'p',l:'Price text (for example From €150)'}]}};
-function listEd(n){const L=LISTS[n];
-  const rows=L.arr().map((it,i)=>`<div class="card edrow"><div class="edgrid">${L.cols.map(c=>{const v=c.list?(it[c.k]||[]).join(' | '):(it[c.k]||'');return `<label class="field">${c.l}${c.ta?`<textarea rows="3" onchange="lsSet('${n}',${i},'${c.k}',this.value,${c.list?1:0})">${v}</textarea>`:`<input value="${v}" onchange="lsSet('${n}',${i},'${c.k}',this.value,${c.list?1:0})">`}</label>`}).join('')}</div><button class="btn ghost sm" onclick="lsDel('${n}',${i})">Delete</button></div>`).join('');
-  const add=`<div class="card edrow" style="border:1px dashed #cfd4dc;box-shadow:none"><b>Add new</b><div class="edgrid">${L.cols.map(c=>`<label class="field">${c.l}${c.ta?`<textarea id="add-${n}-${c.k}" rows="3"></textarea>`:`<input id="add-${n}-${c.k}">`}</label>`).join('')}</div><button class="btn sm" onclick="lsAdd('${n}')">Add</button></div>`;
+const IMGLISTS={cats:'cat',other:'other',pkg:'pkg'};
+function listEd(n){const L=LISTS[n],kind=IMGLISTS[n];
+  const rows=L.arr().map((it,i)=>`<div class="card edrow">${kind?imgCtl(kind,i,it):''}<div class="edgrid">${L.cols.map(c=>{const v=c.list?(it[c.k]||[]).join(' | '):(it[c.k]||'');return `<label class="field">${c.l}${c.ta?`<textarea rows="3" onchange="lsSet('${n}',${i},'${c.k}',this.value,${c.list?1:0})">${v}</textarea>`:`<input value="${v}" onchange="lsSet('${n}',${i},'${c.k}',this.value,${c.list?1:0})">`}</label>`}).join('')}</div><button class="btn ghost sm" onclick="lsDel('${n}',${i})">Delete</button></div>`).join('');
+  const add=`<div class="card edrow" style="border:1px dashed #cfd4dc;box-shadow:none"><b>Add new</b>${kind?pendCtl(kind):''}<div class="edgrid">${L.cols.map(c=>`<label class="field">${c.l}${c.ta?`<textarea id="add-${n}-${c.k}" rows="3"></textarea>`:`<input id="add-${n}-${c.k}">`}</label>`).join('')}</div><button class="btn sm" onclick="lsAdd('${n}')">Add</button></div>`;
   return rows+add}
 const lsVal=(c,v)=>c.list?v.split('|').map(x=>esc(x.trim())).filter(Boolean):esc(v.trim());
 function lsSet(n,i,k,v,list){const c=LISTS[n].cols.find(x=>x.k===k);LISTS[n].arr()[i][k]=lsVal(c,v);saved()}
 function lsDel(n,i){LISTS[n].arr().splice(i,1);keepAdm();toast('Deleted. Removed from the website.')}
-function lsAdd(n){const L=LISTS[n],o={};let any=false;L.cols.forEach(c=>{const v=document.getElementById('add-'+n+'-'+c.k).value;if(v.trim())any=true;o[c.k]=lsVal(c,v)});if(!any)return toast('Please fill in at least one field.');L.arr().push(o);keepAdm();toast('Added. It is on the website now.')}
-function aWeb(){return `<h1>Website content</h1><p class="note">Edit every page of the website here. Nothing needs a developer.</p>
+function lsAdd(n){const L=LISTS[n],o={},kind=IMGLISTS[n];let any=false;L.cols.forEach(c=>{const v=document.getElementById('add-'+n+'-'+c.k).value;if(v.trim())any=true;o[c.k]=lsVal(c,v)});if(!any)return toast('Please fill in at least one field.');if(kind){o.art={cat:'steth',other:'clip',pkg:'box'}[kind];if(pend[kind])o.img=pend[kind];pend[kind]=null}L.arr().push(o);keepAdm();toast('Added. It is on the website now.')}
+function galUp(){pickImage(u=>{if(!u)return;GALLERY.push({img:u,cap:''});keepAdm();toast('Photo added to the About page.')},true)}
+function galCap(i,v){GALLERY[i].cap=esc(v.trim());saved()}
+function galDel(i){GALLERY.splice(i,1);keepAdm();toast('Photo removed.')}
+function heroUp(){pickImage(u=>{if(!u)return;CONTENT.heroImg=u;keepAdm();toast('Home page photo saved.')})}
+function heroRm(){CONTENT.heroImg='';keepAdm();toast('Home page photo removed.')}
+function galUp(){pickImage(u=>{if(!u)return;GALLERY.push({img:u,cap:''});keepAdm();toast('Photo added to the About page.')},true)}
+function galCap(i,v){GALLERY[i].cap=esc(v.trim());saved()}
+function galDel(i){GALLERY.splice(i,1);keepAdm();toast('Photo removed.')}
+function heroUp(){pickImage(u=>{if(!u)return;CONTENT.heroImg=u;keepAdm();toast('Home page photo saved.')})}
+function heroRm(){CONTENT.heroImg='';keepAdm();toast('Home page photo removed.')}
+function aWeb(){return `<h1>Website content</h1><p class="note">Edit every page of the website here, including photos. Nothing needs a developer.</p>
 <div class="card edrow"><h3>Announcement banner</h3><p class="mut small">Shown at the top of every page. Use it for holiday hours or news.</p><label class="chk"><input id="bn-on" type="checkbox" ${CONTENT.banner.on?'checked':''}> Show the banner</label><label class="field">Text<input id="bn-text" value="${CONTENT.banner.text}"></label><button class="btn sm" onclick="CONTENT.banner={on:document.getElementById('bn-on').checked,text:esc(gv('bn-text'))};saved()">Save banner</button></div>
-<div class="card edrow"><h3>Home page</h3><label class="field">Headline<input id="hp-t" value="${CONTENT.heroTitle}"></label><label class="field">Introduction<textarea id="hp-i" rows="2">${CONTENT.heroIntro}</textarea></label><button class="btn sm" onclick="CONTENT.heroTitle=esc(gv('hp-t'));CONTENT.heroIntro=esc(gv('hp-i'));saved()">Save home page</button></div>
+<div class="card edrow"><h3>Home page</h3><div class="imgctl">${CONTENT.heroImg?`<img class="pthumb" src="${CONTENT.heroImg}" alt="">`:''}<button class="btn ghost sm" onclick="heroUp()">${CONTENT.heroImg?'Change home photo':'Add a home page photo'}</button>${CONTENT.heroImg?'<button class="btn ghost sm" onclick="heroRm()">Remove photo</button>':''}</div><label class="field">Headline<input id="hp-t" value="${CONTENT.heroTitle}"></label><label class="field">Introduction<textarea id="hp-i" rows="2">${CONTENT.heroIntro}</textarea></label><button class="btn sm" onclick="CONTENT.heroTitle=esc(gv('hp-t'));CONTENT.heroIntro=esc(gv('hp-i'));saved()">Save home page</button></div>
 <div class="card edrow"><h3>About page</h3><label class="field">Our story (leave a blank line between paragraphs)<textarea id="ab-s" rows="8">${CONTENT.about}</textarea></label><button class="btn sm" onclick="CONTENT.about=esc(document.getElementById('ab-s').value.trim());saved()">Save About page</button></div>
+<div class="card edrow"><h3>Clinic photo gallery</h3><p class="mut small">Photos shown on the About page. You can add several at once.</p><div class="gallery">${GALLERY.map((g,i)=>`<figure><img src="${g.img}" alt=""><figcaption><input class="ti" aria-label="Caption" placeholder="Caption" value="${g.cap}" onchange="galCap(${i},this.value)"><button class="btn ghost sm" style="margin-top:6px" onclick="galDel(${i})">Remove</button></figcaption></figure>`).join('')}</div><button class="btn sm" style="margin-top:12px" onclick="galUp()">Add photos</button></div>
 <div class="card edrow"><h3>Doctors page</h3><label class="chk"><input type="checkbox" ${CONTENT.soon?'checked':''} onchange="CONTENT.soon=this.checked;saved()"> Show the "more doctors joining soon" cards</label></div>
 <h2 style="margin:24px 0 12px">Frequently asked questions</h2>${listEd('faq')}
 <h2 style="margin:24px 0 12px">Service categories (Services page)</h2>${listEd('cats')}
 <h2 style="margin:24px 0 12px">Other services (Prices page)</h2>${listEd('other')}
 <h2 style="margin:24px 0 12px">Screening packages (Prices page)</h2>${listEd('pkg')}`}
-
 /* ----- clinic details ----- */
 function aClinic(){return `<h1>Clinic details</h1><p class="note">Used on the Contact page, the footer, emails and the home page.</p><div class="card edrow" style="max-width:680px"><label class="field">Clinic name<input id="cl-n" value="${CLINIC.legal}"></label><label class="field">Address line 1<input id="cl-a1" value="${CLINIC.addr1}"></label><label class="field">Address line 2<input id="cl-a2" value="${CLINIC.addr2}"></label><div class="edgrid"><label class="field">Eircode<input id="cl-ec" value="${CLINIC.eircode}"></label><label class="field">Email<input id="cl-em" type="email" value="${CLINIC.email}"></label><label class="field">Phone 1<input id="cl-p1" value="${CLINIC.phones[0]||''}"></label><label class="field">Phone 2<input id="cl-p2" value="${CLINIC.phones[1]||''}"></label></div><button class="btn" onclick="CLINIC.legal=esc(gv('cl-n'));CLINIC.addr1=esc(gv('cl-a1'));CLINIC.addr2=esc(gv('cl-a2'));CLINIC.eircode=esc(gv('cl-ec'));CLINIC.email=esc(gv('cl-em'));CLINIC.phones=[gv('cl-p1'),gv('cl-p2')].filter(Boolean).map(esc);saved()">Save clinic details</button></div>`}
 const sn=a=>svc(a.s).name;
@@ -550,7 +721,7 @@ function aDash(){
    ${show.map(a=>`<div class="appt"><span class="avatar">${initials(a.name)}</span><b>${a.name}</b><small>${sn(a)}</small><div class="foot"><span>${fmtDay(new Date(a.date+'T00:00:00'))}, ${a.time}</span>${stBadge(a)}</div></div>`).join('')||'<p class="mut">No appointments this day.</p>'}
    ${day.length>4?`<p style="margin:4px 0 0"><a class="small" href="#" onclick="adm('appts');return false">View all ${day.length}</a></p>`:''}</div></div></div>`}
 const cmp=(a,b)=>(a.date+a.time).localeCompare(b.date+b.time);
-function tbl(list){return `<div class="tw"><table><tr><th>When</th><th>Patient</th><th>Service</th><th>Status</th><th>Payment</th><th></th></tr>${list.map(a=>`<tr><td>${fmtDay(new Date(a.date+'T00:00:00'))}<br><b>${a.time}</b></td><td>${a.name}${a.online?' <span class="pill grey">online</span>':''}<br><span class="mut small">${a.ref}</span></td><td>${sn(a)}</td><td>${pill(a)}</td><td>${payPill(a)}</td><td style="white-space:nowrap">${a.status==='confirmed'?`<button class="btn ghost sm" onclick="act('${a.ref}','in')">Check in</button>`:''}${a.status==='checked in'?`<button class="btn sm" onclick="act('${a.ref}','done')">Complete</button>`:''}${a.paid==='unpaid'&&a.status!=='cancelled'?` <button class="btn ghost sm" onclick="act('${a.ref}','pay')">Mark paid</button>`:''}</td></tr>`).join('')||'<tr><td colspan="6" class="mut">Nothing here.</td></tr>'}</table></div>`}
+function tbl(list){return `<div class="alist">${list.map(a=>`<div class="arow"><span class="avatar" aria-hidden="true">${initials(a.name)}</span><div class="amain"><b>${a.name}${a.online?' <span class="pill grey">online</span>':''}</b><small>${a.ref} · ${sn(a)}</small></div><div class="awhen"><b>${a.time}</b><small>${fmtDay(new Date(a.date+'T00:00:00'))}</small></div><div class="abadges">${stBadge(a)}${payPill(a)}</div><div class="aact">${a.status==='confirmed'?`<button class="btn ghost sm" onclick="act('${a.ref}','in')">Check in</button>`:''}${a.status==='checked in'?`<button class="btn sm" onclick="act('${a.ref}','done')">Complete</button>`:''}${a.paid==='unpaid'&&a.status!=='cancelled'?`<button class="btn ghost sm" onclick="act('${a.ref}','pay')">Mark paid</button>`:''}</div></div>`).join('')||'<p class="mut">Nothing here.</p>'}</div>`}
 function act(ref,w){const a=appts.find(x=>x.ref===ref);if(w==='in')a.status='checked in';if(w==='done')a.status='completed';if(w==='pay'){a.paid='paid';toast('Marked paid. A receipt number is issued.')}adm(window._a)}
 function aAppts(){return `<h1>Appointments</h1><p class="note">Every online booking appears here the moment it is made. Staff can check in, complete, take payment and cancel.</p>${tbl(appts.slice().sort(cmp))}`}
 function aWalk(){const days=nextDays();return `<h1>Walk-in and phone booking</h1><p class="note">Uses the same rules as online booking, so a time can never be booked twice.</p><div class="card" style="max-width:520px"><label class="field">Service<select id="ws">${bookable().map(s=>`<option value="${s.id}">${s.name}</option>`).join('')}</select></label><label class="field">Day<select id="wd">${days.map(d=>`<option value="${iso(d)}">${fmtDay(d)}</option>`).join('')}</select></label><label class="field">Time (HH:MM)<input id="wt" value="09:30"></label><label class="field">Patient name<input id="wn" value="Walk-in patient"></label><button class="btn" onclick="walkIn()">Book</button></div>`}

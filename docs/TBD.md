@@ -32,3 +32,5 @@
 29. **Repeat Prescription** (10 min, phone, "contact us") and **Minor Surgery** ("see pricing") have no fixed price, so they are listed but not bookable online.
 30. **Booking confirmation:** the live site says "we will confirm within 24 hours"; the new system confirms instantly.
 31. **Logo:** the prototype redraws the shield as vector art. Please supply the original logo file (SVG or high-resolution PNG).
+32. **Photos:** the prototype uses drawn illustrations for every service, category and package. Please supply real photos (clinic reception and rooms, Dr Khalid, and optionally one per service). The admin can upload them: Services, Doctors, Website content (gallery and home page photo). Uploads are checked (JPG, PNG, WebP, GIF, under 8 MB) and resized to 1000 px wide.
+33. **Image storage in the real system:** the prototype keeps uploads in the page only. The real system will store them in the database or Cloudflare R2; this is the first use of the storage helper (EXT-10).
