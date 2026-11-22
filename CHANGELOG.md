@@ -2,6 +2,11 @@
 
 Newest first. Dates are 2026.
 
+## 22 Nov: full test pass
+- Browser test of the whole public booking flow and all admin screens: `docs/TEST-REPORT.md`
+- Fixed: cancelling and the maintenance job no longer need Stripe unless money is involved
+- Fixed: header, footer and service links are at least 44 px tall on phones
+
 ## 22 Nov: hardening and handover
 - Content Security Policy with per-request nonce, HSTS, frame, referrer and permissions headers
 - Cloudflare Turnstile on checkout and the contact form; same-origin check on public POST routes

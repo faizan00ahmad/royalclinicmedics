@@ -1,6 +1,6 @@
 import { schema } from "@rmc/db";
 import { eq } from "drizzle-orm";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { seed } from "@rmc/core/src/seed/seed";
 import { MemoryTransport } from "@rmc/core";
 import { FakeGateway, succeededEvent } from "@rmc/core/src/test-utils/fake-gateway";
@@ -304,5 +304,34 @@ describe("emails sent by the routes", () => {
     expect(res.status).toBe(200);
     expect(json.emails + ctx.mail.sent.length).toBeGreaterThan(0);
     expect(ctx.mail.sent.some((m) => m.to === "aoife@example.com")).toBe(true);
+  });
+});
+
+describe("without Stripe configured (pay-at-clinic only, before the Stripe account exists)", () => {
+  const savedKeys = { k: process.env.STRIPE_SECRET_KEY, w: process.env.STRIPE_WEBHOOK_SECRET };
+  beforeEach(() => {
+    delete process.env.STRIPE_SECRET_KEY;
+    delete process.env.STRIPE_WEBHOOK_SECRET;
+    // Same database and mailbox, but the REAL gateway lookup: it must not be touched unless a payment is involved.
+    __setServices({ db: () => ctx.db, email: () => ctx.mail });
+    process.env.CRON_SECRET = "s3cret-value-for-tests";
+  });
+  afterEach(() => {
+    if (savedKeys.k) process.env.STRIPE_SECRET_KEY = savedKeys.k;
+    if (savedKeys.w) process.env.STRIPE_WEBHOOK_SECRET = savedKeys.w;
+  });
+
+  it("a patient can cancel a pay-at-clinic booking", async () => {
+    const { body } = await bookAtClinic();
+    const res = await cancelPOST(new Request(url(`/api/bookings/${body.bookingRef}/cancel`), { method: "POST", headers: { "x-manage-token": body.manageToken } }), refCtx(body.bookingRef));
+    expect(res.status).toBe(200);
+    expect((await res.json()).status).toBe("CANCELLED_BY_PATIENT");
+  });
+
+  it("the maintenance job still releases holds and sends emails", async () => {
+    await bookAtClinic();
+    const res = await cronPOST(new Request(url("/api/cron/maintenance"), { method: "POST", headers: { authorization: "Bearer s3cret-value-for-tests" } }), { params: Promise.resolve({ job: "maintenance" }) });
+    expect(res.status).toBe(200);
+    expect((await res.json()).ok).toBe(true);
   });
 });

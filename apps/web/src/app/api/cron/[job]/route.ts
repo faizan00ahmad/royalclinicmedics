@@ -1,6 +1,6 @@
 import { expireUnpaidAppointments, processOutbox, releaseExpiredHolds, runRetention, sendDueReminders } from "@rmc/core";
 import { ApiError, json, requireCron, route } from "@/lib/http";
-import { db, gateway, mailDeps } from "@/lib/server";
+import { db, lazyGateway, mailDeps } from "@/lib/server";
 
 type Ctx = { params: Promise<{ job: string }> };
 
@@ -14,7 +14,7 @@ export const POST = route<Ctx>("cron", async (req, { params }) => {
   if (job !== "maintenance") throw new ApiError(404, "UNKNOWN_JOB", "Unknown job");
   const now = new Date();
   await releaseExpiredHolds(db(), now);
-  const expiredUnpaid = await expireUnpaidAppointments(db(), gateway(), now);
+  const expiredUnpaid = await expireUnpaidAppointments(db(), lazyGateway(), now);
   // Emails last, so the cancellations above are included in this run.
   const outbox = await processOutbox(db(), { ...mailDeps(), now });
   const reminders = await sendDueReminders(db(), { ...mailDeps(), now });
