@@ -6,3 +6,7 @@ export * from "./availability";
 export * from "./hold";
 export * from "./appointment";
 export * from "./locks";
+export * from "./questionnaire";
+export * from "./consents";
+export * from "./manage";
+export * from "./ics";
