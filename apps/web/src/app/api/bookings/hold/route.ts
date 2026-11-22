@@ -1,6 +1,6 @@
 import { SlotTakenError, createHold, dublinDate, getAvailability } from "@rmc/core";
 import { z } from "zod";
-import { json, rateLimit, readJson, route } from "@/lib/http";
+import { json, rateLimit, requireSameOrigin, readJson, route } from "@/lib/http";
 import { db } from "@/lib/server";
 
 const body = z.object({
@@ -12,6 +12,7 @@ const body = z.object({
 
 /** POST /api/bookings/hold. Reserves a slot for 10 minutes (BK-04). */
 export const POST = route("hold", async (req) => {
+  requireSameOrigin(req);
   rateLimit(req, "hold", 10);
   const input = await readJson(req, body);
   const now = new Date();

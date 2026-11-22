@@ -32,7 +32,7 @@ export function errorResponse(name: string, err: unknown): Response {
     return json({ error: "VALIDATION", issues: err.issues.map((i) => ({ path: i.path.join("."), message: i.message })) }, 400);
   }
   const message = err instanceof Error ? err.message : "";
-  if (/^(DATABASE_URL|STRIPE_[A-Z_]+|CRON_SECRET) is not set$/.test(message)) {
+  if (/^[A-Z][A-Z0-9_]+ is not set$/.test(message)) {
     console.error(`[api:${name}] not configured: ${message}`); // names an env var, contains no data
     return json({ error: "NOT_CONFIGURED", message: "This feature is not available yet." }, 503);
   }
@@ -113,4 +113,18 @@ export function requireCron(req: Request): void {
   const a = Buffer.from(given);
   const b = Buffer.from(secret);
   if (a.length !== b.length || !timingSafeEqual(a, b)) throw new ApiError(401, "UNAUTHORIZED", "Unauthorized");
+}
+
+/**
+ * CSRF defence for public POST routes (SEC-05). Browsers always send an Origin header on a cross-site POST, so a
+ * request that names a different site is refused. Requests with no Origin (server to server, curl) are allowed:
+ * they cannot ride on a patient's browser session, and these routes use no cookies.
+ */
+export function requireSameOrigin(req: Request): void {
+  const origin = req.headers.get("origin");
+  if (!origin) return;
+  const host = req.headers.get("x-forwarded-host") ?? req.headers.get("host") ?? new URL(req.url).host;
+  let originHost = "";
+  try { originHost = new URL(origin).host; } catch { /* malformed */ }
+  if (originHost !== host) throw new ApiError(403, "BAD_ORIGIN", "This request came from another website.");
 }

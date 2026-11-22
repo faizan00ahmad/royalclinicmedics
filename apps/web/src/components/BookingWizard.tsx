@@ -3,7 +3,8 @@
 import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { Turnstile, turnstileEnabled } from "./Turnstile";
 import { api, euro, fullLabel } from "@/lib/client";
 import { SlotPicker, type PickedSlot } from "./SlotPicker";
 
@@ -124,6 +125,8 @@ function DetailsStep({ service, hold, p, onExpired, onBack, onDone }: {
   const [choice, setChoice] = useState<"ONLINE" | "AT_CLINIC">(p.stripeKey || !service.payAtClinicAllowed ? "ONLINE" : "AT_CLINIC");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [token, setToken] = useState<string | null>(null);
+  const onToken = useCallback((t: string | null) => setToken(t), []);
   const canOnline = Boolean(p.stripeKey) && service.priceCents > 0;
   const options = useMemo(() => [canOnline && "ONLINE", service.payAtClinicAllowed && "AT_CLINIC"].filter(Boolean) as ("ONLINE" | "AT_CLINIC")[], [canOnline, service.payAtClinicAllowed]);
 
@@ -133,12 +136,14 @@ function DetailsStep({ service, hold, p, onExpired, onBack, onDone }: {
     const g = (k: string) => String(f.get(k) ?? "").trim();
     if (g("email") !== g("email2")) { setError("The two email addresses do not match."); return; }
     if (medCard) { setError("Medical card patients: please phone the clinic to book."); return; }
+    if (turnstileEnabled && !token) { setError("Please complete the check above the button."); return; }
     setBusy(true); setError("");
     try {
       const r = await api<Result>("/api/bookings/checkout", {
         method: "POST",
         body: JSON.stringify({
           holdId: hold.holdId,
+          turnstileToken: token ?? undefined,
           paymentChoice: choice,
           reason: g("reason") || undefined,
           patient: {
@@ -159,6 +164,7 @@ function DetailsStep({ service, hold, p, onExpired, onBack, onDone }: {
     } catch (err) {
       setError((err as Error).message);
       setBusy(false);
+      setToken(null); window.turnstile?.reset(); // a token works only once
     }
   }
 
@@ -237,6 +243,7 @@ function DetailsStep({ service, hold, p, onExpired, onBack, onDone }: {
         </div>
       </fieldset>
 
+      <Turnstile onToken={onToken} />
       {error && <p role="alert" className="rounded-lg bg-red-50 p-3 text-red-800">{error}</p>}
       <button disabled={busy || options.length === 0} className="min-h-12 w-full rounded-lg bg-accent-500 px-6 text-lg font-bold text-slate-900 disabled:opacity-50">
         {busy ? "Please wait..." : choice === "ONLINE" ? "Continue to payment" : "Confirm booking"}

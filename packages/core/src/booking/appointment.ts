@@ -19,7 +19,7 @@ const confirmInput = z.object({
   paymentChoice: z.enum(["ONLINE", "AT_CLINIC", "FREE"]),
   reason: z.string().trim().max(500).optional(),
   /** Stored with the appointment only. Never logged, emailed or put in events (SEC-07). */
-  questionnaire: z.record(z.unknown()).optional(),
+  questionnaire: z.record(z.string(), z.unknown()).optional(),
   source: z.enum(["ONLINE", "WALK_IN", "PHONE", "STAFF"]).default("ONLINE"),
 });
 export type ConfirmInput = z.input<typeof confirmInput> & { now?: Date };

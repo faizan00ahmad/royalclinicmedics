@@ -78,3 +78,12 @@
 - **Emails sent:** confirmation (with .ics), clinic alert (to the clinic address and the doctor's login), reminders (24 h and 2 h, editable in settings, skipped when the booking was made inside that window), moved, cancelled (with refund wording), refund issued, "did not go ahead" (slot lost or payment not completed), contact-form alert with reply-to, automatic reply to the sender.
 - **Not built:** staff invite and password reset emails (N-10), the 07:00 daily schedule to doctors (N-11), SMS, marketing emails. Walk-ins with no email get no patient email.
 - **Before launch:** create the Resend account, verify the clinic's domain (SPF/DKIM records), set `EMAIL_TRANSPORT=resend`, `RESEND_API_KEY`, `EMAIL_FROM`, `CLINIC_NOTIFY_EMAIL`, `SIGNED_LINK_SECRET`. Free plan allows about 25 bookings a day (about 4 emails each).
+
+## 2026-11-22 – Hardening
+- **Decision:** Content Security Policy is built per request with a nonce in `middleware.ts` (`'strict-dynamic'`, no `'unsafe-inline'` for scripts). Static headers are in `next.config.mjs`. Verified on a production build: every script on dynamic pages carries the nonce. Static pages (the 404) cannot carry a nonce; they contain no inline scripts of ours. **To verify at go-live with the real Stripe, Google and Cloudflare scripts.**
+- **Decision:** public POST routes refuse a request whose `Origin` names another site (CSRF defence); requests without an Origin (server to server) are allowed because these routes use no cookies. Admin server actions rely on Next.js' built-in origin check plus `SameSite=Strict` cookies.
+- **Decision:** Turnstile fails closed in production when its secret is missing, and is skipped only in development.
+- **Decision:** zod upgraded to 4.x and drizzle-orm to 0.45.x to clear high-severity advisories; `postcss` pinned `>=8.5.18` through a pnpm override (Next.js bundles an older copy).
+- **Decision:** privacy tools are administrators only (`privacy:manage`). Anonymising keeps booking and payment rows (accounting) but removes identity and health data, and is refused while an appointment is upcoming. The retention job does NOT delete appointments or payments: the clinic must decide the period (docs/TBD.md).
+- **Decision:** production database changes go through `packages/db/src/migrate.ts` (tested against PGlite, transaction per file, safe to repeat).
+- **Known weakness:** the Phase 2 event consumer will share `processed_at` with the Phase 1 email sender; see docs/PHASE-2-READINESS.md EXT-03.

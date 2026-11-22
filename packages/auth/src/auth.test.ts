@@ -84,10 +84,10 @@ describe("permissions (can)", () => {
   const doc: Principal = { id: "d", role: "DOCTOR", doctorId: "doc-1" };
 
   it("admin can do everything", () => {
-    for (const a of ["settings:write", "staff:write", "export:run", "audit:read", "services:write"] as const) expect(can(admin, a)).toBe(true);
+    for (const a of ["settings:write", "staff:write", "export:run", "audit:read", "services:write", "privacy:manage"] as const) expect(can(admin, a)).toBe(true);
   });
   it("receptionist: no settings, staff, exports, services, audit, refunds (SRS section 2)", () => {
-    for (const a of ["settings:write", "staff:write", "export:run", "audit:read", "services:write", "payments:refund", "doctors:write"] as const) {
+    for (const a of ["settings:write", "staff:write", "export:run", "audit:read", "services:write", "payments:refund", "doctors:write", "privacy:manage"] as const) {
       expect(can(recep, a)).toBe(false);
     }
     for (const a of ["appointments:write", "walkin:create", "schedules:write", "enquiries:write", "content:write", "payments:markPaid"] as const) {
@@ -101,6 +101,9 @@ describe("permissions (can)", () => {
     expect(can(doc, "schedules:writeOwn", { doctorId: "doc-1" })).toBe(true);
     expect(can(doc, "appointments:write", { doctorId: "doc-1" })).toBe(false);
     expect(can(doc, "walkin:create", { doctorId: "doc-1" })).toBe(false);
+  });
+  it("doctors cannot manage privacy requests", () => {
+    expect(can(doc, "privacy:manage", { doctorId: "doc-1" })).toBe(false);
   });
   it("a doctor login not linked to a doctor can do nothing", () => {
     expect(can({ id: "x", role: "DOCTOR" }, "appointments:read", { doctorId: "doc-1" })).toBe(false);

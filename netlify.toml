@@ -1,0 +1,13 @@
+# Hosting on Netlify (free plan). Connect the GitHub repository in Netlify and it deploys on every push to main.
+# Settings that hold secrets (DATABASE_URL, STRIPE_*, RESEND_API_KEY, ...) go in Netlify > Site settings > Environment
+# variables, never in this file. The full list is in .env.example and docs/HANDOVER.md.
+[build]
+  command = "pnpm --filter @rmc/web build"
+  publish = "apps/web/.next"
+
+[build.environment]
+  NODE_VERSION = "20"
+  NEXT_TELEMETRY_DISABLED = "1"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"

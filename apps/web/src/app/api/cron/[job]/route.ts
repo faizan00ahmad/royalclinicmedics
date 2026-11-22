@@ -1,4 +1,4 @@
-import { expireUnpaidAppointments, processOutbox, releaseExpiredHolds, sendDueReminders } from "@rmc/core";
+import { expireUnpaidAppointments, processOutbox, releaseExpiredHolds, runRetention, sendDueReminders } from "@rmc/core";
 import { ApiError, json, requireCron, route } from "@/lib/http";
 import { db, gateway, mailDeps } from "@/lib/server";
 
@@ -18,5 +18,6 @@ export const POST = route<Ctx>("cron", async (req, { params }) => {
   // Emails last, so the cancellations above are included in this run.
   const outbox = await processOutbox(db(), { ...mailDeps(), now });
   const reminders = await sendDueReminders(db(), { ...mailDeps(), now });
-  return json({ ok: true, expiredUnpaid, emails: outbox.sent, emailFailures: outbox.failed, reminders: reminders.sent });
+  const retention = await runRetention(db(), now); // cheap, so it simply runs every time
+  return json({ ok: true, expiredUnpaid, retention, emails: outbox.sent, emailFailures: outbox.failed, reminders: reminders.sent });
 });

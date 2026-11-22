@@ -26,7 +26,7 @@ const checkoutInput = z.object({
   patient: patientInput,
   reason: z.string().trim().max(500).optional(),
   /** Stored with the appointment only. Never sent to Stripe, email, logs or events (SEC-07). */
-  questionnaire: z.record(z.unknown()).optional(),
+  questionnaire: z.record(z.string(), z.unknown()).optional(),
 });
 export type CheckoutInput = z.input<typeof checkoutInput> & { now?: Date };
 

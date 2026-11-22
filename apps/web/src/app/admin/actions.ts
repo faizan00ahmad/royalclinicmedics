@@ -2,7 +2,7 @@
 
 import { AuthError, createStaffUser, resetTwoFactor, setStaffActive, type SessionUser } from "@rmc/auth";
 import {
-  resetTemplate, saveTemplate, sendTestEmail, audit, addHoliday, addOverride, addTimeBlock, cancelWithRefund, createStaffBooking, deleteFaq, dublinToUtc, markPaidAtClinic,
+  anonymisePatient, resetTemplate, saveTemplate, sendTestEmail, audit, addHoliday, addOverride, addTimeBlock, cancelWithRefund, createStaffBooking, deleteFaq, dublinToUtc, markPaidAtClinic,
   publishLegalPage, refundAppointment, removeHoliday, removeOverride, removeTimeBlock, rescheduleAppointment, saveAnnouncement,
   saveDoctor, saveFaq, saveService, saveSettings, saveWeeklyHours, setAppointmentStatus, setStaffNote, updateEnquiry, EDITABLE_SETTINGS,
   BookingError,
@@ -341,5 +341,17 @@ export async function testEmailAction(form: FormData) {
     const user = await requireCan("settings:write");
     await sendTestEmail(db(), emailTransport(), { id: str(form, "id"), to: str(form, "to") }, await actorOf(user));
     return `Test email sent to ${str(form, "to")}.`;
+  });
+}
+
+// -------------------------------------------------------------------- privacy
+
+/** GDPR right to erasure. The administrator must type ANONYMISE, so it cannot happen by a stray click. */
+export async function anonymiseAction(form: FormData) {
+  await go("/admin/privacy", async () => {
+    const user = await requireCan("privacy:manage");
+    if (str(form, "confirm") !== "ANONYMISE") throw new BookingError("POLICY", "Type ANONYMISE in capital letters to confirm.");
+    await anonymisePatient(db(), str(form, "id"), await actorOf(user));
+    return "Done. Their personal details and health answers are removed. Booking and payment records are kept without their identity.";
   });
 }

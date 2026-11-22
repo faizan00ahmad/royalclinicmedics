@@ -2,12 +2,14 @@ import {
   confirmAppointment, parseQuestionnaire, patientInput, recordConsents, startOnlineCheckout,
 } from "@rmc/core";
 import { z } from "zod";
-import { clientIp, json, rateLimit, readJson, route } from "@/lib/http";
+import { clientIp, json, rateLimit, readJson, requireSameOrigin, route } from "@/lib/http";
 import { sendEmailsSoon } from "@/lib/mail";
 import { db, gateway } from "@/lib/server";
+import { verifyTurnstile } from "@/lib/turnstile";
 
 const body = z.object({
   holdId: z.string().uuid(),
+  turnstileToken: z.string().max(2048).optional(),
   patient: patientInput,
   paymentChoice: z.enum(["ONLINE", "AT_CLINIC"]),
   reason: z.string().trim().max(500).optional(),
@@ -28,8 +30,10 @@ const body = z.object({
  * The response never repeats the patient's details or questionnaire.
  */
 export const POST = route("checkout", async (req) => {
+  requireSameOrigin(req);
   rateLimit(req, "checkout", 10);
   const input = await readJson(req, body);
+  await verifyTurnstile(input.turnstileToken, clientIp(req));
   const questionnaire = parseQuestionnaire(input.questionnaire);
   const now = new Date();
 

@@ -10,3 +10,5 @@ export * from "./content";
 export * from "./audit";
 export * from "./admin";
 export * from "./email";
+export * from "./video/provider";
+export * from "./storage";

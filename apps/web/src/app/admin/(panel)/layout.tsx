@@ -17,6 +17,7 @@ const NAV: { href: string; label: string; needs: Action }[] = [
   { href: "/admin/email", label: "Emails", needs: "settings:write" },
   { href: "/admin/staff", label: "Staff", needs: "staff:write" },
   { href: "/admin/export", label: "Export data", needs: "export:run" },
+  { href: "/admin/privacy", label: "Privacy requests", needs: "privacy:manage" },
   { href: "/admin/audit", label: "Audit log", needs: "audit:read" },
 ];
 

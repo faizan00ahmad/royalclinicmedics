@@ -1,0 +1,40 @@
+# Nightly encrypted database backup (NFR-09, SEC-08).
+# Stored as a private workflow artifact for 30 days. Needs these repository secrets:
+#   DATABASE_URL        the production Neon connection string
+#   BACKUP_PASSPHRASE   a long random phrase. Keep a copy in the clinic's password manager: without it a backup cannot be opened.
+# The repository MUST be private. See docs/RUNBOOK.md for how to restore.
+name: Nightly backup
+on:
+  schedule:
+    - cron: "17 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install PostgreSQL client 16
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client-16 || sudo apt-get install -y postgresql-client
+      - name: Dump and encrypt
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          BACKUP_PASSPHRASE: ${{ secrets.BACKUP_PASSPHRASE }}
+        run: |
+          set -euo pipefail
+          test -n "$DATABASE_URL" && test -n "$BACKUP_PASSPHRASE"
+          FILE="royal-medics-$(date -u +%Y-%m-%d).sql.gz.gpg"
+          pg_dump --no-owner --no-privileges "$DATABASE_URL" | gzip -9 \
+            | gpg --batch --yes --pinentry-mode loopback --passphrase "$BACKUP_PASSPHRASE" --symmetric --cipher-algo AES256 -o "$FILE"
+          test "$(stat -c%s "$FILE")" -gt 1000
+          echo "FILE=$FILE" >> "$GITHUB_ENV"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: database-backup
+          path: ${{ env.FILE }}
+          retention-days: 30
+          if-no-files-found: error

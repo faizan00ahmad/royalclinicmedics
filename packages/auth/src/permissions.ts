@@ -18,6 +18,7 @@ export type Action =
   | "settings:write"
   | "staff:write"
   | "export:run"
+  | "privacy:manage" // find a person, export or anonymise their data (GDPR-04). Administrators only.
   | "audit:read";
 
 const RECEPTIONIST: Action[] = [
