@@ -58,6 +58,10 @@ export function SiteHeader({ name, phoneLabel, phoneHref }: { name: string; phon
               Call {phoneLabel}
             </a>
           )}
+          <Link href="/admin/login" className="hidden min-h-11 items-center rounded-full px-3 text-sm font-semibold text-slate-600 hover:text-brand-800 md:inline-flex">
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="mr-1.5"><circle cx="10" cy="7" r="3.5" /><path d="M3.5 17c.8-3.2 3.3-5 6.5-5s5.7 1.8 6.5 5" /></svg>
+            Admin sign in
+          </Link>
           <Link href="/book" className="inline-flex min-h-11 items-center rounded-full bg-accent-500 px-5 text-sm font-bold text-white hover:bg-accent-600">Book now</Link>
           <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-controls="mobile-menu" aria-label={open ? "Close menu" : "Open menu"}
             className="inline-flex size-11 items-center justify-center rounded-full border border-slate-300 text-brand-800 md:hidden">
@@ -81,7 +85,8 @@ export function SiteHeader({ name, phoneLabel, phoneHref }: { name: string; phon
               </li>
             ))}
           </ul>
-          {phoneHref && <a href={phoneHref} className="mt-4 flex min-h-12 items-center justify-center rounded-full border-2 border-brand-700 font-bold text-brand-700">Call {phoneLabel}</a>}
+          <Link href="/admin/login" className="mt-4 flex min-h-12 items-center justify-center rounded-full border border-slate-300 font-semibold text-brand-800">Admin sign in</Link>
+          {phoneHref && <a href={phoneHref} className="mt-3 flex min-h-12 items-center justify-center rounded-full border-2 border-brand-700 font-bold text-brand-700">Call {phoneLabel}</a>}
         </nav>
       )}
     </header>

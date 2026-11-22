@@ -2,6 +2,10 @@
 
 Newest first. Dates are 2026.
 
+## 22 Nov: brand and real content
+- Royal Medics brand (navy and crimson), logo, picture service cards, video hero, new header with phone menu
+- `pnpm db:content` loads the clinic's real details, hours, 5 services, doctor and 8 FAQs (runs once; `--force` to repeat). Placeholder services are hidden, not deleted
+
 ## 22 Nov: full test pass
 - Browser test of the whole public booking flow and all admin screens: `docs/TEST-REPORT.md`
 - Fixed: cancelling and the maintenance job no longer need Stripe unless money is involved

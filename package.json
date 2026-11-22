@@ -10,7 +10,8 @@
     "test": "turbo run test",
     "dev:db": "pnpm --filter @rmc/core dev:db",
     "db:migrate": "pnpm --filter @rmc/db migrate",
-    "db:seed": "pnpm --filter @rmc/core seed"
+    "db:seed": "pnpm --filter @rmc/core seed",
+    "db:content": "pnpm --filter @rmc/core content"
   },
   "devDependencies": {
     "turbo": "^2.3.0",

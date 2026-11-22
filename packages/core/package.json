@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "seed": "tsx src/seed/seed-cli.ts",
+    "content": "tsx src/seed/real-content-cli.ts",
     "dev:db": "tsx src/dev/dev-db.ts"
   },
   "dependencies": {
