@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Royal Medics Clinic: Phase 1 design prototype</title>
+<title>Royal Medics: Phase 1 design prototype</title>
 <style>
-:root{--brand:#1b4b9b;--brand-d:#133a7c;--brand-l:#e6edf9;--ink:#0f1a2b;--mut:#6b7686;--line:#e6e8ec;--shell:#f4f4f5;--page:#e2e6ee;--ok:#1f7a45;--bad:#b42318;--ring:0 0 0 3px rgba(27,75,155,.28);--sh:0 2px 14px rgba(30,45,80,.06)}
+:root{--brand:#17335b;--brand-d:#0f2447;--brand-l:#e8edf5;--ink:#0f1a2b;--mut:#6b7686;--line:#e6e8ec;--shell:#f4f4f5;--page:#e6e8ec;--ok:#1f7a45;--bad:#b42318;--ring:0 0 0 3px rgba(23,51,91,.28);--sh:0 2px 14px rgba(30,45,80,.06)}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;background:var(--page)}
 body{margin:0;background:var(--page);color:var(--ink);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI Variable Text","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;padding-bottom:92px}
@@ -32,7 +32,7 @@ h1,h2,h3{margin:0;letter-spacing:-.025em;color:var(--ink)}h1{font-size:2.2rem;li
 .tools{display:flex;align-items:center;gap:10px}
 .circ{width:48px;height:48px;border-radius:50%;background:#fff;border:0;display:grid;place-items:center;color:var(--ink);box-shadow:var(--sh);cursor:pointer;position:relative}
 .circ i{position:absolute;top:12px;right:13px;width:9px;height:9px;border-radius:50%;background:#e5484d;border:2px solid #fff}
-.avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(145deg,#a9c3f0,#4a78c9);color:#fff;display:grid;place-items:center;font-weight:700;font-size:.95rem;flex:0 0 auto}
+.avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(145deg,#8ea3c4,#2b4f86);color:#fff;display:grid;place-items:center;font-weight:700;font-size:.95rem;flex:0 0 auto}
 .who{line-height:1.2;text-align:right;white-space:nowrap}
 #anav a{padding:0 14px}
 a.small,p.small a{display:inline-flex;align-items:center;min-height:44px}
@@ -40,9 +40,9 @@ a.small,p.small a{display:inline-flex;align-items:center;min-height:44px}
 
 /* controls */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 22px;border-radius:999px;border:0;background:var(--brand);color:#fff;font-weight:600;cursor:pointer;text-decoration:none;transition:background .15s}
-.btn:hover{background:var(--brand-d)}.btn:disabled{background:#c5cedd;cursor:not-allowed}
+.btn:hover{background:var(--brand-d)}.btn:disabled{background:#c6ccd8;cursor:not-allowed}
 .btn.ghost{background:#fff;color:var(--brand);box-shadow:var(--sh)}.btn.ghost:hover{background:var(--brand-l)}
-.btn.light{background:#fff;color:var(--brand)}.btn.light:hover{background:#eaf0fc}
+.btn.light{background:#fff;color:var(--brand)}.btn.light:hover{background:#eef1f6}
 .btn.accent{background:var(--brand)}.btn.sm{min-height:38px;padding:0 16px;font-size:.88rem}
 .field{display:block;margin-bottom:12px;font-weight:600;font-size:.92rem}
 .field input,.field select,.field textarea{display:block;width:100%;margin-top:5px;min-height:48px;padding:8px 14px;border:1px solid #d6dbe4;border-radius:14px;background:#fff}
@@ -57,7 +57,7 @@ a.small,p.small a{display:inline-flex;align-items:center;min-height:44px}
 .dash2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:start}
 .dash3{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr) minmax(0,.9fr);gap:18px;align-items:start}
 .hello h1{font-size:2.8rem;font-weight:600;letter-spacing:-.035em}.hello p{margin:4px 0 0;font-size:1.25rem;color:var(--mut)}
-.feature{background:var(--brand);color:#fff}.feature h2,.feature p{color:#fff}.feature .eyebrow{color:#bcd0f4}.feature h2{font-size:1.7rem;margin:4px 0}.feature p{opacity:.88;margin:0 0 16px}
+.feature{background:var(--brand);color:#fff}.feature h2,.feature p{color:#fff}.feature .eyebrow{color:#f0bcc2}.feature h2{font-size:1.7rem;margin:4px 0}.feature p{opacity:.88;margin:0 0 16px}
 .eyebrow{margin:0;font-size:.74rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--brand)}
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
 .tile{background:#fff;border:0;border-radius:22px;padding:14px;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;text-align:left;cursor:pointer;box-shadow:var(--sh);transition:transform .15s}
@@ -67,9 +67,9 @@ a.small,p.small a{display:inline-flex;align-items:center;min-height:44px}
 .chips{display:flex;gap:8px;margin-bottom:12px}
 .chip{flex:1 1 0;min-width:0;min-height:68px;border:0;border-radius:16px;background:#efeff1;font-weight:700;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--ink);font-size:.82rem}
 .chip span{font-size:1.15rem;font-weight:700}.chip small{font-weight:500;color:var(--mut);font-size:.7rem}
-.chip.on{background:var(--brand);color:#fff}.chip.on small{color:#c9d8f5}.chip:disabled{opacity:.45;cursor:not-allowed}
+.chip.on{background:var(--brand);color:#fff}.chip.on small{color:#cfd8e8}.chip:disabled{opacity:.45;cursor:not-allowed}
 .li{display:flex;align-items:center;gap:12px;width:100%;background:#f4f4f6;border:1px solid #ececef;border-radius:999px;padding:8px 16px 8px 8px;margin-bottom:8px;text-align:left;cursor:pointer;color:var(--ink)}
-.li:hover{background:#eef2fb;border-color:#d4def2}
+.li:hover{background:#eef1f6;border-color:#d5dbe6}
 .li .ico{width:42px;height:42px;border-radius:50%;background:#fff;color:var(--brand);display:grid;place-items:center;font-weight:700;flex:0 0 auto;font-size:.9rem;box-shadow:0 1px 3px rgba(30,45,80,.1)}
 .li b{display:block;font-size:.92rem;line-height:1.2}.li small{color:var(--mut);font-size:.78rem}.li .r{margin-left:auto;font-size:.78rem;color:var(--mut);text-align:right;white-space:nowrap}
 .appt{background:#f1f1f3;border-radius:18px;padding:12px;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:center;margin-bottom:10px}
@@ -77,7 +77,7 @@ a.small,p.small a{display:inline-flex;align-items:center;min-height:44px}
 .appt b{font-size:.92rem;line-height:1.2}.appt small{color:var(--mut)}
 .appt .foot{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;font-size:.76rem;color:var(--mut);margin-top:6px}
 .st{border-radius:8px;padding:3px 12px;font-size:.72rem;font-weight:700;color:#fff;display:inline-block}
-.st.new{background:#86abe8}.st.conf{background:#3a72d4}.st.in{background:var(--ok)}.st.done{background:#8b93a0}.st.x{background:#c0392b}
+.st.new{background:#9b1c2b}.st.conf{background:#2b4f86}.st.in{background:var(--ok)}.st.done{background:#8b93a0}.st.x{background:#c0392b}
 .mini{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .stat b{display:block;font-size:2rem;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.1}.stat{color:var(--mut);font-size:.88rem}.stat .card{padding:16px}
 .chart{width:100%;height:auto;display:block}
@@ -85,8 +85,8 @@ a.small,p.small a{display:inline-flex;align-items:center;min-height:44px}
 .pill{display:inline-block;padding:2px 10px;border-radius:8px;font-size:.74rem;font-weight:700;background:var(--brand-l);color:var(--brand-d)}
 .pill.warn{background:#fdf0d5;color:#7a4a00}.pill.ok{background:#dff1e5;color:#17703a}.pill.bad{background:#fbe3e0;color:#a1281c}.pill.grey{background:#e8eaee;color:#47505f}
 .alert{background:#fdf5e4;border-radius:16px;color:#5b3d06;padding:12px 16px;font-size:.92rem}
-.note{background:#e9eefa;border-radius:16px;color:#233a63;padding:11px 16px;font-size:.84rem;margin:0 0 16px}
-.hold{background:#e9eefa;border-radius:14px;padding:10px 14px;font-size:.9rem;margin-bottom:14px}
+.note{background:#e9edf4;border-radius:16px;color:#22344f;padding:11px 16px;font-size:.84rem;margin:0 0 16px}
+.hold{background:#e9edf4;border-radius:14px;padding:10px 14px;font-size:.9rem;margin-bottom:14px}
 .sec{padding:0}.sec h1{margin-bottom:6px}
 .grid{display:grid;gap:14px}.g2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
 .tw{overflow-x:auto}
@@ -100,13 +100,13 @@ summary{cursor:pointer;min-height:54px;display:flex;align-items:center;font-weig
 .steps li{flex:1;text-align:center;font-size:.78rem;padding:9px 2px;border-radius:999px;background:#ebecef;color:var(--mut);font-weight:600}
 .steps li.on{background:var(--brand);color:#fff}.steps li.done{background:var(--brand-l);color:var(--brand-d)}
 .opt{display:flex;justify-content:space-between;gap:10px;align-items:center;width:100%;text-align:left;background:#fff;border:2px solid transparent;border-radius:20px;padding:14px 18px;margin-bottom:10px;cursor:pointer;min-height:60px;box-shadow:var(--sh)}
-.opt:hover{border-color:#c9d6ef}.opt.sel{border-color:var(--brand);background:#f3f6fd}
+.opt:hover{border-color:#c9d1e0}.opt.sel{border-color:var(--brand);background:#f2f4f8}
 .days{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:14px;scrollbar-width:none}
 .day{flex:0 0 auto;min-width:82px;min-height:60px;border:0;background:#fff;border-radius:16px;font-weight:700;cursor:pointer;padding:6px;box-shadow:var(--sh);color:var(--ink)}
 .day.sel{background:var(--brand);color:#fff}.day:disabled{opacity:.45;cursor:not-allowed}
 .slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px}
 .slot{min-height:48px;border:0;background:#fff;border-radius:14px;font-weight:650;cursor:pointer;box-shadow:var(--sh);font-variant-numeric:tabular-nums;color:var(--ink)}
-.slot:hover{background:#eef2fb}.slot.sel{background:var(--brand);color:#fff}
+.slot:hover{background:#eef1f6}.slot.sel{background:var(--brand);color:#fff}
 .ok-box{text-align:center;padding:28px}.tick{width:60px;height:60px;border-radius:50%;background:#dff1e5;color:var(--ok);display:grid;place-items:center;font-size:1.7rem;margin:0 auto 12px}
 dl.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;margin:0;text-align:left}dl.kv dt{color:var(--mut)}dl.kv dd{margin:0;font-weight:600}
 .email{border-radius:20px;background:#fff;padding:16px 18px;font-size:.88rem;text-align:left;margin-top:14px;box-shadow:var(--sh)}
@@ -132,6 +132,59 @@ footer.site p{margin:2px 0}footer.site a{display:inline-flex;align-items:center;
 }
 @media(min-width:800px){body{padding-bottom:0}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+/* ================= BRAND LAYER: navy, crimson, silver (from the logo) ================= */
+:root{--brand:#17335b;--brand-d:#0f2447;--brand-l:#e8edf5;--red:#9b1c2b;--silver:#a9abb0;--page:#e6e8ec;--ring:0 0 0 3px rgba(23,51,91,.3);--serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,"Times New Roman",serif}
+html,body{background:var(--page)}
+h1,.hello h1,.feature h2,.next h2{font-family:var(--serif)}
+h1{font-weight:600;letter-spacing:-.01em}
+.hello h1{font-size:2.7rem;line-height:1.1;font-weight:600}
+.hello p.eyebrow{font-size:.74rem;margin:0 0 10px;color:var(--red)}
+.hello p:not(.eyebrow){font-size:1.1rem;max-width:520px;margin:10px 0 0}
+.eyebrow{color:var(--red);letter-spacing:.12em}
+.lead{font-size:1.1rem;color:var(--mut);max-width:640px;margin:8px 0 0}
+.feature{border-bottom:6px solid var(--red)}
+.feature .eyebrow{color:#f0bcc2}
+.feature h2{font-size:1.9rem}
+.alert.red{background:#f8eaec;color:#6c1620;border:1px solid #efc9ce;border-radius:18px}
+.st.new{background:var(--red)}.st.conf{background:#2b4f86}
+.tile .gl{background:var(--brand-l);color:var(--brand)}
+.tile:nth-child(2) .gl{background:#f8e8ea;color:var(--red)}
+.tile:nth-child(3) .gl{background:#eceef2;color:#5a6372}
+.avatar{background:linear-gradient(145deg,#8ea3c4,#2b4f86)}
+.avatar.big{width:96px;height:96px;font-size:1.9rem;font-family:var(--serif);flex:0 0 auto}
+.avatar.muted{background:#dfe2e8;color:#7a8394}
+.card.doc{display:flex;gap:22px;align-items:flex-start}
+.card.dim{display:flex;gap:16px;align-items:center;background:#fafafb;box-shadow:none;border:1px dashed #cfd4dc}
+.card.dim .avatar.big{width:64px;height:64px;font-size:1.4rem}
+.tags span{display:inline-block;background:var(--brand-l);color:var(--brand-d);border-radius:999px;padding:4px 12px;font-size:.8rem;margin:0 6px 6px 0;font-weight:600}
+.ticks{list-style:none;padding:0;display:grid;gap:8px;color:var(--mut)}
+.ticks li{padding-left:26px;position:relative}
+.ticks li::before{content:"";position:absolute;left:3px;top:.45em;width:12px;height:7px;border-left:2px solid var(--brand);border-bottom:2px solid var(--brand);transform:rotate(-45deg)}
+.how{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));counter-reset:s}
+.how .card{counter-increment:s;position:relative;padding-top:56px}
+.how .card::before{content:counter(s);position:absolute;left:20px;top:16px;width:30px;height:30px;border-radius:50%;background:var(--brand);color:#fff;font-weight:700;display:grid;place-items:center;font-size:.9rem}
+.lockup{display:flex;align-items:center;gap:10px;cursor:pointer;color:var(--brand)}
+.lockup svg{height:48px;width:auto;flex:0 0 auto;display:block}
+.lt{display:flex;flex-direction:column;line-height:1}
+.r1{font-family:var(--serif);font-size:1.6rem;letter-spacing:.14em;font-weight:600;color:var(--brand)}
+.r2{font-family:var(--serif);font-size:.84rem;letter-spacing:.44em;font-weight:600;color:var(--brand);margin-top:4px}
+.lockup em{font-style:normal;font-family:-apple-system,"Segoe UI",sans-serif;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);font-weight:700;margin-left:6px;align-self:flex-start;margin-top:4px}
+footer.site{margin-top:34px;padding-top:22px;border-top:1px solid var(--line);color:var(--mut);font-size:.88rem}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px}
+.fgrid b{color:var(--ink);display:block;margin-bottom:4px}.fgrid p{margin:0}
+footer.site .fine{margin:16px 0 0}
+@media(max-width:1150px) and (min-width:800px){.pillnav a svg{display:none}.pillnav a{padding:0 14px}}
+@media(max-width:799px){.lockup svg{height:40px}.r1{font-size:1.35rem}.r2{font-size:.72rem}.hello h1{font-size:2.2rem}.card.doc{flex-direction:column}}
+/* ===== admin editing + banner ===== */
+.banner{background:var(--red);color:#fff;border-radius:999px;padding:10px 20px;text-align:center;font-size:.92rem;font-weight:600;margin-bottom:16px}
+.banner:empty{display:none}
+.ti{width:100%;min-height:44px;border:1px solid #d6dbe4;border-radius:12px;padding:0 10px;background:#fff;min-width:80px}
+.ti.sub{margin-top:6px;font-size:.84rem;color:var(--mut)}
+td input[type=checkbox]{width:22px;height:22px;accent-color:var(--brand)}
+.edrow{margin-bottom:12px}
+.edgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0 14px}
+#admin .topbar{flex-wrap:wrap}
+#admin .pillnav{order:3;flex:0 0 100%}
 </style>
 </head>
 <body>
@@ -146,9 +199,9 @@ footer.site p{margin:2px 0}footer.site a{display:inline-flex;align-items:center;
 
 <!-- ============ PATIENT SIDE ============ -->
 <div id="patient">
-  <div class="shell">
+  <div class="shell"><div id="banner" class="banner" role="status"></div>
     <div class="topbar">
-      <div class="wordmark" onclick="go('home')">Royal<b>Medics</b></div>
+      <div class="lockup" onclick="go('home')" role="img" aria-label="Royal Medics"><svg viewBox="0 0 100 120" aria-hidden="true"><defs><clipPath id="cp"><path d="M50 9 L85 17 V60 C85 83 68 98 50 108 C32 98 15 83 15 60 V17 Z"/></clipPath></defs><path d="M50 3 L91 13 V61 C91 87 71 105 50 116 C29 105 9 87 9 61 V13 Z" fill="#a9abb0"/><g clip-path="url(#cp)"><rect width="100" height="120" fill="#17335b"/><path d="M0 66 Q50 58 100 66 V120 H0Z" fill="#9b1c2b"/></g><path d="M21 46 H35 L39 38 L44 56 L49 31 L53 46 H61" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M63 20 C63 32 69 32 69 40 M73 20 C73 32 69 32 69 40 M69 40 V54 C69 66 49 64 49 74" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="63" cy="18" r="2.4" fill="#fff"/><circle cx="73" cy="18" r="2.4" fill="#fff"/><circle cx="49" cy="79" r="6" fill="none" stroke="#fff" stroke-width="2.5"/><circle cx="49" cy="79" r="2" fill="#fff"/></svg><span class="lt"><span class="r1">ROYAL</span><span class="r2">MEDICS</span></span></div>
       <nav class="pillnav" id="nav" aria-label="Main"></nav>
       <div class="tools">
         <button class="circ" aria-label="Call the clinic" onclick="toast('On the live site this dials the clinic')"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></button>
@@ -156,11 +209,7 @@ footer.site p{margin:2px 0}footer.site a{display:inline-flex;align-items:center;
       </div>
     </div>
     <main id="page"></main>
-    <footer class="site">
-      <p><b style="color:var(--ink)">Royal Medics Clinic</b>, Dublin. Address, phone and opening hours to be confirmed.</p>
-      <p><a href="#" onclick="go('privacy');return false">Privacy policy</a><a href="#" onclick="go('privacy');return false">Terms</a><a href="#" onclick="go('privacy');return false">Cookies</a><a href="#" onclick="go('privacy');return false">Cancellation policy</a></p>
-      <p><b style="color:var(--ink)">This service is not for emergencies.</b> In an emergency call 112 or 999.</p>
-    </footer>
+    <footer class="site" id="foot"></footer>
   </div>
   <div class="mbar"><a class="btn ghost" onclick="toast('On the live site this dials the clinic')">Call</a><a class="btn" onclick="go('book')">Book now</a></div>
 </div>
@@ -169,7 +218,7 @@ footer.site p{margin:2px 0}footer.site a{display:inline-flex;align-items:center;
 <div id="admin">
   <div class="shell">
     <div class="topbar">
-      <div class="wordmark">Royal<b>Medics</b><em>Admin</em></div>
+      <div class="lockup" role="img" aria-label="Royal Medics"><svg viewBox="0 0 100 120" aria-hidden="true"><defs><clipPath id="ca"><path d="M50 9 L85 17 V60 C85 83 68 98 50 108 C32 98 15 83 15 60 V17 Z"/></clipPath></defs><path d="M50 3 L91 13 V61 C91 87 71 105 50 116 C29 105 9 87 9 61 V13 Z" fill="#a9abb0"/><g clip-path="url(#ca)"><rect width="100" height="120" fill="#17335b"/><path d="M0 66 Q50 58 100 66 V120 H0Z" fill="#9b1c2b"/></g><path d="M21 46 H35 L39 38 L44 56 L49 31 L53 46 H61" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M63 20 C63 32 69 32 69 40 M73 20 C73 32 69 32 69 40 M69 40 V54 C69 66 49 64 49 74" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="63" cy="18" r="2.4" fill="#fff"/><circle cx="73" cy="18" r="2.4" fill="#fff"/><circle cx="49" cy="79" r="6" fill="none" stroke="#fff" stroke-width="2.5"/><circle cx="49" cy="79" r="2" fill="#fff"/></svg><span class="lt"><span class="r1">ROYAL</span><span class="r2">MEDICS</span></span><em>Admin</em></div>
       <nav class="pillnav" id="anav" aria-label="Admin"></nav>
       <div class="tools">
         <div class="who"><b>Dr Khalid Siddig</b><span>Administrator</span></div>
@@ -184,23 +233,44 @@ footer.site p{margin:2px 0}footer.site a{display:inline-flex;align-items:center;
 
 <script>
 /* ---------- sample data (placeholders) ---------- */
+/* Content taken from the clinic's current website (royalclinicmedics.ie), 22 Nov 2026. Items marked DRAFT were written for this prototype. */
+const CLINIC={name:'Royal Medics',legal:'Royal Medics Clinic',addr1:'1st Floor over Careline Pharmacy',addr2:'29 Barronstrand St, Waterford',eircode:'X91 W68E',phones:['051 876531','051 844138'],email:'info@drkhalid.ie'};
 const S = [
-  {id:'gp',   name:'GP consultation',        mins:15, price:65, pay:true,  desc:'General medical consultation for new or ongoing concerns.'},
-  {id:'same', name:'Same-day appointment',   mins:15, price:70, pay:false, desc:'Urgent, non-emergency problems that cannot wait.'},
-  {id:'kid',  name:'Children\'s consultation',mins:15, price:60, pay:true,  desc:'Care for babies, children and teenagers.'},
-  {id:'chk',  name:'Health screening',       mins:30, price:120,pay:false, desc:'A longer check-up with the main routine tests.'},
-  {id:'vax',  name:'Vaccinations',           mins:15, price:55, pay:true,  desc:'Travel and routine vaccines (vaccine cost may be extra).'},
-  {id:'form', name:'Medical forms',          mins:15, price:50, pay:true,  desc:'Forms and certificates completed by the doctor.'}
+  {id:'gp',   name:'GP Consultation',   mins:15, price:60, pay:true, type:'In-person / Phone', desc:'Comprehensive in-person general practice consultation.'},
+  {id:'phone',name:'Phone Consultation',mins:15, price:60, pay:true, type:'Phone',             desc:'Remote GP appointment by secure phone call.'},
+  {id:'urg',  name:'Urgent Care',       mins:15, price:60, pay:true, type:'In-person',         desc:'Same-day assessment for acute or urgent concerns.'},
+  {id:'blood',name:'Blood Collection',  mins:15, price:30, pay:true, type:'In-person',         desc:'Blood sample collection and laboratory testing.'},
+  {id:'sick', name:'Sick Certificate',  mins:15, price:60, pay:true, type:'Phone / In-person', desc:'Certificate for workplace or school absence (follow-up only).'}
 ];
+const CATS=[
+  {n:'General Consultations',d:'15 – 30 minutes',t:'In-person / Phone',x:'Comprehensive medical consultations for acute illnesses, ongoing conditions and general health queries. Our doctors provide thorough assessments and clear, evidence-based advice.',b:['Illness assessment and diagnosis','Prescription management']},
+  {n:'Health Screenings',d:'30 minutes',t:'In-person',x:'Preventative health screenings designed to detect risk factors and conditions early, when they are most treatable.',b:['Blood pressure and cholesterol','Diabetes screening']},
+  {n:'Preventative Care',d:'20 minutes',t:'In-person / Phone',x:'A proactive, personalised approach to keeping you healthy, addressing diet, exercise, mental health and chronic disease prevention.',b:['Lifestyle and wellness advice','Chronic disease management']},
+  {n:'Vaccinations',d:'10 – 15 minutes',t:'In-person',x:'Full range of routine and travel vaccinations for adults and children, administered in a safe and welcoming environment.',b:['Flu vaccinations','Childhood immunisation']},
+  {n:'Women\'s Health',d:'20 – 30 minutes',t:'In-person',x:'Sensitive, comprehensive care for women at every stage of life, from contraception to menopause management.',b:['Contraception and family planning','Cervical smear tests']},
+  {n:'Paediatric Care',d:'15 – 20 minutes',t:'In-person',x:'Friendly, child-centred consultations for infants, children and adolescents, with a Diploma in Child Health.',b:['Child development checks','Childhood illness']}
+];
+const OTHER=[['Minor Surgery','Lumps, cysts, ingrown nails and minor procedures','See pricing'],['Blood Tests','Comprehensive diagnostic blood panels and screening','From €30'],['Men\'s Health','Prostate checks, testosterone, lifestyle and well-being','From €60'],['Women\'s Health','Smear tests, contraception, menopause and more','From €60'],['Heart Screening','ECG, cholesterol, BP and cardiovascular risk assessment','From €100'],['Medicals','Driving, employment and pre-travel medical certificates','From €70'],['Repeat Prescription','10 minutes by phone','Contact us']];
+const PKG=[['Men\'s Health Package','PSA, testosterone, lipids, blood pressure and lifestyle review.','From €180'],['Heart Screening Package','ECG, cholesterol, BP and full cardiovascular risk scoring.','From €150'],['Fatigue Package','Thyroid, iron, B12, vitamin D and full blood count panel.','From €100'],['Diabetes Check','HbA1c, fasting glucose, kidney function and weight review.','From €90'],['Executive Health Check','Comprehensive full-body screen for complete peace of mind.','From €250']];
+/* The live site shows these questions but hides the answers, so the answers below are DRAFT wording for the clinic to approve. */
 const FAQ = [
-  ['Do I need to pay to book?','You can pay online by card, Apple Pay or Google Pay, or choose to pay at the clinic where the service allows it.'],
+  ['Do you accept medical cards?','Yes, medical card patients are welcome. Please phone the clinic before booking so we can confirm the correct fee and arrangements.'],
+  ['What if I need a specialist referral?','If you need to see a specialist, the doctor will arrange a referral for you during your consultation.'],
+  ['How much does a consultation cost?','A GP consultation is €60. Every service shows its price before you book, with no hidden costs.'],
+  ['Do you offer telemedicine or remote consultations?','Yes. Phone consultations are available for suitable concerns at €60.'],
+  ['How long will my appointment take?','Most consultations take 15 to 20 minutes. Screenings and some services are longer, and the length is shown when you book.'],
+  ['What should I bring to my first appointment?','Please arrive 5 to 10 minutes early with photo ID and any relevant documents, such as referral letters or a list of your medications.'],
   ['Can I change or cancel my appointment?','Yes, free of charge up to 24 hours before, using the link in your confirmation email. Inside 24 hours please phone the clinic.'],
-  ['I have a medical card. Can I book online?','Please phone the clinic so we can confirm the correct fee and arrangements.'],
-  ['Is my health information private?','Yes. Your answers are visible only to the clinic team and are never sent by email.']
+  ['Is my health information private?','Yes. Your answers are seen only by the clinic team and are never sent by email.']
 ];
-const D = {name:'Dr Khalid Siddig'};
+const DOCS=[{id:'d1',name:'Dr Khalid Siddig',role:'General Practitioner',quals:'MB BCh BAO · MRCGP · MICGP',bio:'An experienced General Practitioner with over a decade of practice, combining clinical excellence with a compassionate, patient-first approach.',tags:'Chronic disease management, Preventative medicine, Paediatric care, Women\'s health',years:10,on:true}];
+const D = {get name(){return DOCS[0]?DOCS[0].name:'Our doctor'}};
+const CONTENT={heroTitle:'Your doctor, booked online.',heroIntro:'Same-day and next-day appointments. See the price, pick a free time and confirm in minutes.',
+ about:'Royal Medics is a highly regarded general practice. Our doctors provide comprehensive, patient-centred care to individuals and families across all stages of life.\n\nWith over a decade of experience in Irish general practice, we have developed particular expertise in the management of chronic diseases, preventative medicine and holistic patient care. We believe in treating the whole person, not just the condition.\n\nWe are committed to ongoing professional development and keep up to date with the latest evidence-based guidelines.',
+ banner:{on:false,text:''},soon:true};
+[FAQ,OTHER,PKG].forEach(a=>a.splice(0,a.length,...a.map(x=>Array.isArray(x)?(a===FAQ?{q:x[0],a:x[1]}:{n:x[0],d:x[1],p:x[2]}):x)));
 let closed = {};               // yyyy-mm-dd -> reason
-let hours = {1:['09:30','13:00'],2:['09:30','13:00'],3:['09:30','13:00'],4:['09:30','13:00'],5:['09:30','13:00'],6:null,0:null}; // 0=Sun
+let hours = {1:['08:00','18:00'],2:['08:00','18:00'],3:['08:00','18:00'],4:['08:00','18:00'],5:['08:00','17:00'],6:['09:00','13:00'],0:null}; // 0=Sun
 const taken = {};              // 'date|HH:MM' -> true
 let appts = [];                // admin list
 let booking = null, view='patient', page='home';
@@ -216,7 +286,7 @@ const svc = id => S.find(x=>x.id===id);
 /* sample diary for the next week */
 (function seedDiary(){
   const P=['Aoife Byrne','Liam Murphy','Sinead Kelly','Conor Walsh','Niamh Doyle','Oisin Ryan','Ciara Nolan','Darragh Quinn','Emer Brady','Cian Daly'];
-  const SV=['gp','gp','vax','chk','kid','gp','form'],T=['09:30','10:00','10:30','11:00','11:30','12:00'],plan=[5,3,6,4,5,0,0];let n=0;
+  const SV=['gp','gp','phone','urg','blood','gp','sick'],T=['09:30','10:00','10:30','11:00','11:30','12:00'],plan=[5,3,6,4,5,0,0];let n=0;
   for(let i=0;i<7;i++){const d=new Date(today);d.setDate(d.getDate()+i);if(!hours[d.getDay()])continue;const k=iso(d);
     for(let j=0;j<plan[i];j++){const sid=SV[(i+j)%SV.length],t=T[j];
       appts.push({ref:'RMC-'+(1000+n++),date:k,time:t,name:P[(i*3+j)%P.length],s:sid,paid:(i+j)%2===0?'paid':'unpaid',status:i===0&&j===0?'completed':i===0&&j===1?'checked in':'confirmed'});
@@ -224,7 +294,7 @@ const svc = id => S.find(x=>x.id===id);
 })();
 
 /* ---------- navigation ---------- */
-const NAVI=[['home','Home','home'],['about','About the doctor','user'],['services','Services','grid'],['prices','Prices','tag'],['faqs','FAQs','help'],['contact','Contact','mail']];
+const NAVI=[['home','Home','home'],['about','About','user'],['doctors','Doctors','pulse'],['services','Services','grid'],['prices','Prices','tag'],['faqs','FAQs','help'],['contact','Contact','mail']];
 function setView(v){view=v;$('#patient').style.display=v==='patient'?'block':'none';$('#admin').style.display=v==='admin'?'block':'none';
   $('#vP').classList.toggle('on',v==='patient');$('#vA').classList.toggle('on',v==='admin');
   document.body.style.paddingBottom=v==='patient'&&innerWidth<800?'76px':'0';window.scrollTo(0,0);
@@ -233,8 +303,9 @@ function go(p){page=p;if(p==='book'&&!booking)booking={step:1};render();window.s
 function toast(t){const e=$('#toast');e.textContent=t;e.style.display='block';clearTimeout(e._t);e._t=setTimeout(()=>e.style.display='none',3200)}
 
 function render(){
+  {const bn=$('#banner');bn.innerHTML=CONTENT.banner.on?CONTENT.banner.text:'';$('#foot').innerHTML=footInner()}
   $('#nav').innerHTML=NAVI.map(([k,l,i])=>`<a class="${page===k?'on':''}" onclick="go('${k}')">${ic(i)} ${l}</a>`).join('');
-  const f={home,about,services,prices,faqs,contact,book,privacy,manage}[page]||home;
+  const f={home,about,doctors,services,prices,faqs,contact,book,privacy,manage}[page]||home;
   $('#page').innerHTML=f();
   if(page==='book')bindBook();
 }
@@ -257,33 +328,78 @@ const IC={
 const ic=(n,s=18)=>`<svg viewBox="0 0 24 24" width="${s}" height="${s}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[n]}</svg>`;
 const initials=n=>n.split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase();
 
-function nextFree(){for(let i=0;i<14;i++){const d=new Date(today);d.setDate(d.getDate()+i);const k=iso(d),sl=slotsFor('gp',k);if(sl.length)return {k,t:sl[0],label:(i===0?'Today':i===1?'Tomorrow':fmtDay(d))+' at '+sl[0]}}return {k:'',label:'No free times in the next two weeks'}}
+const esc=s=>String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const bookable=()=>S.filter(s=>s.on!==false);
+const MAIN=()=>bookable()[0]||S[0];
+const ini=n=>initials(String(n).replace(/^Dr\.?\s+/i,''));
+const storyHtml=()=>CONTENT.about.split(/\n\s*\n/).map(p=>`<p class="mut">${p}</p>`).join('');
+function footInner(){return `<div class="fgrid"><div><b>${CLINIC.legal}</b><p>${CLINIC.addr1}<br>${CLINIC.addr2}<br>${CLINIC.eircode}</p></div><div><b>Contact</b><p>${CLINIC.phones.join('<br>')}<br>${CLINIC.email}</p></div><div><b>Opening hours</b><p>Shown on the <a href="#" onclick="go('contact');return false">Contact page</a></p></div><div><b>Legal</b><p><a href="#" onclick="go('privacy');return false">Privacy policy</a> &middot; <a href="#" onclick="go('privacy');return false">Terms</a><br><a href="#" onclick="go('privacy');return false">Cookies</a> &middot; <a href="#" onclick="go('privacy');return false">Cancellation policy</a></p></div></div><p class="fine"><b style="color:var(--ink)">This service is not for emergencies.</b> In an emergency call 999 or 112.</p>`}
+function nextFree(){const m=MAIN();for(let i=0;i<14;i++){const d=new Date(today);d.setDate(d.getDate()+i);const k=iso(d),sl=slotsFor(m.id,k);if(sl.length)return {k,t:sl[0],label:(i===0?'Today':i===1?'Tomorrow':fmtDay(d))+' at '+sl[0]}}return {k:'',label:'No free times in the next two weeks'}}
 const tile=s=>`<button class="tile" onclick="booking={step:2,sid:'${s.id}'};go('book')"><span class="gl">${ic('pulse',22)}</span><span><small>Service</small><b>${s.name}</b><span class="small price">${euro(s.price)} · ${s.mins} min</span></span></button>`;
+const hrsBlock=()=>{const N=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];return [1,2,3,4,5,6,0].map(i=>`<div class="hrsrow"><span>${N[i]}</span><b>${hours[i]?hours[i][0]+' to '+hours[i][1]:'Closed'}</b></div>`).join('')};
+const emerg='<div class="alert red"><b>Medical emergency?</b> Call <b>999</b> or go to your nearest A&amp;E. Do not book online.</div>';
 function home(){
-  const nx=nextFree(),days=nextDays().slice(0,5),N=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-  const hd=window._hd&&days.map(iso).includes(window._hd)&&slotsFor('gp',window._hd).length?window._hd:(days.map(iso).find(k=>slotsFor('gp',k).length)||iso(days[0]));window._hd=hd;
-  const sl=slotsFor('gp',hd).slice(0,4);
+  const m=MAIN(),nx=nextFree(),days=nextDays().slice(0,5),N=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const hd=window._hd&&days.map(iso).includes(window._hd)&&slotsFor(m.id,window._hd).length?window._hd:(days.map(iso).find(k=>slotsFor(m.id,k).length)||iso(days[0]));window._hd=hd;
+  const sl=slotsFor(m.id,hd).slice(0,4);
   return `<div class="dash2"><div class="col">
-  <div class="hello"><h1>Hello!</h1><p>How can we help you today?</p></div>
-  <div class="card feature"><p class="eyebrow">Next available</p><h2>${nx.label}</h2><p>GP consultation with ${D.name} · 15 min</p><button class="btn light" onclick="booking={step:2,sid:'gp',date:'${nx.k}'};go('book')">Book this time</button></div>
-  <div class="tiles">${S.slice(0,3).map(tile).join('')}</div>
+  <div class="hello"><p class="eyebrow">General practice · Waterford</p><h1>${CONTENT.heroTitle}</h1><p>${CONTENT.heroIntro}</p></div>
+  <div class="card feature"><p class="eyebrow">Next available</p><h2>${nx.label}</h2><p>${m.name} with ${D.name} · ${m.mins} min · ${euro(m.price)}</p><button class="btn light" onclick="booking={step:2,sid:'${m.id}',date:'${nx.k}'};go('book')">Book this time</button></div>
+  <div class="tiles">${bookable().slice(0,3).map(tile).join('')}</div>
   </div><div class="col">
-  <div class="card"><div class="cardhead"><h3>Choose a day</h3><span class="sel">GP consultation</span></div>
-   <div class="chips">${days.map(d=>{const k=iso(d),n=slotsFor('gp',k).length;return `<button class="chip ${k===hd?'on':''}" ${n?'':'disabled'} onclick="window._hd='${k}';render()">${N[d.getDay()]}<span>${d.getDate()}</span><small>${n?n+' free':'closed'}</small></button>`}).join('')}</div>
-   ${sl.map(t=>`<button class="li" onclick="booking={step:2,sid:'gp',date:'${hd}',time:'${t}'};go('book')"><span class="ico">${t}</span><span><b>GP consultation</b><small>${D.name}</small></span><span class="r">${euro(svc('gp').price)}<br>15 min</span></button>`).join('')||'<p class="mut">No free times.</p>'}
+  <div class="card"><div class="cardhead"><h3>Choose a day</h3><span class="sel">${m.name}</span></div>
+   <div class="chips">${days.map(d=>{const k=iso(d),n=slotsFor(m.id,k).length;return `<button class="chip ${k===hd?'on':''}" ${n?'':'disabled'} onclick="window._hd='${k}';render()">${N[d.getDay()]}<span>${d.getDate()}</span><small>${n?n+' free':'closed'}</small></button>`}).join('')}</div>
+   ${sl.map(t=>`<button class="li" onclick="booking={step:2,sid:'${m.id}',date:'${hd}',time:'${t}'};go('book')"><span class="ico">${t}</span><span><b>${m.name}</b><small>${D.name}</small></span><span class="r">${euro(m.price)}<br>${m.mins} min</span></button>`).join('')||'<p class="mut">No free times.</p>'}
    <p style="margin:6px 0 0"><a class="small" href="#" onclick="go('book');return false">See all times</a></p></div>
-  <div class="card"><h3 style="margin-bottom:8px">Opening hours</h3>${[1,2,3,4,5,6,0].map(i=>`<div class="hrsrow"><span>${N[i]}</span><b>${hours[i]?hours[i][0]+' to '+hours[i][1]:'Closed'}</b></div>`).join('')}</div>
-  <div class="card"><h3 style="margin-bottom:10px">How booking works</h3>
-   <div class="li" style="cursor:default"><span class="ico">1</span><span><b>Choose a service</b><small>Price shown up front</small></span></div>
-   <div class="li" style="cursor:default"><span class="ico">2</span><span><b>Pick a free time</b><small>Only available times are shown</small></span></div>
-   <div class="li" style="cursor:default;margin-bottom:0"><span class="ico">3</span><span><b>Confirm and pay</b><small>Online or at the clinic. Email confirmation</small></span></div></div>
-  </div></div>`}
-function about(){return `<section class="sec"><div class="wrap"><h1>About the doctor</h1><div class="grid g2"><div class="card" style="min-height:200px;display:grid;place-items:center;color:var(--mut)">Photo placeholder</div><div class="card"><h3>${D.name}</h3><p class="mut">Biography, qualifications and registration number go here once supplied by the clinic.</p></div></div></div></section>`}
-function services(){return `<section class="sec"><div class="wrap"><h1>Our services</h1><div class="grid g3">${S.map(card).join('')}</div></div></section>`}
-function prices(){return `<section class="sec"><div class="wrap"><h1>Prices</h1><p class="note">Try it: change a price in <b>Clinic admin → Services and prices</b> and come back. This page updates straight away.</p><div class="tw"><table><tr><th>Service</th><th>Length</th><th>Price</th></tr>${S.map(s=>`<tr><td>${s.name}</td><td>${s.mins} min</td><td class="price">${euro(s.price)}</td></tr>`).join('')}</table></div></div></section>`}
-function faqs(){return `<section class="sec"><div class="wrap"><h1>Frequently asked questions</h1>${FAQ.map(q=>`<details><summary>${q[0]}</summary><p>${q[1]}</p></details>`).join('')}</div></section>`}
-function contact(){return `<section class="sec"><div class="wrap"><h1>Contact us</h1><div class="grid g2"><div class="card"><h3>Send a message</h3><label class="field">Name<input></label><label class="field">Email<input type="email"></label><label class="field">Message<textarea rows="4"></textarea></label><label class="chk"><input type="checkbox"> I agree to the privacy policy</label><button class="btn" onclick="toast('Message sent. The clinic gets an email and you get an automatic reply.')">Send</button></div><div class="card" style="min-height:220px;display:grid;place-items:center;color:var(--mut)">Google Map placeholder<br>Address, Eircode, phone to be confirmed</div></div></div></section>`}
-function privacy(){return `<section class="sec"><div class="wrap"><h1>Legal pages</h1><p class="mut">Privacy policy, terms, cookie policy and cancellation policy are included. The final wording will be reviewed by the clinic's solicitor before launch.</p></div></section>`}
+  <div class="card"><h3 style="margin-bottom:8px">Why patients choose us</h3>
+   <div class="li" style="cursor:default"><span class="ico">${ic('clock',18)}</span><span><b>Fast access</b><small>Same-day and next-day appointments</small></span></div>
+   <div class="li" style="cursor:default"><span class="ico">${ic('user',18)}</span><span><b>Experienced doctors</b><small>MRCGP and MICGP qualified</small></span></div>
+   <div class="li" style="cursor:default"><span class="ico">${ic('tag',18)}</span><span><b>Transparent pricing</b><small>Clear fees, no hidden costs</small></span></div>
+   <div class="li" style="cursor:default;margin-bottom:0"><span class="ico">${ic('pulse',18)}</span><span><b>Patient-focused</b><small>Every patient treated with dignity</small></span></div></div>
+  <div class="card"><h3 style="margin-bottom:8px">Opening hours</h3>${hrsBlock()}<p class="small mut" style="margin:10px 0 0">${CLINIC.addr1}, ${CLINIC.addr2}, ${CLINIC.eircode}</p></div>
+  </div></div><div style="margin-top:18px">${emerg}</div>`}
+function about(){return `<section class="sec"><p class="eyebrow">Our story</p><h1>About Royal Medics</h1><p class="lead">A dedicated general practice committed to compassionate, evidence-based medicine for every patient.</p>
+<div class="dash2" style="margin-top:20px"><div class="col"><div class="card"><h3 style="margin-bottom:8px">A clinic that truly listens</h3>${storyHtml()}</div>
+<div class="card"><h3 style="margin-bottom:10px">Qualifications and accreditations</h3>
+<div class="li" style="cursor:default"><span class="ico">MB</span><span><b>MB BCh BAO</b><small>Bachelor of Medicine, University of Khartoum</small></span></div>
+<div class="li" style="cursor:default"><span class="ico">MR</span><span><b>MRCGP</b><small>Member of the Royal College of General Practitioners</small></span></div>
+<div class="li" style="cursor:default"><span class="ico">MI</span><span><b>MICGP</b><small>Member of the Irish College of General Practitioners</small></span></div>
+<div class="li" style="cursor:default;margin-bottom:0"><span class="ico">DCH</span><span><b>Diploma in Child Health</b><small>RCPI, Dublin</small></span></div></div></div>
+<div class="col"><div class="card"><h3 style="margin-bottom:10px">An approach centred on you</h3><p class="mut small">The best healthcare begins with truly listening to the patient. We focus on preventative care and holistic wellness, addressing not just symptoms but the lifestyle and circumstances that shape each patient's health.</p>
+<div class="li" style="cursor:default"><span class="ico">${ic('user',18)}</span><span><b>Listen first</b><small>We start by understanding the whole person</small></span></div>
+<div class="li" style="cursor:default"><span class="ico">${ic('pulse',18)}</span><span><b>Prevent, not just treat</b><small>Proactive screening and lifestyle guidance</small></span></div>
+<div class="li" style="cursor:default;margin-bottom:0"><span class="ico">${ic('home',18)}</span><span><b>Family-centred care</b><small>All ages, with continuity and trust</small></span></div></div>
+<div class="card"><h3 style="margin-bottom:10px">Memberships and recognition</h3>
+<div class="li" style="cursor:default"><span class="ico">IMC</span><span><b>Irish Medical Council</b><small>Registered Medical Practitioner</small></span></div>
+<div class="li" style="cursor:default"><span class="ico">ICGP</span><span><b>Irish College of GPs</b><small>Full Member (MICGP)</small></span></div>
+<div class="li" style="cursor:default"><span class="ico">RCGP</span><span><b>Royal College of GPs</b><small>Member (MRCGP)</small></span></div>
+<div class="li" style="cursor:default;margin-bottom:0"><span class="ico">${ic('pulse',18)}</span><span><b>Patient Care Award</b><small>Dublin GP Network, 2022</small></span></div></div></div></div>
+<p style="margin-top:20px"><a class="btn" onclick="go('book')">Book an appointment</a></p></section>`}
+function doctors(){const list=DOCS.filter(d=>d.on!==false);
+const soon=`<div class="card dim"><div class="avatar big muted" aria-hidden="true">+</div><div><h3>More doctors joining soon</h3><p class="mut small" style="margin:4px 0 0">We are expanding our team to serve you better.</p><span class="st done" style="margin-top:8px">Coming soon</span></div></div><div class="card dim"><div class="avatar big muted" aria-hidden="true">+</div><div><h3>New specialist joining soon</h3><p class="mut small" style="margin:4px 0 0">A specialist in additional areas of care will be joining our clinic.</p><span class="st done" style="margin-top:8px">Coming soon</span></div></div>`;
+return `<section class="sec"><p class="eyebrow">Our team</p><h1>Our doctors</h1><p class="lead">Meet the medical professionals committed to your health and wellbeing.</p>
+<div class="dash2" style="margin-top:20px"><div class="col">${list.map(d=>`<div class="card doc"><div class="avatar big" aria-hidden="true">${ini(d.name)}</div><div><p class="eyebrow">${d.role}</p><h2 style="margin:2px 0 4px">${d.name}</h2><p class="small mut" style="margin:0 0 10px">${d.quals}</p><p class="mut">${d.bio}</p><p class="small" style="margin:0 0 6px"><b>Areas of expertise</b></p><div class="tags">${String(d.tags).split(',').map(t=>t.trim()).filter(Boolean).map(t=>`<span>${t}</span>`).join('')}</div><p style="margin:16px 0 0">${d.years?`<span class="stat"><b style="display:inline;font-size:1.4rem">${d.years}+</b> years experience</span> &nbsp; `:''}<button class="btn sm" onclick="go('book')">Book</button></p></div></div>`).join('')||'<p class="mut">No doctors to show.</p>'}</div>
+<div class="col">${CONTENT.soon?soon:''}</div></div></section>`}
+function services(){return `<section class="sec"><p class="eyebrow">What we offer</p><h1>Services</h1><p class="lead">A full range of general practice services delivered with care, expertise and a patient-first approach.</p>
+<div class="grid g3" style="margin-top:20px">${CATS.map(c=>`<div class="card"><h3>${c.n}</h3><p class="small mut" style="margin:4px 0 10px">${ic('clock',14)} ${c.d} &nbsp;·&nbsp; ${c.t}</p><p class="mut small">${c.x}</p><ul class="ticks small" style="margin:10px 0 0">${(c.b||[]).map(x=>`<li>${x}</li>`).join('')}</ul></div>`).join('')}</div>
+<h2 style="margin:30px 0 12px">Book online now</h2><div class="grid g3">${bookable().map(s=>`<div class="card"><h3>${s.name}</h3><p class="mut small" style="margin:4px 0 8px">${s.desc}</p><p class="small"><span class="price">${euro(s.price)}</span> · ${s.mins} min · ${s.type}</p><button class="btn sm" onclick="booking={step:2,sid:'${s.id}'};go('book')">Book</button></div>`).join('')}</div>
+<h2 style="margin:30px 0 12px">What to expect on your first visit</h2><div class="how">${[['Book online','Use our booking form or call us to select a convenient date and time.'],['Arrive and check in','Arrive 5 to 10 minutes early with your ID and any relevant documents.'],['Consultation','Our doctor listens, examines, and provides clear guidance. Approximately 15 to 20 minutes.'],['Treatment plan','Leave with a clear plan: prescriptions, referrals or follow-up as needed.']].map(x=>`<div class="card"><h3>${x[0]}</h3><p class="mut small" style="margin:0">${x[1]}</p></div>`).join('')}</div></section>`}
+function prices(){return `<section class="sec"><p class="eyebrow">Transparent pricing</p><h1>Prices</h1><p class="note">Try it: change a price in <b>Clinic admin → Services</b> and come back. This page updates straight away.</p>
+<h2 style="margin-bottom:10px">Book online</h2><div class="tw"><table><tr><th>Service</th><th>Length</th><th>Type</th><th>Price</th></tr>${bookable().map(s=>`<tr><td><b>${s.name}</b></td><td>${s.mins} min</td><td>${s.type}</td><td class="price">${euro(s.price)}</td></tr>`).join('')}</table></div>
+<h2 style="margin:28px 0 10px">Other services</h2><div class="tw"><table><tr><th>Service</th><th>What it covers</th><th>Price</th></tr>${OTHER.map(o=>`<tr><td><b>${o.n}</b></td><td>${o.d}</td><td class="price">${o.p}</td></tr>`).join('')}</table></div>
+<h2 style="margin:28px 0 10px">Screening packages</h2><div class="grid g3">${PKG.map(p=>`<div class="card"><h3>${p.n}</h3><p class="mut small" style="margin:4px 0 8px">${p.d}</p><p class="price">${p.p}</p><button class="btn ghost sm" onclick="go('contact')">Enquire</button></div>`).join('')}</div></section>`}
+function faqs(){return `<section class="sec"><p class="eyebrow">Patient FAQs</p><h1>Common questions</h1><p class="lead">Have a question before booking? Find answers below, or call the clinic directly.</p><div style="margin-top:20px;max-width:760px">${FAQ.map(q=>`<details><summary>${q.q}</summary><p>${q.a}</p></details>`).join('')}</div><p class="note" style="max-width:760px">Answers are draft wording for the clinic to approve. The current website lists these questions without showing the answers.</p></section>`}
+function contact(){return `<section class="sec"><p class="eyebrow">Get in touch</p><h1>Contact and location</h1><p class="lead">Find us in Waterford city. We would love to hear from you.</p>
+<div class="dash2" style="margin-top:20px"><div class="col"><div class="card"><h3 style="margin-bottom:10px">Visit or call</h3>
+<div class="li" style="cursor:default"><span class="ico">${ic('home',18)}</span><span><b>${CLINIC.addr1}</b><small>${CLINIC.addr2}, ${CLINIC.eircode}</small></span></div>
+<div class="li" style="cursor:default"><span class="ico">${ic('help',18)}</span><span><b>${CLINIC.phones[0]}</b><small>${CLINIC.phones[1]}</small></span></div>
+<div class="li" style="cursor:default;margin-bottom:0"><span class="ico">${ic('mail',18)}</span><span><b>${CLINIC.email}</b><small>We reply within one working day</small></span></div></div>
+<div class="card"><h3 style="margin-bottom:8px">Opening hours</h3>${hrsBlock()}<p class="small mut" style="margin:10px 0 0">For emergencies outside hours, call 999 or visit A&amp;E.</p></div></div>
+<div class="col"><div class="card"><h3 style="margin-bottom:10px">Send us a message</h3><label class="field">Name<input></label><label class="field">Email<input type="email"></label><label class="field">Message<textarea rows="4"></textarea></label><label class="chk"><input type="checkbox"> I agree to the privacy policy</label><button class="btn" onclick="toast('Message sent. The clinic gets an email and you get an automatic reply.')">Send message</button><p class="small mut" style="margin:10px 0 0">Please do not include health details in this form.</p></div>
+<div class="card" style="min-height:150px;display:grid;place-items:center;text-align:center;color:var(--mut)"><div>Google Map goes here<br><span class="small">29 Barronstrand St, Waterford</span></div></div></div></div></section>`}
+function privacy(){return `<section class="sec"><p class="eyebrow">Legal</p><h1>Privacy policy and terms of use</h1><p class="note">Text below is taken from the clinic's current website. The final privacy, terms, cookie and cancellation policies will be reviewed by the clinic's solicitor before launch.</p>
+<div class="card" style="max-width:820px"><h2>Privacy policy</h2><p class="mut">At Royal Medics we are committed to protecting and respecting your privacy. This policy explains when and why we collect personal information about people who visit our clinic or website, how we use it, the conditions under which we may disclose it to others, and how we keep it secure.</p><h3>How do we collect information from you?</h3><p class="mut">We obtain information about you when you use our website, for example when you contact us about products and services, or if you register to receive one of our newsletters.</p><h3>What type of information is collected from you?</h3><p class="mut">The personal information we collect might include your name, address, email address, IP address, and information regarding what pages are accessed and when. If you make a booking online, your card information is not held by us; it is collected by our third-party payment processors.</p>
+<h2 style="margin-top:24px">Terms of use</h2><p class="mut">If you continue to browse and use this website, you are agreeing to comply with and be bound by the following terms and conditions of use, which together with our privacy policy govern Royal Medics's relationship with you in relation to this website.</p><ul class="mut"><li>The content of the pages of this website is for your general information and use only. It is subject to change without notice.</li><li>This website uses cookies to monitor browsing preferences. If you do allow cookies to be used, personal information may be stored by us for use by third parties.</li><li>Neither we nor any third parties provide any warranty or guarantee as to the accuracy, timeliness, performance, completeness or suitability of the information and materials found or offered on this website for any particular purpose.</li><li>Your use of any information or materials on this website is entirely at your own risk, for which we shall not be liable.</li></ul></div></section>`}
 
 /* ---------- booking wizard ---------- */
 function slotsFor(sid,dateStr){
@@ -300,7 +416,7 @@ function nextDays(){const a=[];for(let i=0;i<10;i++){const d=new Date(today);d.s
 function stepsBar(n){return `<ol class="steps">${['Service','Time','Details','Confirm'].map((l,i)=>`<li class="${i+1<n?'done':i+1===n?'on':''}">${i+1}. ${l}</li>`).join('')}</ol>`}
 function book(){
   const b=booking;
-  if(b.step===1)return `<section class="sec"><div class="wrap" style="max-width:640px"><h1>Book an appointment</h1><p class="alert">This service is not for emergencies. In an emergency call 112 or 999.</p><br>${stepsBar(1)}<h2>Choose a service</h2>${S.map(s=>`<button class="opt" onclick="booking={step:2,sid:'${s.id}'};go('book')"><span><b>${s.name}</b><br><span class="mut small">${s.mins} min</span></span><span class="price">${euro(s.price)}</span></button>`).join('')}</div></section>`;
+  if(b.step===1)return `<section class="sec"><div class="wrap" style="max-width:640px"><h1>Book an appointment</h1><p class="alert">This service is not for emergencies. In an emergency call 112 or 999.</p><br>${stepsBar(1)}<h2>Choose a service</h2>${bookable().map(s=>`<button class="opt" onclick="booking={step:2,sid:'${s.id}'};go('book')"><span><b>${s.name}</b><br><span class="mut small">${s.mins} min</span></span><span class="price">${euro(s.price)}</span></button>`).join('')}</div></section>`;
   if(b.step===2){const days=nextDays();b.date=b.date||days.find(d=>slotsFor(b.sid,iso(d)).length)&&iso(days.find(d=>slotsFor(b.sid,iso(d)).length));
     const sl=b.date?slotsFor(b.sid,b.date):[];
     return `<section class="sec"><div class="wrap" style="max-width:640px"><h1>Book an appointment</h1>${stepsBar(2)}<p class="small"><a href="#" onclick="booking={step:1};go('book');return false">← Change service</a> · <b>${svc(b.sid).name}</b></p>
@@ -344,9 +460,67 @@ function manage(){const b=booking;if(!b||!b.ref)return `<section class="sec"><di
 function cancelAppt(ref){const a=appts.find(x=>x.ref===ref);a.status='cancelled';const s=svc(a.s);for(let x=0;x<s.mins;x+=15){const m=parseInt(a.time)*60+parseInt(a.time.split(':')[1])+x;delete taken[a.date+'|'+String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0')]}toast('Cancelled. The time is free again and the patient gets an email'+(a.paid==='paid'?' with a refund notice.':'.'));render()}
 
 /* ---------- admin ---------- */
-const ANAV=[['dash','Dashboard','grid'],['appts','Appointments','cal'],['walk','Walk-in','plus'],['services','Services','tag'],['hours','Hours','clock'],['closed','Closed','off']];
-function adm(k){window._a=k;$('#anav').innerHTML=ANAV.map(([a,l,i])=>`<a class="${a===k?'on':''}" onclick="adm('${a}')">${ic(i)} ${l}</a>`).join('');
-  $('#apage').innerHTML=({dash:aDash,appts:aAppts,walk:aWalk,services:aServices,hours:aHours,closed:aClosed}[k])();window.scrollTo(0,0)}
+const ANAV=[['dash','Dashboard','grid'],['appts','Appointments','cal'],['walk','Walk-in','plus'],['services','Services','tag'],['doctors','Doctors','user'],['web','Website','help'],['clinic','Clinic','home'],['hours','Hours','clock'],['closed','Closed days','off']];
+function adm(k,keep){window._a=k;$('#anav').innerHTML=ANAV.map(([a,l,i])=>`<a class="${a===k?'on':''}" onclick="adm('${a}')">${ic(i)} ${l}</a>`).join('');
+  $('#apage').innerHTML=({dash:aDash,appts:aAppts,walk:aWalk,services:aServices,doctors:aDoctors,web:aWeb,clinic:aClinic,hours:aHours,closed:aClosed}[k])();if(!keep)window.scrollTo(0,0)}
+const saved=()=>toast('Saved. The website now shows this.');
+const gv=id=>document.getElementById(id).value.trim();
+const keepAdm=()=>{const y=window.scrollY;adm(window._a,true);window.scrollTo(0,y)};
+
+/* ----- services ----- */
+const TYPES=['In-person','Phone','In-person / Phone','Phone / In-person'];
+function aServices(){return `<h1>Services and prices</h1><p class="note">Add, rename, re-price or hide any service. Changes appear on the website and in the booking page straight away.</p>
+<div class="tw"><table><tr><th>Service</th><th>Minutes</th><th>Price (€)</th><th>Type</th><th>Pay at clinic</th><th>Bookable online</th><th></th></tr>${S.map((s,i)=>`<tr>
+<td style="min-width:230px"><input class="ti" aria-label="Name" value="${s.name}" onchange="svcSet(${i},'name',this.value)"><input class="ti sub" aria-label="Description" value="${s.desc}" onchange="svcSet(${i},'desc',this.value)"></td>
+<td><select class="ti" aria-label="Minutes" onchange="svcSet(${i},'mins',+this.value)">${[10,15,20,30,45,60].map(m=>`<option ${m===s.mins?'selected':''}>${m}</option>`).join('')}</select></td>
+<td><input class="ti" style="width:90px" type="number" min="0" step="0.5" aria-label="Price" value="${s.price}" onchange="svcSet(${i},'price',+this.value)"></td>
+<td><select class="ti" aria-label="Type" onchange="svcSet(${i},'type',this.value)">${TYPES.map(t=>`<option ${t===s.type?'selected':''}>${t}</option>`).join('')}</select></td>
+<td><input type="checkbox" aria-label="Pay at clinic allowed" ${s.pay?'checked':''} onchange="svcSet(${i},'pay',this.checked)"></td>
+<td><input type="checkbox" aria-label="Bookable online" ${s.on!==false?'checked':''} onchange="svcSet(${i},'on',this.checked)"></td>
+<td><button class="btn ghost sm" onclick="svcDel(${i})">Delete</button></td></tr>`).join('')}</table></div>
+<div class="card edrow" style="max-width:680px;margin-top:18px"><h3 style="margin-bottom:10px">Add a service</h3>
+<div class="edgrid"><label class="field">Name<input id="ns-name"></label><label class="field">Price (€)<input id="ns-price" type="number" min="0" step="0.5"></label>
+<label class="field">Minutes<select id="ns-mins">${[10,15,20,30,45,60].map(m=>`<option ${m===15?'selected':''}>${m}</option>`).join('')}</select></label><label class="field">Type<select id="ns-type">${TYPES.map(t=>`<option>${t}</option>`).join('')}</select></label></div>
+<label class="field">Description<input id="ns-desc"></label><label class="chk"><input id="ns-pay" type="checkbox" checked> Patients may pay at the clinic</label><button class="btn" onclick="svcAdd()">Add service</button></div>`}
+function svcSet(i,k,v){S[i][k]=typeof v==='string'?esc(v):v;saved()}
+function svcAdd(){const n=gv('ns-name'),p=parseFloat(gv('ns-price'));if(!n)return toast('Please enter a name.');if(!(p>=0))return toast('Please enter a price.');
+  S.push({id:'s'+Date.now(),name:esc(n),mins:+gv('ns-mins'),price:p,pay:document.getElementById('ns-pay').checked,type:gv('ns-type'),desc:esc(gv('ns-desc')),on:true});adm('services');toast('Service added. Patients can book it now.')}
+function svcDel(i){const s=S[i];if(appts.some(a=>a.s===s.id))return toast('This service has bookings, so it cannot be deleted. Untick "Bookable online" to hide it instead.');if(bookable().length===1&&s.on!==false)return toast('Keep at least one bookable service.');S.splice(i,1);adm('services');toast('Deleted.')}
+
+/* ----- doctors ----- */
+function aDoctors(){const f=(i,k,l,v,ta)=>`<label class="field">${l}${ta?`<textarea rows="3" onchange="docSet(${i},'${k}',this.value)">${v}</textarea>`:`<input value="${v}" onchange="docSet(${i},'${k}',this.value)">`}</label>`;
+return `<h1>Doctors</h1><p class="note">Add or edit doctors. They appear on the Doctors page. Choosing a doctor while booking comes when a second doctor joins.</p>
+<div class="grid g2">${DOCS.map((d,i)=>`<div class="card edrow">${f(i,'name','Name',d.name)}${f(i,'role','Role',d.role)}${f(i,'quals','Qualifications',d.quals)}${f(i,'bio','About',d.bio,1)}${f(i,'tags','Areas of expertise (comma separated)',d.tags)}<label class="field">Years of experience<input type="number" min="0" value="${d.years}" onchange="docSet(${i},'years',+this.value)"></label><label class="chk"><input type="checkbox" ${d.on!==false?'checked':''} onchange="docSet(${i},'on',this.checked)"> Show on the website</label><button class="btn ghost sm" onclick="docDel(${i})">Remove</button></div>`).join('')}</div>
+<div class="card edrow" style="max-width:680px;margin-top:18px"><h3 style="margin-bottom:10px">Add a doctor</h3><div class="edgrid"><label class="field">Name<input id="nd-name"></label><label class="field">Role<input id="nd-role" value="General Practitioner"></label></div><label class="field">Qualifications<input id="nd-quals"></label><label class="field">About<textarea id="nd-bio" rows="3"></textarea></label><label class="field">Areas of expertise (comma separated)<input id="nd-tags"></label><label class="field">Years of experience<input id="nd-years" type="number" min="0"></label><button class="btn" onclick="docAdd()">Add doctor</button></div>`}
+function docSet(i,k,v){DOCS[i][k]=typeof v==='string'?esc(v):v;saved()}
+function docAdd(){const n=gv('nd-name');if(!n)return toast('Please enter a name.');DOCS.push({id:'d'+Date.now(),name:esc(n),role:esc(gv('nd-role')),quals:esc(gv('nd-quals')),bio:esc(gv('nd-bio')),tags:esc(gv('nd-tags')),years:+gv('nd-years')||0,on:true});adm('doctors');toast('Doctor added. They are on the Doctors page now.')}
+function docDel(i){if(DOCS.length===1)return toast('Keep at least one doctor.');DOCS.splice(i,1);adm('doctors');toast('Removed.')}
+
+/* ----- website content ----- */
+const LISTS={faq:{arr:()=>FAQ,cols:[{k:'q',l:'Question'},{k:'a',l:'Answer',ta:1}]},
+ cats:{arr:()=>CATS,cols:[{k:'n',l:'Name'},{k:'d',l:'Duration'},{k:'t',l:'Type'},{k:'x',l:'Description',ta:1},{k:'b',l:'Highlights (separate with |)',list:1}]},
+ other:{arr:()=>OTHER,cols:[{k:'n',l:'Name'},{k:'d',l:'What it covers'},{k:'p',l:'Price text (for example From €60)'}]},
+ pkg:{arr:()=>PKG,cols:[{k:'n',l:'Name'},{k:'d',l:'What it includes'},{k:'p',l:'Price text (for example From €150)'}]}};
+function listEd(n){const L=LISTS[n];
+  const rows=L.arr().map((it,i)=>`<div class="card edrow"><div class="edgrid">${L.cols.map(c=>{const v=c.list?(it[c.k]||[]).join(' | '):(it[c.k]||'');return `<label class="field">${c.l}${c.ta?`<textarea rows="3" onchange="lsSet('${n}',${i},'${c.k}',this.value,${c.list?1:0})">${v}</textarea>`:`<input value="${v}" onchange="lsSet('${n}',${i},'${c.k}',this.value,${c.list?1:0})">`}</label>`}).join('')}</div><button class="btn ghost sm" onclick="lsDel('${n}',${i})">Delete</button></div>`).join('');
+  const add=`<div class="card edrow" style="border:1px dashed #cfd4dc;box-shadow:none"><b>Add new</b><div class="edgrid">${L.cols.map(c=>`<label class="field">${c.l}${c.ta?`<textarea id="add-${n}-${c.k}" rows="3"></textarea>`:`<input id="add-${n}-${c.k}">`}</label>`).join('')}</div><button class="btn sm" onclick="lsAdd('${n}')">Add</button></div>`;
+  return rows+add}
+const lsVal=(c,v)=>c.list?v.split('|').map(x=>esc(x.trim())).filter(Boolean):esc(v.trim());
+function lsSet(n,i,k,v,list){const c=LISTS[n].cols.find(x=>x.k===k);LISTS[n].arr()[i][k]=lsVal(c,v);saved()}
+function lsDel(n,i){LISTS[n].arr().splice(i,1);keepAdm();toast('Deleted. Removed from the website.')}
+function lsAdd(n){const L=LISTS[n],o={};let any=false;L.cols.forEach(c=>{const v=document.getElementById('add-'+n+'-'+c.k).value;if(v.trim())any=true;o[c.k]=lsVal(c,v)});if(!any)return toast('Please fill in at least one field.');L.arr().push(o);keepAdm();toast('Added. It is on the website now.')}
+function aWeb(){return `<h1>Website content</h1><p class="note">Edit every page of the website here. Nothing needs a developer.</p>
+<div class="card edrow"><h3>Announcement banner</h3><p class="mut small">Shown at the top of every page. Use it for holiday hours or news.</p><label class="chk"><input id="bn-on" type="checkbox" ${CONTENT.banner.on?'checked':''}> Show the banner</label><label class="field">Text<input id="bn-text" value="${CONTENT.banner.text}"></label><button class="btn sm" onclick="CONTENT.banner={on:document.getElementById('bn-on').checked,text:esc(gv('bn-text'))};saved()">Save banner</button></div>
+<div class="card edrow"><h3>Home page</h3><label class="field">Headline<input id="hp-t" value="${CONTENT.heroTitle}"></label><label class="field">Introduction<textarea id="hp-i" rows="2">${CONTENT.heroIntro}</textarea></label><button class="btn sm" onclick="CONTENT.heroTitle=esc(gv('hp-t'));CONTENT.heroIntro=esc(gv('hp-i'));saved()">Save home page</button></div>
+<div class="card edrow"><h3>About page</h3><label class="field">Our story (leave a blank line between paragraphs)<textarea id="ab-s" rows="8">${CONTENT.about}</textarea></label><button class="btn sm" onclick="CONTENT.about=esc(document.getElementById('ab-s').value.trim());saved()">Save About page</button></div>
+<div class="card edrow"><h3>Doctors page</h3><label class="chk"><input type="checkbox" ${CONTENT.soon?'checked':''} onchange="CONTENT.soon=this.checked;saved()"> Show the "more doctors joining soon" cards</label></div>
+<h2 style="margin:24px 0 12px">Frequently asked questions</h2>${listEd('faq')}
+<h2 style="margin:24px 0 12px">Service categories (Services page)</h2>${listEd('cats')}
+<h2 style="margin:24px 0 12px">Other services (Prices page)</h2>${listEd('other')}
+<h2 style="margin:24px 0 12px">Screening packages (Prices page)</h2>${listEd('pkg')}`}
+
+/* ----- clinic details ----- */
+function aClinic(){return `<h1>Clinic details</h1><p class="note">Used on the Contact page, the footer, emails and the home page.</p><div class="card edrow" style="max-width:680px"><label class="field">Clinic name<input id="cl-n" value="${CLINIC.legal}"></label><label class="field">Address line 1<input id="cl-a1" value="${CLINIC.addr1}"></label><label class="field">Address line 2<input id="cl-a2" value="${CLINIC.addr2}"></label><div class="edgrid"><label class="field">Eircode<input id="cl-ec" value="${CLINIC.eircode}"></label><label class="field">Email<input id="cl-em" type="email" value="${CLINIC.email}"></label><label class="field">Phone 1<input id="cl-p1" value="${CLINIC.phones[0]||''}"></label><label class="field">Phone 2<input id="cl-p2" value="${CLINIC.phones[1]||''}"></label></div><button class="btn" onclick="CLINIC.legal=esc(gv('cl-n'));CLINIC.addr1=esc(gv('cl-a1'));CLINIC.addr2=esc(gv('cl-a2'));CLINIC.eircode=esc(gv('cl-ec'));CLINIC.email=esc(gv('cl-em'));CLINIC.phones=[gv('cl-p1'),gv('cl-p2')].filter(Boolean).map(esc);saved()">Save clinic details</button></div>`}
 const sn=a=>svc(a.s).name;
 function pill(a){return a.status==='cancelled'?'<span class="pill bad">cancelled</span>':a.status==='checked in'?'<span class="pill ok">checked in</span>':a.status==='completed'?'<span class="pill grey">completed</span>':'<span class="pill">confirmed</span>'}
 function payPill(a){return a.paid==='paid'?'<span class="pill ok">paid</span>':'<span class="pill warn">unpaid</span>'}
@@ -356,7 +530,7 @@ function chartSvg(vals,labels){
   const x=i=>pl+i*(W-pl-pr)/(n-1),y=v=>pt+(H-pt-pb)*(1-v/max);
   let d=`M${x(0)},${y(vals[0])}`;for(let i=1;i<n;i++){const mx=(x(i-1)+x(i))/2;d+=` C${mx},${y(vals[i-1])} ${mx},${y(vals[i])} ${x(i)},${y(vals[i])}`}
   const grid=[0,.5,1].map(f=>{const v=max*f,yy=y(v);return `<line x1="${pl}" x2="${W-pr}" y1="${yy}" y2="${yy}" stroke="#dfe3ea" stroke-dasharray="4 4"/>`}).join('');
-  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Appointments per day for the next 7 days: ${vals.join(', ')}"><defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1b4b9b" stop-opacity=".22"/><stop offset="1" stop-color="#1b4b9b" stop-opacity="0"/></linearGradient></defs>${grid}<path d="${d} L${x(n-1)},${y(0)} L${x(0)},${y(0)} Z" fill="url(#g)"/><path d="${d}" fill="none" stroke="#1b4b9b" stroke-width="2.5" stroke-linecap="round"/>${vals.map((v,i)=>`<circle cx="${x(i)}" cy="${y(v)}" r="3.5" fill="#fff" stroke="#1b4b9b" stroke-width="2"/>`).join('')}${labels.map((l,i)=>`<text x="${x(i)}" y="${H-6}" text-anchor="middle" font-size="10" fill="#6b7686">${l}</text>`).join('')}</svg>`}
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Appointments per day for the next 7 days: ${vals.join(', ')}"><defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#17335b" stop-opacity=".22"/><stop offset="1" stop-color="#17335b" stop-opacity="0"/></linearGradient></defs>${grid}<path d="${d} L${x(n-1)},${y(0)} L${x(0)},${y(0)} Z" fill="url(#g)"/><path d="${d}" fill="none" stroke="#17335b" stroke-width="2.5" stroke-linecap="round"/>${vals.map((v,i)=>`<circle cx="${x(i)}" cy="${y(v)}" r="3.5" fill="#fff" stroke="#17335b" stroke-width="2"/>`).join('')}${labels.map((l,i)=>`<text x="${x(i)}" y="${H-6}" text-anchor="middle" font-size="10" fill="#6b7686">${l}</text>`).join('')}</svg>`}
 function aDash(){
   const days=nextDays().slice(0,7),N=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
   const live=a=>a.status!=='cancelled';
@@ -379,14 +553,13 @@ const cmp=(a,b)=>(a.date+a.time).localeCompare(b.date+b.time);
 function tbl(list){return `<div class="tw"><table><tr><th>When</th><th>Patient</th><th>Service</th><th>Status</th><th>Payment</th><th></th></tr>${list.map(a=>`<tr><td>${fmtDay(new Date(a.date+'T00:00:00'))}<br><b>${a.time}</b></td><td>${a.name}${a.online?' <span class="pill grey">online</span>':''}<br><span class="mut small">${a.ref}</span></td><td>${sn(a)}</td><td>${pill(a)}</td><td>${payPill(a)}</td><td style="white-space:nowrap">${a.status==='confirmed'?`<button class="btn ghost sm" onclick="act('${a.ref}','in')">Check in</button>`:''}${a.status==='checked in'?`<button class="btn sm" onclick="act('${a.ref}','done')">Complete</button>`:''}${a.paid==='unpaid'&&a.status!=='cancelled'?` <button class="btn ghost sm" onclick="act('${a.ref}','pay')">Mark paid</button>`:''}</td></tr>`).join('')||'<tr><td colspan="6" class="mut">Nothing here.</td></tr>'}</table></div>`}
 function act(ref,w){const a=appts.find(x=>x.ref===ref);if(w==='in')a.status='checked in';if(w==='done')a.status='completed';if(w==='pay'){a.paid='paid';toast('Marked paid. A receipt number is issued.')}adm(window._a)}
 function aAppts(){return `<h1>Appointments</h1><p class="note">Every online booking appears here the moment it is made. Staff can check in, complete, take payment and cancel.</p>${tbl(appts.slice().sort(cmp))}`}
-function aWalk(){const days=nextDays();return `<h1>Walk-in and phone booking</h1><p class="note">Uses the same rules as online booking, so a time can never be booked twice.</p><div class="card" style="max-width:520px"><label class="field">Service<select id="ws">${S.map(s=>`<option value="${s.id}">${s.name}</option>`).join('')}</select></label><label class="field">Day<select id="wd">${days.map(d=>`<option value="${iso(d)}">${fmtDay(d)}</option>`).join('')}</select></label><label class="field">Time (HH:MM)<input id="wt" value="09:30"></label><label class="field">Patient name<input id="wn" value="Walk-in patient"></label><button class="btn" onclick="walkIn()">Book</button></div>`}
+function aWalk(){const days=nextDays();return `<h1>Walk-in and phone booking</h1><p class="note">Uses the same rules as online booking, so a time can never be booked twice.</p><div class="card" style="max-width:520px"><label class="field">Service<select id="ws">${bookable().map(s=>`<option value="${s.id}">${s.name}</option>`).join('')}</select></label><label class="field">Day<select id="wd">${days.map(d=>`<option value="${iso(d)}">${fmtDay(d)}</option>`).join('')}</select></label><label class="field">Time (HH:MM)<input id="wt" value="09:30"></label><label class="field">Patient name<input id="wn" value="Walk-in patient"></label><button class="btn" onclick="walkIn()">Book</button></div>`}
 function walkIn(){const sid=$('#ws').value,d=$('#wd').value,t=$('#wt').value.trim();if(!slotsFor(sid,d).includes(t))return toast('Sorry, that time is taken or outside opening hours.');
   const s=svc(sid);for(let x=0;x<s.mins;x+=15){const m=parseInt(t)*60+parseInt(t.split(':')[1])+x;taken[d+'|'+String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0')]=true}
   appts.push({ref:'RMC-W'+Math.floor(Math.random()*900+100),date:d,time:t,name:$('#wn').value,s:sid,paid:'unpaid',status:'confirmed'});toast('Booked. That time is now blocked on the public site.');adm('appts')}
-function aServices(){return `<h1>Services and prices</h1><p class="note">Change a price, then switch to <b>Patient website → Prices</b>. It updates immediately. No developer needed.</p><div class="tw"><table><tr><th>Service</th><th>Minutes</th><th>Price (€)</th><th>Pay at clinic allowed</th></tr>${S.map((s,i)=>`<tr><td>${s.name}</td><td>${s.mins}</td><td><input type="number" min="0" step="0.5" value="${s.price}" style="width:90px;min-height:40px;border:1px solid #94a3b8;border-radius:8px;padding:0 8px" onchange="S[${i}].price=+this.value;toast('Saved. The public site now shows '+euro(this.value))"></td><td><input type="checkbox" ${s.pay?'checked':''} style="width:22px;height:22px" onchange="S[${i}].pay=this.checked;toast('Saved')"></td></tr>`).join('')}</table></div>`}
 function aHours(){const N=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];return `<h1>Doctor hours</h1><p class="note">Set ${D.name}'s weekly hours. Patients only ever see free times inside these hours.</p><div class="card" style="max-width:560px">${[1,2,3,4,5,6,0].map(i=>`<div class="hrs"><b>${N[i]}</b><input type="time" value="${hours[i]?hours[i][0]:''}" onchange="setH(${i},0,this.value)"><input type="time" value="${hours[i]?hours[i][1]:''}" onchange="setH(${i},1,this.value)"><label class="small"><input type="checkbox" ${hours[i]?'':'checked'} onchange="offDay(${i},this.checked)"> off</label></div>`).join('')}</div>`}
-function setH(i,j,v){hours[i]=hours[i]||['09:30','13:00'];hours[i][j]=v;toast('Saved')}
-function offDay(i,off){hours[i]=off?null:['09:30','13:00'];adm('hours')}
+function setH(i,j,v){hours[i]=hours[i]||['08:00','18:00'];hours[i][j]=v;toast('Saved')}
+function offDay(i,off){hours[i]=off?null:['08:00','18:00'];adm('hours')}
 function aClosed(){const days=nextDays();return `<h1>Closed days</h1><p class="note">Irish public holidays are added automatically. Add your own (training day, holiday), and those days disappear from the booking page.</p><div class="card" style="max-width:520px"><label class="field">Date<select id="cd1">${days.map(d=>`<option value="${iso(d)}">${fmtDay(d)}</option>`).join('')}</select></label><label class="field">Reason<input id="cr" value="Staff training day"></label><button class="btn" onclick="closeDay()">Add closed day</button></div><br><div class="tw"><table><tr><th>Date</th><th>Reason</th><th></th></tr>${Object.entries(closed).map(([k,v])=>`<tr><td>${fmtDay(new Date(k+'T00:00:00'))}</td><td>${v}</td><td><button class="btn ghost sm" onclick="delete closed['${k}'];adm('closed')">Remove</button></td></tr>`).join('')||'<tr><td colspan="3" class="mut">No closed days added.</td></tr>'}</table></div>`}
 function closeDay(){closed[$('#cd1').value]=$('#cr').value;toast('Added. That day is now unavailable for booking.');adm('closed')}
 
