@@ -7,11 +7,10 @@ const RESUME_MS = 4000; // wait after the visitor touches it
 
 /**
  * Swipeable row that also drifts slowly on its own. It pauses while the visitor hovers, touches or
- * focuses it, stops for people who prefer reduced motion, and has a Pause/Play button (WCAG 2.2.2).
+ * focuses it, stops for people who prefer reduced motion, .
  */
 export function AutoRail({ title, hint, children }: { title: string; hint?: string; children: React.ReactNode }) {
   const box = useRef<HTMLDivElement>(null);
-  const [playing, setPlaying] = useState(true);
   const [reduced, setReduced] = useState(false);
   const hold = useRef(false);
   const resumeAt = useRef(0);
@@ -26,7 +25,7 @@ export function AutoRail({ title, hint, children }: { title: string; hint?: stri
 
   useEffect(() => {
     const el = box.current;
-    if (!el || !playing || reduced) return;
+    if (!el || reduced) return;
     let raf = 0, last = 0, pos = el.scrollLeft, dir = 1, edgeUntil = 0;
     const tick = (t: number) => {
       const dt = last ? Math.min(t - last, 100) : 0;
@@ -43,7 +42,7 @@ export function AutoRail({ title, hint, children }: { title: string; hint?: stri
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [playing, reduced]);
+  }, [reduced]);
 
   const touch = () => { resumeAt.current = performance.now() + RESUME_MS; };
 
@@ -54,12 +53,6 @@ export function AutoRail({ title, hint, children }: { title: string; hint?: stri
           <h2 className="font-serif text-2xl font-bold text-brand-800">{title}</h2>
           {hint && <p className="text-sm text-slate-600">{hint}</p>}
         </div>
-        {!reduced && (
-          <button type="button" onClick={() => setPlaying((p) => !p)} aria-pressed={!playing}
-            className="inline-flex min-h-11 items-center rounded-full border border-slate-300 bg-white px-4 text-sm font-semibold text-brand-800 hover:bg-brand-100">
-            {playing ? "Pause" : "Play"}
-          </button>
-        )}
       </div>
       <div
         ref={box}

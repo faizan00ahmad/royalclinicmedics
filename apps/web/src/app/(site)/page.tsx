@@ -48,7 +48,7 @@ export default async function Home() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 pb-4 pt-4">
-        <AutoRail title="Popular services" hint="Slides on its own. Swipe or tap Pause to take control.">{featured.map((s) => <ServiceCard key={s.id} s={s} rail />)}</AutoRail>
+        <AutoRail title="Popular services" hint="Hover or touch to pause">{featured.map((s) => <ServiceCard key={s.id} s={s} rail />)}</AutoRail>
         <p className="mt-2"><Link href="/services" className="font-semibold text-brand-700 underline">See all services and prices</Link></p>
       </section>
 
